@@ -15,20 +15,17 @@
 
 ### LINKS IMPORTANTES:
 
-#### GitHub Front-end:
-[https://github.com/pcmarcano/ProyectoIntegrador.git](https://github.com/pcmarcano/ProyectoIntegrador.git)
+#### [GitHub Front-end](https://github.com/pcmarcano/ProyectoIntegrador.git)
+#### [Git-Hub Back-end](https://github.com/valentingm1/spazio-BE.git)
 
-#### Trello:
-[https://trello.com/invite/b/Kbk02dts/ATTI13870f5748a0eb75360584b985e15c6a09A89E6F/proyectointegrador](https://trello.com/invite/b/Kbk02dts/ATTI13870f5748a0eb75360584b985e15c6a09A89E6F/proyectointegrador)
-
-### Figma:
-[https://www.figma.com/file/7WdvEDEkxO04LEuPutT35J/Proyecto-Integrador-(Grupo-3)---Prototipo?type=design&node-id=8%3A90&mode=design&t=irbzaxV7jffTtUy8-1](https://www.figma.com/file/7WdvEDEkxO04LEuPutT35J/Proyecto-Integrador-(Grupo-3)---Prototipo?type=design&node-id=8%3A90&mode=design&t=irbzaxV7jffTtUy8-1)
-
-#### BBDD:
-
+#### BBDD
 
 #### AWS: 
 
+#### [Trello](https://trello.com/invite/b/Kbk02dts/ATTI13870f5748a0eb75360584b985e15c6a09A89E6F/proyectointegrador)
 
-#### Drive:
-[https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5](https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5 ) 
+#### [Mural](https://app.mural.co/t/lopaworkspace7627/m/lopaworkspace7627/1714610233312/19f8b95572c405e7ec1d221216f1a235537d2dd2?sender=6164e0db-da10-4a2f-b0ec-fe6b492e28e7)
+
+### [Figma](https://www.figma.com/file/7WdvEDEkxO04LEuPutT35J/Proyecto-Integrador-(Grupo-3)---Prototipo?type=design&node-id=8%3A90&mode=design&t=irbzaxV7jffTtUy8-1)
+
+#### [Google Drive](https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5 ) 
