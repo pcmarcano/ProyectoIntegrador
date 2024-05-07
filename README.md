@@ -1,5 +1,8 @@
 # ProyectoIntegrador
 ## Equipo tres
+### SpazioMio
+### Tematica: Reserva de espacios comunes
+### Integrantes
 - Pedro Marcano +56 9 9714 2272 pcmrcl@yahoo.com
 - Ramiro Arce +54 9 11 680-2318 invertimesa@gmail.com 
 - Juan Pablo Rarimirez +56 9 7947 4946 juan.ramireza@usach.cl
@@ -9,3 +12,23 @@
 - Valentin Gomez Marchioni +54 9 4387 36 5831 gomarchjjba@gmail.com
 - Gillermo Planet +56 9 6676 1902 Grm_tracks@hotmail.es
 - Miguel Herrera +54 9 223 532-3350
+
+### LINKS IMPORTANTES:
+
+#### GitHub Front-end:
+[https://github.com/pcmarcano/ProyectoIntegrador.git](https://github.com/pcmarcano/ProyectoIntegrador.git)
+
+#### Trello:
+[https://trello.com/invite/b/Kbk02dts/ATTI13870f5748a0eb75360584b985e15c6a09A89E6F/proyectointegrador](https://trello.com/invite/b/Kbk02dts/ATTI13870f5748a0eb75360584b985e15c6a09A89E6F/proyectointegrador)
+
+### Figma:
+[https://www.figma.com/file/7WdvEDEkxO04LEuPutT35J/Proyecto-Integrador-(Grupo-3)---Prototipo?type=design&node-id=8%3A90&mode=design&t=irbzaxV7jffTtUy8-1](https://www.figma.com/file/7WdvEDEkxO04LEuPutT35J/Proyecto-Integrador-(Grupo-3)---Prototipo?type=design&node-id=8%3A90&mode=design&t=irbzaxV7jffTtUy8-1)
+
+#### BBDD:
+
+
+#### AWS: 
+
+
+#### Drive:
+[https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5](https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5 ) 
