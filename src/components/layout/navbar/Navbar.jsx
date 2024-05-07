@@ -78,7 +78,11 @@ function Navbar(props) {
           sx={{ gap: "20px", display: "flex", justifyContent: "space-between" }}
         >
           <Link to="/" style={{ color: "whitesmoke" }}>
-            SPACE SERVER
+            <img
+              src="../../../../public/SpazioServer.png"
+              alt=""
+              style={{ width: "10rem" }}
+            />
           </Link>
           <IconButton
             color="secondary.primary"
@@ -86,7 +90,7 @@ function Navbar(props) {
             edge="start"
             onClick={handleDrawerToggle}
           >
-            <MenuIcon color="secondary.primary" />
+            <MenuIcon style={{ fontSize: "200%" }} color="secondary.primary" />
           </IconButton>
         </Toolbar>
       </AppBar>
