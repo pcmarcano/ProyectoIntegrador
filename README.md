@@ -4,7 +4,7 @@
 ### Tematica: Reserva de espacios comunes
 ### Integrantes
 - Pedro Marcano +56 9 9714 2272 pcmrcl@yahoo.com
-- Ramiro Arce +54 9 11 680-2318 invertimesa@gmail.com 
+- Ramiro Arce +54 9 11 6870-2318 invertimesa@gmail.com 
 - Juan Pablo Rarimirez +56 9 7947 4946 juan.ramireza@usach.cl
 - Constanza Flores +56 9 9263 6629 conyflores02@gmail.com
 - Enrique Albornoz Abregu +54 93 4165 27542
