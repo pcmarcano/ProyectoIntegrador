@@ -13,6 +13,9 @@
 - Gillermo Planet +56 9 6676 1902 Grm_tracks@hotmail.es
 - Miguel Herrera +54 9 223 532-3350
 
+### PO
+Battiato Dorian  @digitalhose.ar
+
 ### LINKS IMPORTANTES:
 
 #### [GitHub Front-end](https://github.com/pcmarcano/ProyectoIntegrador.git)
