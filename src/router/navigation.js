@@ -9,22 +9,22 @@ export const menuItems = [
     title: "Inicio",
     Icon: HomeIcon,
   },
-  /*     {
-        id: "products",
-        path: "/shop",
-        title: "Tienda",
-        Icon: StoreIcon
-    },
-    {
-        id: "cart",
-        path: "/cart",
-        title: "Carrito",
-        Icon: ShoppingCartCheckoutIcon
-    },
-    {
-        id: "userOrders",
-        path: "/user-orders",
-        title: "Mis compras",
-        Icon: ShopIcon
-    } */
+  {
+    id: "formulario",
+    path: "/form",
+    title: "Tienda",
+    Icon: StoreIcon,
+  },
+  /*   {
+    id: "cart",
+    path: "/cart",
+    title: "Carrito",
+    Icon: ShoppingCartCheckoutIcon,
+  },
+  {
+    id: "userOrders",
+    path: "/user-orders",
+    title: "Mis compras",
+    Icon: ShopIcon,
+  }, */
 ];
