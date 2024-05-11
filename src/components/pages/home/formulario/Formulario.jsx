@@ -32,15 +32,36 @@ const Formulario = () => {
     event.preventDefault();
 
     try {
+      let body = {
+        nombre: formData.name,
+        descripcion: formData.description,
+        fotos: [],
+      };
+
       if (formData.image) {
         // Si hay una imagen seleccionada, carga la imagen y obtén la URL
         const imageUrl = await uploadFile(formData.image);
-        // Usa la URL de la imagen para lo que necesites, como guardarla en la base de datos
-        console.log("URL de la imagen cargada:", imageUrl);
+        // Agrega la URL de la imagen al cuerpo de la solicitud
+        body.fotos.push({ rutaFoto: imageUrl });
       }
-      // Aquí puedes manejar el envío del resto de los datos del formulario si es necesario
+
+      // Realiza la solicitud HTTP POST con el cuerpo construido
+      const response = await fetch("http://localhost:8080/lugares/agregar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        console.log("Solicitud HTTP POST exitosa");
+        // Aquí puedes manejar la respuesta del servidor si es necesario
+      } else {
+        console.error("Error en la solicitud HTTP POST:", response.statusText);
+      }
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+      console.error("Error al enviar la solicitud HTTP POST:", error);
     }
   };
 
