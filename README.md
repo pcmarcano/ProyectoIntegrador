@@ -14,7 +14,7 @@
 - Miguel Herrera +54 9 223 532-3350
 
 ### PO
-Battiato Dorian  @digitalhose.ar
+Battiato Dorian  dorian.battiato@digitalhouse.com
 
 ### LINKS IMPORTANTES:
 
