@@ -1,5 +1,5 @@
 import Home from "../components/pages/home/Home";
-import Formulario from "../components/pages/home/Formulario";
+import Formulario from "../components/pages/home/formulario/Formulario";
 
 export const routes = [
   {
