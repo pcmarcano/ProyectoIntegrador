@@ -4,8 +4,11 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { uploadFile } from "../../../../firebaseConfig"; // Importa la función uploadFile desde su ubicación correcta
 import "./formulario.css";
+import { useNavigate } from "react-router-dom";
 
 const Formulario = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -46,7 +49,7 @@ const Formulario = () => {
       }
 
       // Realiza la solicitud HTTP POST con el cuerpo construido
-      const response = await fetch("http://localhost:8080/lugares/agregar", {
+      const response = await fetch("http://18.228.226.201/lugares/agregar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,6 +59,8 @@ const Formulario = () => {
 
       if (response.ok) {
         console.log("Solicitud HTTP POST exitosa");
+        navigate("/list");
+
         // Aquí puedes manejar la respuesta del servidor si es necesario
       } else {
         console.error("Error en la solicitud HTTP POST:", response.statusText);
