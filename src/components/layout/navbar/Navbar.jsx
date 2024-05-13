@@ -10,13 +10,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-
-import { Link, Outlet } from "react-router-dom";
+import { menuItems } from "../../../router/navigation";
 import "./Navbar.css";
 import { useState } from "react";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { menuItems } from "../../../router/navigation";
-const drawerWidth = 200;
+import { Link, Outlet } from "react-router-dom";
+import { Button } from "@mui/material";
+import logo from "../../../../public/logo1.png";
 
 function Navbar(props) {
   const { window } = props;
@@ -49,7 +48,7 @@ function Navbar(props) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <LogoutIcon sx={{ color: "whitesmoke" }} />
+              {/* <LogoutIcon sx={{ color: "whitesmoke" }} /> */}
             </ListItemIcon>
             <ListItemText
               primary={"Cerrar sesion"}
@@ -71,27 +70,61 @@ function Navbar(props) {
         position="fixed"
         sx={{
           width: "100%",
-          backgroundColor: "#73C6B6",
+          backgroundColor: "#1E3231",
         }}
       >
-        <Toolbar
-          sx={{ gap: "20px", display: "flex", justifyContent: "space-between" }}
-        >
-          <Link to="/" style={{ color: "whitesmoke" }}>
-            <img
-              src="../../../../public/SpazioServer.png"
-              alt=""
-              style={{ width: "10rem" }}
-            />
-          </Link>
-          <IconButton
-            color="secondary.primary"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Link
+            to="/"
+            style={{
+              color: "whitesmoke",
+              display: "flex",
+              alignItems: "center",
+              padding: "0.5rem",
+            }}
           >
-            <MenuIcon style={{ fontSize: "200%" }} color="secondary.primary" />
-          </IconButton>
+            <img src={logo} alt="" style={{ width: "10rem" }} />
+          </Link>
+          <div className="button-container">
+            <Button
+              variant="contained"
+              sx={{
+                width: "176px",
+                height: "40px",
+                fontFamily: "Dosis",
+                fontSize: "16px",
+                backgroundColor: "#FF9550",
+                color: "#FFFFFF",
+                marginRight: "1rem",
+              }}
+            >
+              Iniciar Sesión
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                width: "176px",
+                height: "40px",
+                fontFamily: "Dosis",
+                fontSize: "16px",
+                backgroundColor: "#94B7D0",
+                color: "#FFFFFF",
+              }}
+            >
+              Crear Cuenta
+            </Button>
+            <IconButton
+              color="secondary.primary"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+            >
+              <MenuIcon
+                style={{ fontSize: "200%", marginLeft: "1rem" }}
+                color="secondary.primary"
+              />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       <Box component="nav" aria-label="mailbox folders">
@@ -108,7 +141,7 @@ function Navbar(props) {
             display: { xs: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: 200,
               backgroundColor: "#73C6B6",
             },
           }}
