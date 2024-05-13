@@ -11,6 +11,6 @@ a{
 @media (max-width: 576px) {
     .button-container {
         flex-direction: column;
-        align-items: flex-start; /* Ajusta la alineación según tus necesidades */
+        align-items: flex-start;
     }
 }

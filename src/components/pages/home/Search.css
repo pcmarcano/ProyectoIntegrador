@@ -1,24 +1,40 @@
 .search-container {
-    background-color: #94B7D0;
+    background-color: #00B5AD;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 5px 0;
 }
 
 .search-input {
     flex: 1;
+    max-width: 300px;
     padding: 8px;
     border: none;
     border-radius: 4px 0 0 4px;
     font-size: 16px;
+    font-family: "Dosis", sans-serif;
+    margin: 5px; /* Espaciado entre elementos */
 }
 
 .search-button {
-    background-color: #FFFFFF;
+    background-color: #FF9550;
     border: none;
     padding: 8px 16px;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
     font-size: 16px;
-    color: #000000;
+    color: #FFFFFF;
+    font-family: "Dosis", sans-serif;
+    margin: 5px;
+}
+
+@media (max-width: 576px) {
+    .search-container {
+        flex-direction: column; /* Cambia la dirección de flexión a columna */
+        align-items: center;
+        justify-content: center;
+        margin-top: 63px;
+    }
 }

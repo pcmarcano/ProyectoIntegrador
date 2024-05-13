@@ -5,9 +5,8 @@ import Search from "../components/pages/home/Search.jsx";
 
 const HomeAndSearch = () => (
     <div>
-        <Home />
         <Search />
-        <Formulario />
+        <Home />
     </div>
 );
 
