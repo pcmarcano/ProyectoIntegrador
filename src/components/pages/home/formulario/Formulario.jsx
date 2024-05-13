@@ -49,13 +49,16 @@ const Formulario = () => {
       }
 
       // Realiza la solicitud HTTP POST con el cuerpo construido
-      const response = await fetch("http://18.228.226.201/lugares/agregar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://api.spazio.spazioserver.online/lugares/agregar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       if (response.ok) {
         console.log("Solicitud HTTP POST exitosa");
