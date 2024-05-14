@@ -34,3 +34,4 @@ Battiato Dorian  dorian.battiato@digitalhouse.com
 #### [Google Drive](https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5 ) 
 
 #### https://spazioserver.online/
+#### https://deploy-front-integrador-ctd.vercel.app/
