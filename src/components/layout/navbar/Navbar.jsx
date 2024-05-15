@@ -83,7 +83,11 @@ function Navbar(props) {
               padding: "0.5rem",
             }}
           >
-            <img src={logo} alt="" style={{ width: "10rem" }} />
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/spazio-f05f1.appspot.com/o/nuevaCarpeta%2FDesktop%20-%202.png?alt=media&token=8d81f065-39d6-40f6-a2f3-b27ad81e85de"
+              alt=""
+              style={{ width: "10rem" }}
+            />
           </Link>
           <div className="button-container">
             <Button

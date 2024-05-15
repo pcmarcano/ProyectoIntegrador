@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { uploadFile } from "../../../../firebaseConfig"; // Importa la función uploadFile desde su ubicación correcta
-import "./formulario.css";
+import { uploadFile } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 const Formulario = () => {
@@ -12,7 +11,7 @@ const Formulario = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    image: null, // Estado para almacenar el archivo de imagen seleccionado
+    image: null,
   });
 
   const handleInputChange = (event) => {
@@ -42,13 +41,10 @@ const Formulario = () => {
       };
 
       if (formData.image) {
-        // Si hay una imagen seleccionada, carga la imagen y obtén la URL
         const imageUrl = await uploadFile(formData.image);
-        // Agrega la URL de la imagen al cuerpo de la solicitud
         body.fotos.push({ rutaFoto: imageUrl });
       }
 
-      // Realiza la solicitud HTTP POST con el cuerpo construido
       const response = await fetch(
         "https://api.spazio.spazioserver.online/lugares/agregar",
         {
@@ -63,8 +59,6 @@ const Formulario = () => {
       if (response.ok) {
         console.log("Solicitud HTTP POST exitosa");
         navigate("/list");
-
-        // Aquí puedes manejar la respuesta del servidor si es necesario
       } else {
         console.error("Error en la solicitud HTTP POST:", response.statusText);
       }
@@ -74,50 +68,43 @@ const Formulario = () => {
   };
 
   return (
-    <Box className="container">
-      <form className="form" id="userForm" onSubmit={handleSubmit}>
-        <label className="label" htmlFor="name">
-          Nombre:
-        </label>
-        <TextField
-          className="textfield"
-          type="text"
-          id="name"
-          name="name"
-          variant="outlined"
-          required
-          value={formData.name}
-          onChange={handleInputChange}
-        />
-
-        <label className="label" htmlFor="description">
-          Descripción:
-        </label>
-        <TextField
-          className="textfield"
-          type="text"
-          id="description"
-          name="description"
-          variant="outlined"
-          required
-          value={formData.description}
-          onChange={handleInputChange}
-        />
-
-        <label className="label" htmlFor="image">
-          Imagen:
-        </label>
-        <input
-          className="textfield"
-          type="file"
-          id="image"
-          name="image"
-          onChange={handleImageChange}
-          accept="image/*" // Limita la selección a archivos de imagen
-          required
-        />
-
-        <Button className="button" type="submit" variant="contained">
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "1rem" }}>
+          <TextField
+            type="text"
+            name="name"
+            label="Nombre"
+            variant="outlined"
+            fullWidth
+            required
+            value={formData.name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div style={{ marginBottom: "1rem" }}>
+          <TextField
+            type="text"
+            name="description"
+            label="Descripción"
+            variant="outlined"
+            fullWidth
+            required
+            value={formData.description}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div style={{ marginBottom: "1rem" }}>
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+        </div>
+        <Button type="submit" variant="contained" color="primary">
           Enviar
         </Button>
       </form>
