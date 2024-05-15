@@ -2,6 +2,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ShopIcon from "@mui/icons-material/Shop";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
+import DeckIcon from "@mui/icons-material/Deck";
+
 export const menuItems = [
   {
     id: "home",
@@ -12,8 +15,14 @@ export const menuItems = [
   {
     id: "formulario",
     path: "/form",
-    title: "Tienda",
-    Icon: StoreIcon,
+    title: "Crear Espacio",
+    Icon: SaveAsIcon,
+  },
+  {
+    id: "listado",
+    path: "/list",
+    title: "Espacios",
+    Icon: DeckIcon,
   },
   /*   {
     id: "cart",
