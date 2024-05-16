@@ -4,7 +4,14 @@ import Search from "./search/Search";
 
 const Home = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <Search />
       <Listado />
     </div>

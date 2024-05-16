@@ -1,6 +1,8 @@
 .container {
   display: flex;
   justify-content: center;
+  background-color: #64b7b7;
+  background-image: linear-gradient(0deg, #64b7b7 0%, #f9feff 100%);
 }
 
 .form {
@@ -43,3 +45,10 @@
 }
 
 /* Estilos para cada tarjeta */
+.MuiBox-root .css-1pjauv {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #64b7b7;
+  background-image: linear-gradient(0deg, #64b7b7 0%, #f9feff 100%);
+}

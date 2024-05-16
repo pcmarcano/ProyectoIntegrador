@@ -67,6 +67,35 @@ const EspacioVista = () => {
               </div>
             )}
 
+            {arrayFotos.length < 3 && arrayFotos.length > 1 && (
+              <div>
+                <div className="card-group">
+                  {arrayFotos.slice(0, 2).map((foto, index) => (
+                    <div key={index}>
+                      <CardChica key={index} foto={foto} dos={true} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {arrayFotos.length <= 3 && arrayFotos.length >= 3 && (
+              <div>
+                <div className="card-group">
+                  {arrayFotos.slice(0, 2).map((foto, index) => (
+                    <div key={index}>
+                      <CardChica key={index} foto={foto} tres={true} />
+                    </div>
+                  ))}
+                </div>
+                <div className="card-group">
+                  {arrayFotos.slice(2, 4).map((foto, index) => (
+                    <div key={index}>
+                      <CardChica key={index} foto={foto} tres={true} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             {arrayFotos.length > 3 && (
               <div>
                 <div className="card-group">

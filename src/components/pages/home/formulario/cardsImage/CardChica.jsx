@@ -3,14 +3,15 @@ import { Card, CardActionArea, CardMedia } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CardChica = ({ foto, index }) => {
+const CardChica = ({ foto, index, dos, tres }) => {
+  console.log(dos, tres);
   return (
     <div className="square3" style={{ padding: 0, margin: 0 }}>
       <Card
         key={index} // Asegúrate de usar una clave única para cada iteración en un array en React
         sx={{
-          width: "12.5rem",
-          height: "7.5rem",
+          width: dos ? "25rem" : "12.5rem",
+          height: dos ? "15rem" : "7.5rem",
           padding: 0,
           margin: 0,
           borderRadius: "0px",

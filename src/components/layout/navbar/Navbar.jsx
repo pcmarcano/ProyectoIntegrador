@@ -14,9 +14,10 @@ import { menuItems } from "../../../router/navigation";
 import "./Navbar.css";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import logo from "../../../../public/logo1.png";
 import Footer from "../footer/Footer";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Navbar(props) {
   const { window } = props;
@@ -30,16 +31,21 @@ function Navbar(props) {
     <div>
       <Toolbar />
 
-      <List>
+      <List style={{ color: "#CE8B67" }}>
         {menuItems.map(({ id, path, title, Icon }) => {
           return (
             <Link key={id} to={path}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <Icon sx={{ color: "whitesmoke" }} />
+                    <Icon sx={{ color: "#CE8B67" }} />
                   </ListItemIcon>
-                  <ListItemText primary={title} sx={{ color: "whitesmoke" }} />
+                  <Typography
+                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                    color="#CE8B67"
+                  >
+                    {title}
+                  </Typography>
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -49,12 +55,15 @@ function Navbar(props) {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              {/* <LogoutIcon sx={{ color: "whitesmoke" }} /> */}
+              <LogoutIcon sx={{ color: "#CE8B67" }} />
             </ListItemIcon>
-            <ListItemText
-              primary={"Cerrar sesion"}
-              sx={{ color: "whitesmoke" }}
-            />
+
+            <Typography
+              sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+              color="#CE8B67"
+            >
+              Cerrar sesion
+            </Typography>
           </ListItemButton>
         </ListItem>
       </List>
@@ -90,34 +99,42 @@ function Navbar(props) {
               style={{ width: "10rem" }}
             />
           </Link>
-          <div className="button-container">
-            <Button
-              variant="contained"
-              sx={{
-                width: "176px",
-                height: "40px",
-                fontFamily: "Dosis",
-                fontSize: "16px",
-                backgroundColor: "#FF9550",
-                color: "#FFFFFF",
-                marginRight: "1rem",
-              }}
-            >
-              Iniciar Sesión
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                width: "176px",
-                height: "40px",
-                fontFamily: "Dosis",
-                fontSize: "16px",
-                backgroundColor: "#94B7D0",
-                color: "#FFFFFF",
-              }}
-            >
-              Crear Cuenta
-            </Button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div className="button-container">
+              <Button
+                variant="contained"
+                sx={{
+                  width: "176px",
+                  height: "40px",
+                  fontFamily: "Dosis",
+                  fontSize: "16px",
+                  backgroundColor: "#FF9550",
+                  color: "#FFFFFF",
+                  marginRight: "1rem",
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  width: "176px",
+                  height: "40px",
+                  fontFamily: "Dosis",
+                  fontSize: "16px",
+                  backgroundColor: "#94B7D0",
+                  color: "#FFFFFF",
+                }}
+              >
+                Crear Cuenta
+              </Button>
+            </div>
             <IconButton
               color="secondary.primary"
               aria-label="open drawer"
@@ -147,7 +164,7 @@ function Navbar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: 200,
-              backgroundColor: "#73C6B6",
+              backgroundColor: "#b2e5d8",
             },
           }}
         >

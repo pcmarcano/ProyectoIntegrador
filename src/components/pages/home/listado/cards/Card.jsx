@@ -14,10 +14,11 @@ export default function ActionAreaCard({ datos }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 275 }}>
+    <Card sx={{ width: 275 }}>
       <CardActionArea onClick={() => openSpace()}>
         <CardMedia
           component="img"
+          width="270px"
           height="140"
           image={datos.fotos[0].rutaFoto} // Aquí asumo que siempre habrá al menos una foto
           alt={datos.nombre}

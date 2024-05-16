@@ -1,4 +1,9 @@
-a{
-    text-decoration: none;
-    color: black;
+a {
+  text-decoration: none;
+  color: black;
+}
+@media screen and (max-width: 760px) {
+  .button-container {
+    display: none;
+  }
 }
