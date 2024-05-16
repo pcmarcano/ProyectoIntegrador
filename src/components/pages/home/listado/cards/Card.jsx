@@ -24,13 +24,28 @@ export default function ActionAreaCard({ datos }) {
         />
 
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {datos.nombre}
-            <br />
+          <Typography
+            style={{ fontFamily: "Dosis", fontSize: "1rem" }}
+            gutterBottom
+            variant="h6"
+            component="div"
+          >
             ID: #{datos.id}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {datos.descripcion}
+          <Typography
+            style={{ fontFamily: "Dosis", fontWeight: "600" }}
+            gutterBottom
+            variant="h6"
+            component="div"
+          >
+            {datos.nombre}
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Dosis", textAlign: "right" }}
+            variant="body2"
+            color="text.secondary"
+          >
+            Cantidad fotos: {datos.fotos.length}
           </Typography>
         </CardContent>
       </CardActionArea>

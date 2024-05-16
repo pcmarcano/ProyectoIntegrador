@@ -116,7 +116,7 @@ const Formulario = () => {
             onChange={handleInputChange}
           />
         </div>
-        {arrayImagenes.length < 0 && (
+        {arrayImagenes.length <= 0 && (
           <div style={{ marginBottom: "1rem" }}>
             <Typography variant="body1" mb={1}>
               Subir imagen 1
@@ -130,7 +130,7 @@ const Formulario = () => {
           </div>
         )}
 
-        {arrayImagenes.length < 1 && (
+        {arrayImagenes.length <= 1 && (
           <div style={{ marginBottom: "1rem" }}>
             <Typography variant="body1" mb={1}>
               Subir imagen 2
@@ -143,7 +143,7 @@ const Formulario = () => {
             />
           </div>
         )}
-        {arrayImagenes.length < 2 && (
+        {arrayImagenes.length <= 2 && (
           <div style={{ marginBottom: "1rem" }}>
             <Typography variant="body1" mb={1}>
               Subir imagen 3
@@ -156,7 +156,7 @@ const Formulario = () => {
             />
           </div>
         )}
-        {arrayImagenes.length < 3 && (
+        {arrayImagenes.length <= 3 && (
           <div style={{ marginBottom: "1rem" }}>
             <Typography variant="body1" mb={1}>
               Subir imagen 4
