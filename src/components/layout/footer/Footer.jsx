@@ -3,9 +3,9 @@ import logo from "../../../../public/logo1.png";
 import "./Footer.css";
 
 const Footer = () => (
-  <div className="footer-container">
-    <img src={logo} alt="Logo" className="logo" />
-    <p className="copyright">Copyright &copy; 2024 | Spacio</p>
+  <div class="footer-container">
+    <img src={logo} alt="Logo" class="logo" />
+    <p class="copyright">Copyright &copy; 2024 | Spacio</p>
   </div>
 );
 

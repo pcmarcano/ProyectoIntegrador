@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Button } from "@mui/material";
 import logo from "../../../../public/logo1.png";
+import Footer from "../footer/Footer";
 
 function Navbar(props) {
   const { window } = props;
@@ -167,6 +168,7 @@ function Navbar(props) {
 
         <Outlet />
       </Box>
+      <Footer />
     </Box>
   );
 }
