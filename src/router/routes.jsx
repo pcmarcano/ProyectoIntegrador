@@ -28,4 +28,9 @@ export const routes = [
         path: "/list",
         Element: Listado,
     },
+    {
+        id: "espacio",
+        path: "/space/:id", // Ajustar la ruta para aceptar un parámetro dinámico
+        Element: EspacioVista,
+    },
 ];
