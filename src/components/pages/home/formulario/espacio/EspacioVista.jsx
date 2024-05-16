@@ -20,7 +20,7 @@ const EspacioVista = () => {
 
   useEffect(() => {
     // Llamada a la API
-    fetch(`https://api.spazio.spazioserver.online/lugares/${id}`)
+    fetch(`http://localhost:8080/lugares/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setSpace(data);
