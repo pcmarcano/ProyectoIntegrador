@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
-
 .search-container {
     background-color: #00B5AD;
     width: 100%;
@@ -18,7 +13,6 @@ body {
     min-height: 150px;
     justify-content: center;
     position: relative;
-    left: 0;
 }
 
 h2 {
@@ -26,7 +20,7 @@ h2 {
     font-family: "Dosis", sans-serif;
     font-size: 36px;
     text-align: center;
-    margin: auto;
+    margin: 20px;
 }
 
 .search-container > div {

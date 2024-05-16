@@ -4,7 +4,7 @@ import "./Search.css";
 
 const Search = () => {
     return (
-        <div className="search-container" style={{ margin: 0, padding: 0 }}>
+        <div className="search-container">
             <h2>Encuentra, explora y descubre espacios de manera rápida y sencilla</h2>
             <div>
                 <FilterList className="filter-icon" />
