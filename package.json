@@ -10,12 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fontsource/roboto": "^5.0.5",
     "@mercadopago/sdk-react": "^0.0.13",
     "@mui/icons-material": "^5.14.1",
-    "@mui/material": "^5.14.2",
+    "@mui/material": "^5.15.18",
     "axios": "^1.4.0",
     "firebase": "^10.11.1",
     "formik": "^2.4.2",

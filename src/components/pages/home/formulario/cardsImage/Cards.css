@@ -1,0 +1,41 @@
+/* Estilos CSS para la primera estructura HTML */
+.square3 {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.square3 .custom-card {
+  width: 50rem;
+  height: 15rem;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+.square3 .custom-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Estilos CSS para la segunda estructura HTML */
+.square3 {
+  padding: 0;
+  margin: 0;
+}
+
+.square3 .custom-card {
+  width: 12.5rem;
+  height: 7.5rem;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+.square3 .custom-link {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

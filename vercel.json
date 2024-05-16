@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/home", "destination": "/" },
+    { "source": "/list", "destination": "/" },
+    { "source": "/form", "destination": "/" },
+    { "source": "/space/:id", "destination": "/" }
+  ]
+}

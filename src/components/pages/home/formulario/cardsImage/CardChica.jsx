@@ -2,6 +2,7 @@ import { SpaceBar } from "@mui/icons-material";
 import { Card, CardActionArea, CardMedia } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Cards.css";
 
 const CardChica = ({ foto, index, dos, tres }) => {
   console.log(dos, tres);

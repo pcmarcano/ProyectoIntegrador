@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import "./Card.css";
 
 export default function ActionAreaCard({ datos }) {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function ActionAreaCard({ datos }) {
   };
 
   return (
-    <Card sx={{ width: 275 }}>
+    <Card className="cards" sx={{ width: 275 }}>
       <CardActionArea onClick={() => openSpace()}>
         <CardMedia
           component="img"

@@ -1,5 +1,6 @@
 import { Card, CardActionArea, CardMedia } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import "./Cards.css";
 
 const CardGrande = ({ arrayFotos, onlyOne }) => {
   console.log(onlyOne);

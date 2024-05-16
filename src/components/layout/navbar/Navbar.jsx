@@ -34,7 +34,7 @@ function Navbar(props) {
       <List style={{ color: "#CE8B67" }}>
         {menuItems.map(({ id, path, title, Icon }) => {
           return (
-            <Link key={id} to={path}>
+            <Link key={id} to={path} onClick={() => handleDrawerToggle()}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>

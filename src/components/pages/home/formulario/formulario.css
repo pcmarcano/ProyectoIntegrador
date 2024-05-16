@@ -36,14 +36,6 @@
   margin-top: 10px;
 }
 
-.card-group {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(4, auto); /* 4 columnas de ancho igual */
-  gap: 0; /* Sin espacio entre las tarjetas */
-  width: "12.5rem";
-}
-
 /* Estilos para cada tarjeta */
 .MuiBox-root .css-1pjauv {
   margin: 0;
