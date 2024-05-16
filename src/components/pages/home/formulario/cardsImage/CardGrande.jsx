@@ -1,14 +1,14 @@
 import { Card, CardActionArea, CardMedia } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const CardGrande = ({ arrayFotos }) => {
-  const [rutaFoto, setRutaFoto] = useState("false");
+const CardGrande = ({ arrayFotos, onlyOne }) => {
+  console.log(onlyOne);
 
   return (
     <div className="square3" style={{ padding: 0, margin: 0 }}>
       <Card
         sx={{
-          width: "25rem",
+          width: onlyOne ? "25rem" : "50rem",
           height: "15rem",
           padding: 0,
           margin: 0,

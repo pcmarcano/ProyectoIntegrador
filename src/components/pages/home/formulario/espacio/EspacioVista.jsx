@@ -4,6 +4,7 @@ import CardChica from "../cardsImage/CardChica";
 import { Button } from "@mui/material";
 import "../Formulario.css";
 import { useParams } from "react-router-dom";
+import Search from "../../search/Search.jsx";
 
 const EspacioVista = () => {
   const { id } = useParams();
@@ -34,78 +35,89 @@ const EspacioVista = () => {
   };
 
   return (
-    <div style={{ width: "100vw", display: "flex", justifyContent: "center" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gridTemplateColumns: "70% auto", // 50% para el CardGrande, y el resto se divide automáticamente
-          width: "50rem", // Ajustar al 100% del contenedor
-          marginTop: "1rem",
-        }}
-      >
+    <div style={{ width: "100vw" }}>
+      <Search />
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             gridTemplateColumns: "70% auto", // 50% para el CardGrande, y el resto se divide automáticamente
-            width: "100%", // Ajustar al 100% del contenedor
+            width: "50rem", // Ajustar al 100% del contenedor
             marginTop: "1rem",
           }}
         >
-          {arrayFotos.length > 0 && (
-            <div className="card-group">
-              <CardGrande arrayFotos={arrayFotos[2]} />
-            </div>
-          )}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gridTemplateColumns: "70% auto", // 50% para el CardGrande, y el resto se divide automáticamente
+              width: "100%", // Ajustar al 100% del contenedor
+              marginTop: "1rem",
+            }}
+          >
+            {arrayFotos.length > 0 && arrayFotos.length < 2 && (
+              <div className="card-group">
+                <CardGrande arrayFotos={arrayFotos[0]} onlyOne={false} />
+              </div>
+            )}
+            {arrayFotos.length > 2 && arrayFotos.length < 6 && (
+              <div className="card-group">
+                <CardGrande arrayFotos={arrayFotos[0]} onlyOne={true} />
+              </div>
+            )}
 
-          <div>
-            <div className="card-group">
-              {arrayFotos.slice(0, 2).map((foto, index) => (
-                <div key={index}>
-                  <CardChica key={index} foto={foto} />
+            {arrayFotos.length > 3 && (
+              <div>
+                <div className="card-group">
+                  {arrayFotos.slice(0, 2).map((foto, index) => (
+                    <div key={index}>
+                      <CardChica key={index} foto={foto} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="card-group">
-              {arrayFotos.slice(2, 4).map((foto, index) => (
-                <div key={index}>
-                  <CardChica key={index} foto={foto} />
+                <div className="card-group">
+                  {arrayFotos.slice(2, 4).map((foto, index) => (
+                    <div key={index}>
+                      <CardChica key={index} foto={foto} />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+            )}
+          </div>
+
+          <div
+            style={{
+              width: "100%",
+              height: "15rem",
+              borderRadius: "50px",
+              borderTopRightRadius: "0px",
+              borderTopLeftRadius: "0px",
+              background: "linear-gradient(to right top, #ffffff, #f3f3f3)",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              padding: "1rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Contenido de tu tarjeta grande */}
+
+            <div>
+              <Button variant="text" style={{ color: "#FF9550" }}>
+                Ver más
+              </Button>
             </div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            width: "100%",
-            height: "15rem",
-            borderRadius: "50px",
-            borderTopRightRadius: "0px",
-            borderTopLeftRadius: "0px",
-            background: "linear-gradient(to right top, #ffffff, #f3f3f3)",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            padding: "1rem",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          {/* Contenido de tu tarjeta grande */}
-
-          <div>
-            <Button variant="text" style={{ color: "#FF9550" }}>
-              Ver más
-            </Button>
-          </div>
-          <div>
-            <p>{space.nombre}</p>
-            {space.descripcion}
-            <li>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Exercitationem provident delectus et consequatur nulla temporibus
-            </li>
+            <div>
+              <p>{space.nombre}</p>
+              {space.descripcion}
+              <li>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Exercitationem provident delectus et consequatur nulla
+                temporibus
+              </li>
+            </div>
           </div>
         </div>
       </div>

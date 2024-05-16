@@ -1,18 +1,24 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+.MuiBox-root .css-1tsfq2p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .search-container {
   background-color: #00b5ad;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 150px;
+  min-height: 200px;
   justify-content: center;
   position: relative;
+  padding: "3rem";
 }
 
 h2 {
