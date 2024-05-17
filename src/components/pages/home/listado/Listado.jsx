@@ -7,7 +7,7 @@ const Listado = () => {
 
   useEffect(() => {
     // Llamada a la API
-    fetch("https://api.spazio.spazioserver.online/lugares/listar")
+    fetch("http://localhost:8080/lugares/listar")
       .then((response) => response.json())
       .then((data) => setLugares(data))
       .catch((error) => console.error("Error fetching data:", error));
