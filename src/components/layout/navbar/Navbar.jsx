@@ -10,7 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { menuItems } from "../../../router/navigation";
+import { menuItems } from "../../../router/navigation.jsx";
 import "./Navbar.css";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
