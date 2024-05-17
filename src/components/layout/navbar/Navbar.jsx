@@ -11,11 +11,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { menuItems } from "../../../router/navigation";
+import { menuItems } from "../../../router/navigation.jsx";
 import "./Navbar.css";
 import { Link, Outlet } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import logo from "../../../../public/logo1.png";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Navbar(props) {
     const { window } = props;
@@ -29,34 +30,42 @@ function Navbar(props) {
         <div>
             <Toolbar />
 
-            <List>
-                {menuItems.map(({ id, path, title, Icon }) => {
-                    return (
-                        <Link key={id} to={path}>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <Icon sx={{ color: "whitesmoke" }} />
-                                    </ListItemIcon>
-                                    <ListItemText primary={title} sx={{ color: "whitesmoke" }} />
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                    );
-                })}
+        <List style={{ color: "#CE8B67" }}>
+            {menuItems.map(({ id, path, title, Icon }) => {
+                return (
+                    <Link key={id} to={path} onClick={() => handleDrawerToggle()}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <Icon sx={{ color: "#CE8B67" }} />
+                                </ListItemIcon>
+                                <Typography
+                                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                                    color="#CE8B67"
+                                >
+                                    {title}
+                                </Typography>
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                );
+            })}
 
-                <ListItem disablePadding>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            {/* <LogoutIcon sx={{ color: "whitesmoke" }} /> */}
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={"Cerrar sesion"}
-                            sx={{ color: "whitesmoke" }}
-                        />
-                    </ListItemButton>
-                </ListItem>
-            </List>
+            <ListItem disablePadding>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <LogoutIcon sx={{ color: "#CE8B67" }} />
+                    </ListItemIcon>
+
+                    <Typography
+                        sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                        color="#CE8B67"
+                    >
+                        Cerrar sesion
+                    </Typography>
+                </ListItemButton>
+            </ListItem>
+        </List>
         </div>
     );
 

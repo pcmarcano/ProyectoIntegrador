@@ -1,12 +1,19 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Listado from "./listado/Listado";
 import Box from "@mui/material/Box";
 
 const Home = () => {
   return (
-    <Box sx={{ textAlign: "center" }}>
-      <h1>Bienvenido a la página de inicio</h1>
+    <Box sx={{
+        textAlign: "center",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+    }}>
+      <Listado />
     </Box>
   );
 };
