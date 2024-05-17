@@ -60,13 +60,11 @@ function Navbar(props) {
         </div>
     );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+    const container =
+        window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{
-            display: "flex",
-        }}>
+        <Box sx={{ display: "flex" }}>
             <CssBaseline />
             <AppBar
                 position="fixed"
@@ -86,50 +84,49 @@ function Navbar(props) {
                             padding: "0.5rem",
                         }}
                     >
-                        <img src={logo} alt="Logo" style={{ width: "10rem" }} />
+                        <img className="logoimg" src={logo} alt="Logo" />
                     </Link>
                     <div className="menu-container">
-                        <Button
-                            variant="contained"
-                            sx={{
-                                width: "176px",
-                                height: "40px",
-                                fontFamily: "Dosis",
-                                fontSize: "16px",
-                                backgroundColor: "#FF9550",
-                                color: "#FFFFFF",
-                                marginRight: "10px",
-                                "@media (max-width: 690px)": {
-                                    display: "flex",
-                                    width: "120px",
+                        <div className="button-container">
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    width: "150px",
                                     height: "32px",
+                                    fontFamily: "Dosis",
                                     fontSize: "80%",
-                                    marginTop: "20px",
-                                },
-                            }}
-                        >
-                            Iniciar Sesión
-                        </Button>
-                        <Button
-                            variant="contained"
-                            sx={{
-                                width: "176px",
-                                height: "40px",
-                                fontFamily: "Dosis",
-                                fontSize: "16px",
-                                backgroundColor: "#94B7D0",
-                                color: "#FFFFFF",
-                                marginRight: "1rem",
-                                "@media (max-width: 690px)": {
-                                    width: "120px",
+                                    backgroundColor: "#FF9550",
+                                    color: "#FFFFFF",
+                                    marginRight: "10px",
+                                    "@media (max-width: 620px)": {
+                                        width: "100px",
+                                        height: "24px",
+                                        fontSize: "60%",
+                                    },
+                                }}
+                            >
+                                Iniciar Sesión
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    width: "150px",
                                     height: "32px",
+                                    fontFamily: "Dosis",
                                     fontSize: "80%",
-                                    marginTop: "-15px",
-                                },
-                            }}
-                        >
-                            Crear Cuenta
-                        </Button>
+                                    backgroundColor: "#94B7D0",
+                                    color: "#FFFFFF",
+                                    marginRight: "10px",
+                                    "@media (max-width: 620px)": {
+                                        width: "100px",
+                                        height: "24px",
+                                        fontSize: "60%",
+                                    },
+                                }}
+                            >
+                                Crear Cuenta
+                            </Button>
+                        </div>
                         <IconButton
                             color="secondary.primary"
                             aria-label="open drawer"
@@ -137,10 +134,15 @@ function Navbar(props) {
                             onClick={handleDrawerToggle}
                             sx={{
                                 marginLeft: "0.5rem",
-                        }}
+                            }}
                         >
                             <MenuIcon
-                                style={{ fontSize: "200%" }}
+                                style={{
+                                    fontSize: "200%",
+                                    "@media (max-width: 620px)": {
+                                        fontSize: "30px",
+                                    },
+                                }}
                                 color="secondary.primary"
                             />
                         </IconButton>

@@ -7,7 +7,7 @@
     padding: 0 20px;
     font-family: "Dosis", sans-serif;
     font-size: 14px;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
@@ -18,4 +18,15 @@
 
 .copyright {
     margin-left: 10px;
+}
+
+@media (max-width: 830px) {
+    .footer-container {
+        height: 26px;
+        padding: 0 20px;
+        font-family: "Dosis", sans-serif;
+        font-size: 12px;
+        position: fixed;
+        width: 100%;
+    }
 }
