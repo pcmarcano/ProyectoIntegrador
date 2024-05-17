@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Listado from "./listado/Listado";
 import Box from "@mui/material/Box";
+import Search from "./search/Search.jsx";
 
 const Home = () => {
   return (
@@ -13,7 +14,8 @@ const Home = () => {
         flexDirection: "column",
         alignItems: "center",
     }}>
-      <Listado />
+        <Search />
+        <Listado />
     </Box>
   );
 };

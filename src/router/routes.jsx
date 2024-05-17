@@ -6,18 +6,18 @@ import Listado from "../components/pages/home/listado/Listado.jsx";
 import EspacioVista from "../components/pages/home/formulario/espacio/EspacioVista.jsx";
 import Box from '@mui/material/Box';
 
-const HomeAndSearch = () => (
-    <Box sx={{ margin: 0, padding: 0 }}>
-        <Search />
-        <Home />
-    </Box>
-);
+// const HomeAndSearch = () => (
+//     <Box sx={{ margin: 0, padding: 0 }}>
+//         <Search />
+//         <Home />
+//     </Box>
+// );
 
 export const routes = [
     {
         id: "home",
         path: "/",
-        Element: HomeAndSearch,
+        Element: Home,
     },
     {
         id: "formulario",
