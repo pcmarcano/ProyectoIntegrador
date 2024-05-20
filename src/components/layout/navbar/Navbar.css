@@ -29,12 +29,12 @@ main.MuiBox-root > div:nth-child(1) {
     margin: 0;
 }
 
-@media (max-width: 620px) {
-    .button-container {
-        flex-direction: column;
-    }
+/*@media (max-width: 620px) {*/
+/*    .button-container {*/
+/*        flex-direction: column;*/
+/*    }*/
 
-    .button-container > button {
-        margin: 5px auto;
-    }
-}
+/*    .button-container > button {*/
+/*        margin: 5px auto;*/
+/*    }*/
+/*}*/
