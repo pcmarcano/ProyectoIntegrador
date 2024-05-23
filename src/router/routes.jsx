@@ -4,6 +4,7 @@ import Formulario from "../components/pages/home/formulario/Formulario.jsx";
 import Search from "../components/pages/home/search/Search.jsx";
 import Listado from "../components/pages/home/listado/Listado.jsx";
 import EspacioVista from "../components/pages/home/formulario/espacio/EspacioVista.jsx";
+import Registro from "../components/pages/register/Register";
 import Box from '@mui/material/Box';
 
 // const HomeAndSearch = () => (
@@ -33,5 +34,10 @@ export const routes = [
         id: "espacio",
         path: "/space/:id", // Ajustar la ruta para aceptar un parámetro dinámico
         Element: EspacioVista,
+    },
+    {
+        id: "registro",
+        path: "/register",
+        Element: Registro,
     },
 ];

@@ -1,13 +1,13 @@
 .footer-container {
     background-color: #1E3231;
     color: #FFFFFF;
-    height: 45px;
+    height: 40px;
     display: flex;
     align-items: center;
     padding: 0 20px;
     font-family: "Dosis", sans-serif;
     font-size: 14px;
-    position: relative;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
@@ -23,10 +23,6 @@
 @media (max-width: 830px) {
     .footer-container {
         height: 26px;
-        padding: 0 20px;
-        font-family: "Dosis", sans-serif;
         font-size: 12px;
-        position: fixed;
-        width: 100%;
     }
 }

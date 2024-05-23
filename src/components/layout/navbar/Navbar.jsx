@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import { menuItems } from "../../../router/navigation.jsx";
 import "./Navbar.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import logo from "../../../../public/logo1.png";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -22,6 +22,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 function Navbar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -111,6 +112,7 @@ function Navbar(props) {
                             </Button>
                             <Button
                                 variant="contained"
+                                onClick={() => navigate("/register")}
                                 sx={{
                                     width: "150px",
                                     height: "32px",
@@ -134,6 +136,7 @@ function Navbar(props) {
                                 <AccountCircleIcon />
                             </IconButton>
                             <IconButton
+                                onClick={() => navigate("/register")}
                                 sx={{
                                     display: { xs: 'block', sm: 'none' },
                                     color: "#94B7D0",
