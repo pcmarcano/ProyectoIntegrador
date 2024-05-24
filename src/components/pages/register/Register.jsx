@@ -43,6 +43,21 @@ const Register = () => {
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
 
+    const enviarSolicitud = async () => {           // Envía solicitud post al back para crear un usuario
+        try {
+          const response = await fetch('http://localhost:8080/usuarios/agregar', {  //Cambiar puerto a donde tengas hosteado tu back, generalmente es el 8080
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData) 
+        });
+          setData(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Validación de campos
@@ -65,6 +80,7 @@ const Register = () => {
         setErrors(errors);
         if (Object.keys(errors).length === 0) {
             //BackEnd
+            enviarSolicitud();
             console.log("Formulario enviado:", formData);
         }
     };
