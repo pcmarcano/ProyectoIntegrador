@@ -84,7 +84,7 @@ const Login = () => {
       }
     } catch (error) {
       alert(
-        "Las credenciales ingresadas no son validas. Por favor, comuniquese con el administrador. \n\n Email: comercial@mayoristamdp.com \n Tel: +54 9 (223)348-5438"
+        "Las credenciales ingresadas no son validas. Por favor, comuniquese con el administrador. \n\n Email: usuarios@spazioserver.app \n Tel: +54 9 (011)6870-2318"
       );
       console.log(error);
     }
@@ -143,7 +143,7 @@ const Login = () => {
         width: "100%",
         minHeight: "100vh",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         flexDirection: "column",
         padding: "5%",
@@ -158,6 +158,7 @@ const Login = () => {
           width: isNarrowScreen ? "70%" : "auto",
           maxWidth: "400px",
           margin: "1rem",
+          marginBottom: "5rem",
         }}
       />
       <form onSubmit={handleSubmit}>
