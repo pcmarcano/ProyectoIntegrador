@@ -7,15 +7,17 @@ import Search from "./search/Search.jsx";
 
 const Home = () => {
   return (
-    <Box sx={{
+    <Box
+      sx={{
         textAlign: "center",
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
-    }}>
-        <Search />
-        <Listado />
+      }}
+    >
+      <Search />
+      <Listado />
     </Box>
   );
 };
