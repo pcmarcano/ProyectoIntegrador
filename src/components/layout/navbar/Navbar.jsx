@@ -18,6 +18,7 @@ import logo from "../../../../public/logo1.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { logOut } from "../../../firebaseConfig.js";
 
 function Navbar(props) {
   const { window } = props;
@@ -26,6 +27,10 @@ function Navbar(props) {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+  const cerrarSesion = () => {
+    logOut();
+    navigate("/login");
   };
 
   const drawer = (
@@ -52,7 +57,7 @@ function Navbar(props) {
           );
         })}
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => cerrarSesion()}>
             <ListItemIcon>
               <LogoutIcon sx={{ color: "#CE8B67" }} />
             </ListItemIcon>
