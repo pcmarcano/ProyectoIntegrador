@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Card.css";
 
 export default function ActionAreaCard({ datos }) {
+  console.log(datos);
   const navigate = useNavigate();
 
   const openSpace = () => {
