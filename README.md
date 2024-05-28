@@ -11,7 +11,7 @@
 - Valentin Gomez Marchioni +54 9 4387 36 5831 gomarchjjba@gmail.com
 - Gillermo Planet +56 9 6676 1902 Grm_tracks@hotmail.es
 - Miguel Herrera +54 9 223 532-3350
-- David González Corzo +56 9 8417 3967 davidgcorso@gmail.com
+- David González Corzo +56 9 8417 3967 davidgcorso@gmail.com Retirado
 
 ### PO
 Battiato Dorian  dorian.battiato@digitalhouse.com
