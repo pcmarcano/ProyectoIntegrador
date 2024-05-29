@@ -264,46 +264,62 @@ const EspacioVista = () => {
                 padding: "1rem",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
-                height: "100%",
+
+                height: "auto",
               }}
             >
+              <div
+                style={{
+                  display: "flex",
+                  margin: "2rem",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {categorias.map((categoria, index) => (
+                  <h6
+                    style={{
+                      fontFamily: "Dosis",
+                      fontSize: "120%",
+                      fontWeight: "600",
+                      margin: "1rem",
+                    }}
+                    key={index}
+                  >
+                    <span
+                      style={{ color: "black" }}
+                      class="material-symbols-outlined"
+                    >
+                      done_outline
+                    </span>
+
+                    {categoria.nombre}
+                  </h6>
+                ))}
+              </div>
               {/* Contenido de tu tarjeta grande */}
 
               <div>
-                <p
-                  style={{
-                    fontFamily: "Dosis",
-                    fontSize: "120%",
-                    fontWeight: "8w00",
-                    margin: "1rem",
-                  }}
-                >
-                  {space.nombre}
-                </p>
                 <h6
                   style={{
                     fontFamily: "Dosis",
                     fontSize: "120%",
                     fontWeight: "600",
+                    margin: "1rem",
+                  }}
+                >
+                  {space.nombre}
+                </h6>
+                <h6
+                  style={{
+                    fontFamily: "Dosis",
+                    fontSize: "120%",
+                    fontWeight: "100",
                     margin: "1rem",
                   }}
                 >
                   {space.descripcion}
                 </h6>
-                <h6
-                  style={{
-                    fontFamily: "Dosis",
-                    fontSize: "120%",
-                    fontWeight: "600",
-                    margin: "1rem",
-                  }}
-                >
-                  Categorias:
-                  {categorias.map((categoria, index) => (
-                    <li key={index}>{categoria.nombre}</li>
-                  ))}
-                </h6>
+
                 <h6
                   style={{
                     fontFamily: "Dosis",
@@ -313,17 +329,29 @@ const EspacioVista = () => {
                     color: "black",
                   }}
                 >
-                  Caracteristicas:
+                  <p
+                    style={{
+                      fontFamily: "Dosis",
+                      fontSize: "120%",
+                      fontWeight: "100",
+                      margin: "1rem",
+                    }}
+                  >
+                    Caracteristicas:
+                  </p>
+
                   {caracteristicas.map((categoria, index) => (
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
+                        justifyContent: "flex-start",
                       }}
                     >
-                      <p key={index}>{caracteristicaRenderMap[categoria.id]}</p>
-                      <p>{categoria.nombre}</p>
+                      <p style={{ textAlign: "left" }} key={index}>
+                        {caracteristicaRenderMap[categoria.id]}
+                      </p>
+                      <p style={{ textAlign: "left" }}>{categoria.nombre}</p>
                     </div>
                   ))}
                 </h6>
