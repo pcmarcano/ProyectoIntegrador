@@ -116,7 +116,7 @@ const Login = () => {
             name: firstName,
             apellido: lastName,
             email: res.user.email,
-            roll: "customer",
+            roll: "usuario",
             fechaInicio: serverTimestamp(),
           };
           console.log(userData);
@@ -126,7 +126,7 @@ const Login = () => {
 
         const finalyUser = {
           email: res.user.email,
-          rol: "customer",
+          rol: "usuario",
         };
         handleLogin(finalyUser);
         navigate("/");
