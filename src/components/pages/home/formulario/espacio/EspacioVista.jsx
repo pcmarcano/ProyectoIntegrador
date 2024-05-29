@@ -147,17 +147,23 @@ const EspacioVista = () => {
     ),
     15: (
       <h1 style={{ color: "black" }}>
-        <span class="material-symbols-outlined">sports_esports</span>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          sports_esports
+        </span>
       </h1>
     ),
     16: (
       <h1 style={{ color: "black" }}>
-        <span class="material-symbols-outlined">sports_soccer</span>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          sports_soccer
+        </span>
       </h1>
     ),
     17: (
       <h1 style={{ color: "black" }}>
-        <span class="material-symbols-outlined">camera_indoor</span>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          camera_indoor
+        </span>
       </h1>
     ),
   };

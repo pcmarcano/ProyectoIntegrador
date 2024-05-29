@@ -36,7 +36,9 @@ const Formulario = () => {
     description: "",
     image: [],
   });
+
   const [categorys, setCategorys] = useState([]);
+  const [caracteristics, setCaracteristics] = useState([]);
   const [arrayImagenes, setArrayImagenes] = useState([]);
 
   const [errors, setErrors] = useState({
@@ -85,7 +87,7 @@ const Formulario = () => {
         descripcion: formData.description,
         fotos: arrayImagenes,
         categorias: categorys,
-        caracteristicas: caracteristicaPrueba,
+        caracteristicas: caracteristics,
       };
 
       const response = await fetch("http://localhost:8080/lugares/agregar", {
@@ -166,7 +168,7 @@ const Formulario = () => {
             <Categorias setCategorys={setCategorys} />
           </Grid>
           <Grid item xs={12}>
-            <Caracteristicas />
+            <Caracteristicas setCaracteristics={setCaracteristics} />
           </Grid>
 
           {[...Array(5)].map((_, index) => (
