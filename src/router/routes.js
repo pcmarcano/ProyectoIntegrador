@@ -4,7 +4,7 @@ import Formulario from "../components/pages/home/formulario/Formulario.jsx";
 import Search from "../components/pages/home/search/Search.jsx";
 import Listado from "../components/pages/home/listado/Listado.jsx";
 import EspacioVista from "../components/pages/home/formulario/espacio/EspacioVista.jsx";
-import Registro from "../components/pages/register/Register";
+import Registro from "../components/pages/register/Register.jsx";
 import Box from "@mui/material/Box";
 import Login from "../components/pages/login/Login.jsx";
 

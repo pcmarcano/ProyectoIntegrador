@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,27 +10,40 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { menuItems } from "../../../router/navigation.jsx";
+import { menuItems } from "../../../router/navigation.js";
 import "./Navbar.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button, ListItemText, Typography } from "@mui/material";
 import logo from "../../../../public/logo1.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { logOut } from "../../../firebaseConfig.js";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import DeckIcon from "@mui/icons-material/Deck";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import { WindowSharp } from "@mui/icons-material";
+import Usuario from "../../pages/home/usuario/Usuario.jsx";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 function Navbar(props) {
-  const { window } = props;
+  const { windows } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, isLogged } = useContext(AuthContext);
+  const rolAdmin = import.meta.env.VITE_ADMIN;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const cerrarSesion = () => {
     logOut();
-    navigate("/login");
+    navigate("/");
+    window.location.reload();
   };
 
   const drawer = (
@@ -56,6 +69,41 @@ function Navbar(props) {
             </Link>
           );
         })}
+        {user.rol === rolAdmin && (
+          <Link to={"/form"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AddBusinessIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  color="#CE8B67"
+                >
+                  Nuevo Espacio{" "}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        {user.rol === rolAdmin && (
+          <Link to={"/list"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DeckIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  color="#CE8B67"
+                >
+                  Espacios{" "}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+
         <ListItem disablePadding>
           <ListItemButton onClick={() => cerrarSesion()}>
             <ListItemIcon>
@@ -74,7 +122,7 @@ function Navbar(props) {
   );
 
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+    windows !== undefined ? () => windows().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -105,59 +153,65 @@ function Navbar(props) {
           >
             <img className="logoimg" src={logo} alt="Logo" />
           </Link>
+
           <div className="menu-container">
             <div className="button-container">
-              <Button
-                variant="contained"
-                onClick={() => navigate("/login")}
-                sx={{
-                  width: "150px",
-                  height: "32px",
-                  fontFamily: "Dosis",
-                  fontSize: "80%",
-                  backgroundColor: "#FF9550",
-                  color: "#FFFFFF",
-                  marginRight: "10px",
-                  display: { xs: "none", sm: "block" },
-                }}
-              >
-                Iniciar Sesión
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => navigate("/register")}
-                sx={{
-                  width: "150px",
-                  height: "32px",
-                  fontFamily: "Dosis",
-                  fontSize: "80%",
-                  backgroundColor: "#94B7D0",
-                  color: "#FFFFFF",
-                  marginRight: "10px",
-                  display: { xs: "none", sm: "block" },
-                }}
-              >
-                Crear Cuenta
-              </Button>
-              <IconButton
-                sx={{
-                  display: { xs: "block", sm: "none" },
-                  color: "#FF9550",
-                  marginRight: "10px",
-                }}
-              >
-                <AccountCircleIcon />
-              </IconButton>
-              <IconButton
-                onClick={() => navigate("/register")}
-                sx={{
-                  display: { xs: "block", sm: "none" },
-                  color: "#94B7D0",
-                  marginRight: "10px",
-                }}
-              >
-                <PersonAddIcon />
-              </IconButton>
+              {!isLogged && (
+                <>
+                  <Button
+                    variant="contained"
+                    onClick={() => navigate("/login")}
+                    sx={{
+                      width: "150px",
+                      height: "32px",
+                      fontFamily: "Dosis",
+                      fontSize: "80%",
+                      backgroundColor: "#FF9550",
+                      color: "#FFFFFF",
+                      marginRight: "10px",
+                      display: { xs: "none", sm: "block" },
+                    }}
+                  >
+                    Iniciar Sesión
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => navigate("/register")}
+                    sx={{
+                      width: "150px",
+                      height: "32px",
+                      fontFamily: "Dosis",
+                      fontSize: "80%",
+                      backgroundColor: "#94B7D0",
+                      color: "#FFFFFF",
+                      marginRight: "10px",
+                      display: { xs: "none", sm: "block" },
+                    }}
+                  >
+                    Crear Cuenta
+                  </Button>
+                  <IconButton
+                    sx={{
+                      display: { xs: "block", sm: "none" },
+                      color: "#FF9550",
+                      marginRight: "10px",
+                    }}
+                  >
+                    <AccountCircleIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => navigate("/register")}
+                    sx={{
+                      display: { xs: "block", sm: "none" },
+                      color: "#94B7D0",
+                      marginRight: "10px",
+                    }}
+                  >
+                    <PersonAddIcon />
+                  </IconButton>
+                </>
+              )}
+              {!isMobile && <div>{isLogged && user.email && <Usuario />}</div>}
             </div>
             <IconButton
               color="secondary.primary"
@@ -170,13 +224,10 @@ function Navbar(props) {
             >
               <MenuIcon
                 style={{
-                  fontSize: "200%",
-                  "@media (max-width: 620px)": {
-                    fontSize: "30px",
-                  },
+                  fontSize: "2rem",
+                  color: "white",
                 }}
-                color="secondary.primary"
-              />
+              />{" "}
             </IconButton>
           </div>
         </Toolbar>

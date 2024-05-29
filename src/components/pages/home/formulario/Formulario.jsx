@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,9 +12,25 @@ import { uploadFile } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Caracteristicas from "./Caracteristicas";
 import Categorias from "./Categorias";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Formulario = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
+  const rolAdmin = import.meta.env.VITE_ADMIN;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || user.rol !== rolAdmin) {
+      navigate("/login");
+    }
+  }, [user, rolAdmin, navigate]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -159,12 +175,10 @@ const Formulario = () => {
             >
               <Box
                 sx={{
-                  border: "1px solid rgba(0, 0, 0, 0.23)",
                   borderRadius: "4px",
                   padding: "10px 10px",
                   display: "inline-block",
                   width: "100%",
-                  backgroundColor: "white",
                 }}
               >
                 <Button
