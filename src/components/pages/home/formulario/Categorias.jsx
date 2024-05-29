@@ -4,16 +4,52 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
-export default function Categorias() {
+export default function Categorias({ setCategorys }) {
+  const [categorias, setCategorias] = React.useState([]);
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
+
+  const obtenerCategorias = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/categorias/listar", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCategorias(data);
+        console.log("Solicitud HTTP GET exitosa");
+      } else {
+        console.error("Error en la solicitud HTTP GET:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud HTTP GET:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    obtenerCategorias();
+  }, []);
+
+  const handleSelectionChange = (event, values) => {
+    setSelectedCategories(values);
+    const selectedIds = values.map((category) => category.id);
+    setCategorys(selectedIds);
+    console.log(selectedIds);
+  };
+
   return (
     <Stack spacing={3} sx={{ width: 350 }}>
       <Autocomplete
         multiple
         id="tags-outlined"
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
-        defaultValue={[top100Films[0]]}
+        options={categorias}
+        getOptionLabel={(option) => option.nombre}
         filterSelectedOptions
+        value={selectedCategories}
+        onChange={handleSelectionChange}
         renderInput={(params) => (
           <TextField {...params} label="Selecciona Categorias" placeholder="" />
         )}
@@ -23,12 +59,3 @@ export default function Categorias() {
 }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: "Aire Libre", year: 1994 },
-  { title: "Recreacion", year: 1972 },
-  { title: "Cerrado", year: 1974 },
-  { title: "Apto Fumador", year: 2008 },
-  { title: "Apto Mascotas", year: 1957 },
-  { title: "Sociales", year: 1993 },
-  { title: "Privadas", year: 1994 },
-];

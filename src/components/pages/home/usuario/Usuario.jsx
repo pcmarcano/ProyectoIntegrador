@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 
 const Usuario = () => {
@@ -37,13 +37,15 @@ const Usuario = () => {
             </h4>
           </div>
           <div>
-            <Avatar
-              sx={{ bgcolor: "orange", margin: "1rem" }}
-              alt="User Avatar"
-              src="/broken-image.jpg"
-            >
-              {firstLetter}
-            </Avatar>
+            <Link to="cuenta">
+              <Avatar
+                sx={{ bgcolor: "orange", margin: "1rem" }}
+                alt="User Avatar"
+                src="/broken-image.jpg"
+              >
+                {firstLetter}
+              </Avatar>
+            </Link>
           </div>
         </>
       )}

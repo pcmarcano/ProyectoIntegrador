@@ -14,6 +14,8 @@ const EspacioVista = () => {
 
   const [space, setSpace] = useState([]);
   const [arrayFotos, setArrayFotos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [caracteristicas, setCaracteristicas] = useState([]);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -24,10 +26,14 @@ const EspacioVista = () => {
       .then((response) => response.json())
       .then((data) => {
         setSpace(data);
+        setCategorias(data.categorias);
+        setCaracteristicas(data.caracteristicas);
         arrFotos(data); // Llama a arrFotos después de establecer space
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  console.log(categorias);
 
   const arrFotos = (data) => {
     if (data && data.fotos && data.fotos.length > 0) {
@@ -39,6 +45,12 @@ const EspacioVista = () => {
       setArrayFotos(arr);
     }
   };
+
+  /*   const funcionRenderCaracteristica = ({ spaceCaracteristicas }) => {
+    if (spaceCaracteristicas === 1) {
+      return <h1>Esto es al Aire Libre</h1>;
+    }
+  }; */
 
   return (
     <div style={{ width: "100vw" }}>
@@ -161,6 +173,33 @@ const EspacioVista = () => {
                 >
                   {space.descripcion}
                 </h6>
+                <h6
+                  style={{
+                    fontFamily: "Dosis",
+                    fontSize: "120%",
+                    fontWeight: "600",
+                    margin: "1rem",
+                  }}
+                >
+                  Categorias:
+                  {categorias.map((categoria, index) => (
+                    <li key={index}>{categoria.nombre}</li>
+                  ))}
+                </h6>
+                <h6
+                  style={{
+                    fontFamily: "Dosis",
+                    fontSize: "120%",
+                    fontWeight: "600",
+                    margin: "1rem",
+                  }}
+                >
+                  Caracteristicas:
+                  {caracteristicas.map((categoria, index) => (
+                    <li key={index}>{categoria.nombre}</li>
+                  ))}
+                </h6>
+
                 <div style={{ width: "100%", textAlign: "right" }}>
                   <Button
                     variant="text"
