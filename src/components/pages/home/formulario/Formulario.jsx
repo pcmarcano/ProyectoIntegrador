@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { uploadFile } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import Caracteristicas from "./Caracteristicas";
+import Categorias from "./Categorias";
 
 const Formulario = () => {
   const navigate = useNavigate();
@@ -138,6 +140,13 @@ const Formulario = () => {
               <FormHelperText error>{errors.description}</FormHelperText>
             )}
           </Grid>
+          <Grid item xs={12}>
+            <Categorias />
+          </Grid>
+          <Grid item xs={12}>
+            <Caracteristicas />
+          </Grid>
+
           {[...Array(5)].map((_, index) => (
             <Grid
               item
