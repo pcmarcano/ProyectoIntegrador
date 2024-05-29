@@ -73,7 +73,7 @@ const Formulario = () => {
     }
   };
 
-  let caracteristicaPrueba = [2, 3];
+  let caracteristicaPrueba = [2, 5, 8, 10];
 
   const handleSubmit = async (event) => {
     event.preventDefault();

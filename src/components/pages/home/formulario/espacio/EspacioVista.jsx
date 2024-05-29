@@ -46,16 +46,133 @@ const EspacioVista = () => {
     }
   };
 
-  /*   const funcionRenderCaracteristica = ({ spaceCaracteristicas }) => {
-    if (spaceCaracteristicas === 1) {
-      return <h1>Esto es al Aire Libre</h1>;
-    }
-  }; */
+  const caracteristicaRenderMap = {
+    1: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          groups
+        </span>
+      </h1>
+    ),
+    2: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          groups
+        </span>
+      </h1>
+    ),
+    3: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          groups
+        </span>
+      </h1>
+    ),
+    4: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          mode_cool
+        </span>
+      </h1>
+    ),
+    5: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          thermostat
+        </span>
+      </h1>
+    ),
+    6: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          thermometer_add
+        </span>
+      </h1>
+    ),
+    7: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          auto_stories
+        </span>
+      </h1>
+    ),
+    8: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          table_bar
+        </span>
+      </h1>
+    ),
+    9: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          settings_accessibility
+        </span>
+      </h1>
+    ),
+    10: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          coffee_maker
+        </span>
+      </h1>
+    ),
+    11: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          restaurant
+        </span>
+      </h1>
+    ),
+    12: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          chair
+        </span>
+      </h1>
+    ),
+    13: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          dry_cleaning
+        </span>
+      </h1>
+    ),
+    14: (
+      <h1 style={{ color: "black" }}>
+        <span style={{ color: "black" }} class="material-symbols-outlined">
+          ar_stickers
+        </span>
+      </h1>
+    ),
+    15: (
+      <h1 style={{ color: "black" }}>
+        <span class="material-symbols-outlined">sports_esports</span>
+      </h1>
+    ),
+    16: (
+      <h1 style={{ color: "black" }}>
+        <span class="material-symbols-outlined">sports_soccer</span>
+      </h1>
+    ),
+    17: (
+      <h1 style={{ color: "black" }}>
+        <span class="material-symbols-outlined">camera_indoor</span>
+      </h1>
+    ),
+  };
 
   return (
-    <div style={{ width: "100vw" }}>
+    <div style={{ width: "100vw", height: "100%" }}>
       <Search />
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          height: "100%",
+        }}
+      >
         {!isMobile && (
           <div
             style={{
@@ -148,6 +265,7 @@ const EspacioVista = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                height: "100%",
               }}
             >
               {/* Contenido de tu tarjeta grande */}
@@ -192,11 +310,21 @@ const EspacioVista = () => {
                     fontSize: "120%",
                     fontWeight: "600",
                     margin: "1rem",
+                    color: "black",
                   }}
                 >
                   Caracteristicas:
                   {caracteristicas.map((categoria, index) => (
-                    <li key={index}>{categoria.nombre}</li>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <p key={index}>{caracteristicaRenderMap[categoria.id]}</p>
+                      <p>{categoria.nombre}</p>
+                    </div>
                   ))}
                 </h6>
 
@@ -219,7 +347,12 @@ const EspacioVista = () => {
         )}
         {isMobile && (
           <div style={{ marginTop: "5rem" }}>
-            <CardMobile space={space} arrayFotos={arrayFotos} />
+            <CardMobile
+              space={space}
+              arrayFotos={arrayFotos}
+              caracteristicas={caracteristicas}
+              categorias={categorias}
+            />
           </div>
         )}
       </div>
