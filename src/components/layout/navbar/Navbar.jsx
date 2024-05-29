@@ -179,6 +179,7 @@ function Navbar(props) {
                                     Crear Cuenta
                                 </Button>
                                 <IconButton
+                                    onClick={() => navigate("/login")}
                                     sx={{
                                         display: { xs: "block", sm: "none" },
                                         color: "#FF9550",
@@ -256,15 +257,7 @@ function Navbar(props) {
                 <Toolbar />
                 <Outlet />
             </Box>
-            <Box
-                sx={{
-                    position: "fixed",
-                    top: "30%",
-                    right: "20%",
-                    transform: "translate(-30%, -20%)",
-                    zIndex: 1300
-                }}
-            >
+            <Box>
                 <Snackbar
                     open={logoutMessage}
                     autoHideDuration={3000}
