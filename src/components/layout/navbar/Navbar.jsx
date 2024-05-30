@@ -25,256 +25,223 @@ import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import "./Navbar.css";
+import Usuario from "../../pages/home/usuario/Usuario.jsx";
 
 function Navbar(props) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const navigate = useNavigate();
-    const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
-    const rolAdmin = import.meta.env.VITE_ADMIN;
-    const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-    const [logoutMessage, setLogoutMessage] = useState(false);
-    const [userData, setUserData] = useState(null);
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
+  const rolAdmin = import.meta.env.VITE_ADMIN;
+  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [logoutMessage, setLogoutMessage] = useState(false);
+  const [userData, setUserData] = useState(null);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-    useEffect(() => {
-        if (user && user.email) {
-            fetch(`http://localhost:8080/usuarios/email/${user.email}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    setUserData(data);
-                })
-                .catch((error) => console.error("Error fetching user data:", error));
-        }
-    }, [user]);
+  useEffect(() => {
+    if (user && user.email) {
+      fetch(`http://localhost:8080/usuarios/email/${user.email}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserData(data);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+  }, [user]);
 
-    const cerrarSesion = () => {
-        handleLogoutContext();
-        logOut();
-        setLogoutMessage(true);
-        setTimeout(() => {
-            setLogoutMessage(false);
-            navigate("/");
-        }, 2000);
-    };
+  const cerrarSesion = () => {
+    handleLogoutContext();
+    logOut();
+    setLogoutMessage(true);
+    setTimeout(() => {
+      setLogoutMessage(false);
+      navigate("/");
+    }, 2000);
+  };
 
-    const drawer = (
-        <div>
-            <Toolbar />
-            <List style={{ color: "#CE8B67" }}>
-                {menuItems.map(({ id, path, title, Icon }) => (
-                    <Link key={id} to={path} onClick={handleDrawerToggle}>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <Icon sx={{ color: "#CE8B67" }} />
-                                </ListItemIcon>
-                                <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
-                                    {title}
-                                </Typography>
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
-                ))}
-                {user?.rol === rolAdminTotal && (
-                    <>
-                        <Link to="/form" onClick={handleDrawerToggle}>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <AddBusinessIcon sx={{ color: "#CE8B67" }} />
-                                    </ListItemIcon>
-                                    <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
-                                        Nuevo Espacio
-                                    </Typography>
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                        <Link to="/dashboard" onClick={handleDrawerToggle}>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <DashboardCustomizeIcon sx={{ color: "#CE8B67" }} />
-                                    </ListItemIcon>
-                                    <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
-                                        Dashboard
-                                    </Typography>
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                    </>
-                )}
-                {(user?.rol === rolAdmin || user?.rol === rolAdminTotal) && (
-                    <Link to="/list" onClick={handleDrawerToggle}>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <DeckIcon sx={{ color: "#CE8B67" }} />
-                                </ListItemIcon>
-                                <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
-                                    Espacios
-                                </Typography>
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
-                )}
-                <ListItem disablePadding>
-                    <ListItemButton onClick={cerrarSesion}>
-                        <ListItemIcon>
-                            <LogoutIcon sx={{ color: "#CE8B67" }} />
-                        </ListItemIcon>
-                        <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
-                            Cerrar sesión
-                        </Typography>
-                    </ListItemButton>
-                </ListItem>
-            </List>
-        </div>
-    );
-
-    const container = window !== undefined ? () => window().document.body : undefined;
-
-    return (
-        <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <AppBar position="fixed" sx={{ width: "100%", backgroundColor: "#1E3231", height: "90px" }}>
-                <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Link to="/" style={{ color: "whitesmoke", display: "flex", alignItems: "center", padding: "0.5rem" }}>
-                        <img className="logoimg" src={logo} alt="Logo" />
-                    </Link>
-                    <div className="user-info" style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}>
-                        {userData && isLogged ? (
-                            <div style={{ display: "flex", alignItems: "center" }}>
-                                <Link to="/cuenta">
-                                    <Avatar sx={{ bgcolor: "#FF9550", marginRight: "8px" }}>
-                                        {userData.nombre.charAt(0).toUpperCase()}
-                                        {userData.apellido.charAt(0).toUpperCase()}
-                                    </Avatar>
-                                </Link>
-                                <div style={{ fontFamily: "Dosis", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                    <Link to="/cuenta">
-                                        <Typography variant="body1" sx={{ color: "#FFFFFF" }}>
-                                            ¡Hola, {userData.nombre} {userData.apellido}!
-                                        </Typography>
-                                    </Link>
-                                    <IconButton onClick={cerrarSesion} sx={{ color: "#FFFFFF" }}>
-                                        <LogoutIcon sx={{ fontSize: "1.3rem" }} />
-                                    </IconButton>
-                                </div>
-                            </div>
-                        ) : (
-                            <>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => navigate("/login")}
-                                    sx={{
-                                        width: "150px",
-                                        height: "32px",
-                                        fontFamily: "Dosis",
-                                        fontSize: "80%",
-                                        backgroundColor: "#FF9550",
-                                        color: "#FFFFFF",
-                                        marginRight: "10px",
-                                        display: { xs: "none", sm: "block" },
-                                    }}
-                                >
-                                    Iniciar Sesión
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => navigate("/register")}
-                                    sx={{
-                                        width: "150px",
-                                        height: "32px",
-                                        fontFamily: "Dosis",
-                                        fontSize: "80%",
-                                        backgroundColor: "#94B7D0",
-                                        color: "#FFFFFF",
-                                        marginRight: "10px",
-                                        display: { xs: "none", sm: "block" },
-                                    }}
-                                >
-                                    Crear Cuenta
-                                </Button>
-                                <IconButton
-                                    onClick={() => navigate("/login")}
-                                    sx={{
-                                        display: { xs: "block", sm: "none" },
-                                        color: "#FF9550",
-                                        marginRight: "10px",
-                                    }}
-                                >
-                                    <AccountCircleIcon />
-                                </IconButton>
-                                <IconButton
-                                    onClick={() => navigate("/register")}
-                                    sx={{
-                                        display: { xs: "block", sm: "none" },
-                                        color: "#94B7D0",
-                                        marginRight: "10px",
-                                    }}
-                                >
-                                    <PersonAddIcon />
-                                </IconButton>
-                            </>
-                        )}
-                    </div>
-                    {isLogged && (
-                        <IconButton
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            sx={{ marginLeft: "0.5rem" }}
-                        >
-                            <MenuIcon sx={{ fontSize: "200%" }} />
-                        </IconButton>
-                    )}
-                </Toolbar>
-            </AppBar>
-            <Box component="nav" aria-label="mailbox folders">
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    anchor={"right"}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{ keepMounted: true }}
-                    sx={{
-                        display: { xs: "block" },
-                        "& .MuiDrawer-paper": {
-                            boxSizing: "border-box",
-                            width: 200,
-                            backgroundColor: "#1E3231",
-                        },
-                    }}
+  const drawer = (
+    <div>
+      <Toolbar />
+      <List style={{ color: "#CE8B67" }}>
+        {menuItems.map(({ id, path, title, Icon }) => (
+          <Link key={id} to={path} onClick={handleDrawerToggle}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Icon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
                 >
-                    {drawer}
-                </Drawer>
-            </Box>
-            <Box component="main" sx={{ flexGrow: 1, py: 4, width: "100%", minHeight: "100vh", px: 2 }}>
-                <Toolbar />
-                <Outlet />
-            </Box>
-            <Box>
-                <Snackbar
-                    open={logoutMessage}
-                    autoHideDuration={3000}
-                    onClose={() => setLogoutMessage(false)}
+                  {title}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        ))}
+        {user?.rol === rolAdminTotal && (
+          <>
+            <Link to="/form" onClick={handleDrawerToggle}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AddBusinessIcon sx={{ color: "#CE8B67" }} />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  >
+                    Nuevo Espacio
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link to="/dashboard" onClick={handleDrawerToggle}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <DashboardCustomizeIcon sx={{ color: "#CE8B67" }} />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  >
+                    Dashboard
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          </>
+        )}
+        {(user?.rol === rolAdmin || user?.rol === rolAdminTotal) && (
+          <Link to="/list" onClick={handleDrawerToggle}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DeckIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
                 >
-                    <Alert onClose={() => setLogoutMessage(false)} severity="success" sx={{ width: '100%' }}>
-                        Sesión cerrada exitosamente
-                    </Alert>
-                </Snackbar>
-            </Box>
-        </Box>
-    );
+                  Espacios
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        <ListItem disablePadding>
+          <ListItemButton onClick={cerrarSesion}>
+            <ListItemIcon>
+              <LogoutIcon sx={{ color: "#CE8B67" }} />
+            </ListItemIcon>
+            <Typography
+              sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+            >
+              Cerrar sesión
+            </Typography>
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </div>
+  );
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: "100%", backgroundColor: "#1E3231", height: "90px" }}
+      >
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            to="/"
+            style={{
+              color: "whitesmoke",
+              display: "flex",
+              alignItems: "center",
+              padding: "0.5rem",
+            }}
+          >
+            <img className="logoimg" src={logo} alt="Logo" />
+          </Link>
+          <div
+            className="user-info"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "auto",
+            }}
+          >
+            <Usuario />
+          </div>
+          {isLogged && (
+            <IconButton
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ marginLeft: "0.5rem" }}
+            >
+              <MenuIcon sx={{ fontSize: "200%", color: "white" }} />
+            </IconButton>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Box component="nav" aria-label="mailbox folders">
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          anchor={"right"}
+          onClose={handleDrawerToggle}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            display: { xs: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: 200,
+              backgroundColor: "#1E3231",
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, py: 4, width: "100%", minHeight: "100vh", px: 2 }}
+      >
+        <Toolbar />
+        <Outlet />
+      </Box>
+      <Box>
+        <Snackbar
+          open={logoutMessage}
+          autoHideDuration={3000}
+          onClose={() => setLogoutMessage(false)}
+        >
+          <Alert
+            onClose={() => setLogoutMessage(false)}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Sesión cerrada exitosamente
+          </Alert>
+        </Snackbar>
+      </Box>
+    </Box>
+  );
 }
 
 export default Navbar;
-
-
