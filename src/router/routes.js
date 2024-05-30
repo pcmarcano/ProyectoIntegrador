@@ -8,6 +8,7 @@ import Registro from "../components/pages/register/Register.jsx";
 import Box from "@mui/material/Box";
 import Login from "../components/pages/login/Login.jsx";
 import Cuenta from "../components/pages/home/cuenta/Cuenta.jsx";
+import Dashboard from "../components/pages/home/dashboard/Dashboard.jsx";
 
 // const HomeAndSearch = () => (
 //     <Box sx={{ margin: 0, padding: 0 }}>
@@ -51,5 +52,10 @@ export const routes = [
     id: "cuenta",
     path: "/cuenta",
     Element: Cuenta,
+  },
+  {
+    id: "dashboard",
+    path: "/dashboard",
+    Element: Dashboard,
   },
 ];
