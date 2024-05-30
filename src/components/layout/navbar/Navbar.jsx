@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -28,16 +28,28 @@ import Usuario from "../../pages/home/usuario/Usuario.jsx";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+
 function Navbar(props) {
     const { window } = props;
+    const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [logoutMessage, setLogoutMessage] = useState(false);
-    const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
-    const { windows } = props;
-    const navigate = useNavigate();
     const rolAdmin = import.meta.env.VITE_ADMIN;
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        if (user && user.email) {
+            fetch(`http://localhost:8080/usuarios/email/${user.email}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setUserData(data);
+                })
+                .catch((error) => console.error("Error fetching user data:", error));
+        }
+    }, [user]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -51,7 +63,6 @@ function Navbar(props) {
             setLogoutMessage(false);
             navigate("/");
         }, 2000);
-        window.location.reload();
     };
 
   const drawer = (
@@ -115,139 +126,52 @@ function Navbar(props) {
     </div>
   );
 
-    const container =
-        window !== undefined ? () => window().document.body : undefined;
+    const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: "100%",
-                    backgroundColor: "#1E3231",
-                    height: "90px",
-                }}
-            >
-                <Toolbar
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}
-                >
-                    <Link
-                        to="/"
-                        style={{
-                            color: "whitesmoke",
-                            display: "flex",
-                            alignItems: "center",
-                            padding: "0.5rem",
-                        }}
-                    >
+            <AppBar position="fixed" sx={{ width: "100%", backgroundColor: "#1E3231", height: "90px" }}>
+                <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Link to="/" style={{ color: "whitesmoke", display: "flex", alignItems: "center", padding: "0.5rem" }}>
                         <img className="logoimg" src={logo} alt="Logo" />
                     </Link>
                     <div className="menu-container">
-                        {isLogged ? (
-                            <div className="user-info" style={{
-                                display: "flex",
-                                alignItems: "center",
-                            }}>
-                                <div style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                }}>
-                                    <Avatar
-                                        onClick={() => navigate("/login")}
-                                        sx={{
-                                            bgcolor: "#FF9550",
-                                            marginRight: "8px",
-                                        }}
-                                    >
-                                        {user.email.charAt(0).toUpperCase()} {/*Cambiar por nombre y apellido para tomar iniciales*/}
+                        <div className="user-info" style={{ display: "flex", alignItems: "center" }}>
+                            {userData ? (
+                                <div style={{ display: "flex", alignItems: "center" }}>
+                                    <Avatar onClick={() => navigate("/login")} sx={{ bgcolor: "#FF9550", marginRight: "8px" }}>
+                                        {userData.nombre.charAt(0).toUpperCase()}
+                                        {userData.apellido.charAt(0).toUpperCase()}
                                     </Avatar>
                                 </div>
-                                <div style={{
-                                    fontFamily: "Dosis",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    }}
-                                >
-                                    <Typography variant="body1" color="inherit" sx={{ color: "#FFFFFF", fontFamily: "Dosis" }}>
-                                        ¡Hola, {user.email}! {/*Cambiar por nombre y apellido*/}
-                                    </Typography>
-                                    <IconButton onClick={() => cerrarSesion()} sx={{ color: "#FFFFFF" }}>
-                                        <LogoutIcon sx={{ fontSize: '1.3rem' }} />
-                                    </IconButton>
-                                </div>
-                                <div>{isLogged && user.email && <Usuario />}</div>
-                            </div>
-
-                        ) : (
-                            <div className="button-container">
-                                <Button
-                                    variant="contained"
-                                    onClick={() => navigate("/login")}
-                                    sx={{
-                                        width: "150px",
-                                        height: "32px",
-                                        fontFamily: "Dosis",
-                                        fontSize: "80%",
-                                        backgroundColor: "#FF9550",
-                                        color: "#FFFFFF",
-                                        marginRight: "10px",
-                                        display: { xs: "none", sm: "block" },
-                                    }}
-                                >
-                                    Iniciar Sesión
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => navigate("/register")}
-                                    sx={{
-                                        width: "150px",
-                                        height: "32px",
-                                        fontFamily: "Dosis",
-                                        fontSize: "80%",
-                                        backgroundColor: "#94B7D0",
-                                        color: "#FFFFFF",
-                                        marginRight: "10px",
-                                        display: { xs: "none", sm: "block" },
-                                    }}
-                                >
-                                    Crear Cuenta
-                                </Button>
-                                <IconButton
-                                    onClick={() => navigate("/login")}
-                                    sx={{
-                                        display: { xs: "block", sm: "none" },
-                                        color: "#FF9550",
-                                        marginRight: "10px",
-                                    }}
-                                >
+                            ) : (
+                                <IconButton onClick={() => navigate("/login")}>
                                     <AccountCircleIcon />
                                 </IconButton>
-                                <IconButton
-                                    onClick={() => navigate("/register")}
-                                    sx={{
-                                        display: { xs: "block", sm: "none" },
-                                        color: "#94B7D0",
-                                        marginRight: "10px",
-                                    }}
-                                >
-                                    <PersonAddIcon />
+                            )}
+                            {userData ? (
+                                <div style={{ fontFamily: "Dosis", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                    <Typography variant="body1" color="inherit" sx={{ color: "#FFFFFF", fontFamily: "Dosis" }}>
+                                        ¡Hola, {userData.nombre} {userData.apellido}!
+                                    </Typography>
+                                    <IconButton onClick={() => cerrarSesion()} sx={{ color: "#FFFFFF" }}>
+                                        <LogoutIcon sx={{ fontSize: "1.3rem" }} />
+                                    </IconButton>
+                                </div>
+                            ) : (
+                                <IconButton onClick={() => navigate("/login")}>
+                                    <AccountCircleIcon />
                                 </IconButton>
-                            </div>
-                        )}
+                            )}
+                            <div>{isLogged && user.email && <Usuario />}</div>
+                        </div>
                         <IconButton
                             color="secondary.primary"
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
-                            sx={{
-                                marginLeft: "0.5rem",
-                            }}
+                            sx={{ marginLeft: "0.5rem" }}
                         >
                             <MenuIcon
                                 style={{
@@ -269,9 +193,7 @@ function Navbar(props) {
                     open={mobileOpen}
                     anchor={"right"}
                     onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
+                    ModalProps={{ keepMounted: true }}
                     sx={{
                         display: { xs: "block" },
                         "& .MuiDrawer-paper": {
@@ -286,13 +208,7 @@ function Navbar(props) {
             </Box>
             <Box
                 component="main"
-                sx={{
-                    flexGrow: 1,
-                    py: 4,
-                    width: "100%",
-                    minHeight: "100vh",
-                    px: 2,
-                }}
+                sx={{ flexGrow: 1, py: 4, width: "100%", minHeight: "100vh", px: 2 }}
             >
                 <Toolbar />
                 <Outlet />
