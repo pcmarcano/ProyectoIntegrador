@@ -7,11 +7,13 @@ import {
   Typography,
   Grid,
   Paper,
+  IconButton,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import LockResetIcon from "@mui/icons-material/LockReset";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const UserInfo = styled(Paper)(({ theme }) => ({
+const SpaceCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   display: "flex",
   alignItems: "center",
@@ -22,8 +24,9 @@ const UserInfo = styled(Paper)(({ theme }) => ({
   },
 }));
 
-const UserDetails = styled(Box)(({ theme }) => ({
+const SpaceDetails = styled(Box)(({ theme }) => ({
   marginLeft: theme.spacing(2),
+  flexGrow: 1,
   [theme.breakpoints.down("sm")]: {
     marginLeft: 0,
     marginTop: theme.spacing(1),
@@ -31,44 +34,57 @@ const UserDetails = styled(Box)(({ theme }) => ({
 }));
 
 const Dashboard = () => {
-  const user = {
-    avatarUrl: "https://via.placeholder.com/150",
-    username: "john_doe",
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 555-5555",
-  };
+  const spaces = [
+    {
+      id: 1,
+      name: "Espacio 1",
+      category: "Categoría A",
+      description: "Descripción del Espacio 1",
+      imageUrl: "https://via.placeholder.com/150",
+    },
+    {
+      id: 2,
+      name: "Espacio 2",
+      category: "Categoría B",
+      description: "Descripción del Espacio 2",
+      imageUrl: "https://via.placeholder.com/150",
+    },
+    {
+      id: 3,
+      name: "Espacio 3",
+      category: "Categoría C",
+      description: "Descripción del Espacio 3",
+      imageUrl: "https://via.placeholder.com/150",
+    },
+  ];
 
   return (
     <Container maxWidth="md">
       <Typography variant="h4" gutterBottom>
-        Mi Perfil
+        Listado de Espacios
       </Typography>
-      <UserInfo>
-        <Avatar
-          alt={user.username}
-          src={user.avatarUrl}
-          sx={{ width: 80, height: 80 }}
-        />
-        <UserDetails>
-          <Typography variant="h6">
-            {user.firstName} {user.lastName}
-          </Typography>
-          <Typography color="textSecondary">@{user.username}</Typography>
-          <Typography color="textSecondary">{user.email}</Typography>
-          <Typography color="textSecondary">{user.phone}</Typography>
-        </UserDetails>
-      </UserInfo>
-      <Grid container justifyContent="flex-end">
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<LockResetIcon />}
-        >
-          Cambiar Contraseña
-        </Button>
-      </Grid>
+      {spaces.map((space) => (
+        <SpaceCard key={space.id}>
+          <Avatar
+            alt={space.name}
+            src={space.imageUrl}
+            sx={{ width: 80, height: 80 }}
+          />
+          <SpaceDetails>
+            <Typography variant="h6">{space.name}</Typography>
+            <Typography color="textSecondary">{space.category}</Typography>
+            <Typography color="textSecondary">{space.description}</Typography>
+          </SpaceDetails>
+          <Box>
+            <IconButton color="primary" aria-label="edit">
+              <EditIcon />
+            </IconButton>
+            <IconButton color="secondary" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        </SpaceCard>
+      ))}
     </Container>
   );
 };
