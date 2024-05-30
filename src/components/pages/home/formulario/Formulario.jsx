@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -12,15 +12,35 @@ import { uploadFile } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Caracteristicas from "./Caracteristicas";
 import Categorias from "./Categorias";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Formulario = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
+  const rolAdmin = import.meta.env.VITE_ADMIN;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || user.rol !== rolAdmin) {
+      navigate("/login");
+    }
+  }, [user, rolAdmin, navigate]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     image: [],
   });
+
+  const [categorys, setCategorys] = useState([]);
+  const [caracteristics, setCaracteristics] = useState([]);
   const [arrayImagenes, setArrayImagenes] = useState([]);
+
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -55,6 +75,8 @@ const Formulario = () => {
     }
   };
 
+  let caracteristicaPrueba = [2, 5, 8, 10];
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(arrayImagenes);
@@ -64,6 +86,8 @@ const Formulario = () => {
         nombre: formData.name,
         descripcion: formData.description,
         fotos: arrayImagenes,
+        categorias: categorys,
+        caracteristicas: caracteristics,
       };
 
       const response = await fetch("http://localhost:8080/lugares/agregar", {
@@ -141,10 +165,10 @@ const Formulario = () => {
             )}
           </Grid>
           <Grid item xs={12}>
-            <Categorias />
+            <Categorias setCategorys={setCategorys} />
           </Grid>
           <Grid item xs={12}>
-            <Caracteristicas />
+            <Caracteristicas setCaracteristics={setCaracteristics} />
           </Grid>
 
           {[...Array(5)].map((_, index) => (
@@ -159,12 +183,10 @@ const Formulario = () => {
             >
               <Box
                 sx={{
-                  border: "1px solid rgba(0, 0, 0, 0.23)",
                   borderRadius: "4px",
                   padding: "10px 10px",
                   display: "inline-block",
                   width: "100%",
-                  backgroundColor: "white",
                 }}
               >
                 <Button

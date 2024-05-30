@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,15 +11,22 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { menuItems } from "../../../router/navigation.jsx";
+import { menuItems } from "../../../router/navigation.js";
 import "./Navbar.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Button, Typography, Avatar, Snackbar, Alert } from "@mui/material";
+import { Button, Typography, ListItemText, Avatar, Snackbar, Alert } from "@mui/material";
 import logo from "../../../../public/logo1.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { logOut } from "../../../firebaseConfig.js";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
+import DeckIcon from "@mui/icons-material/Deck";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import { WindowSharp } from "@mui/icons-material";
+import Usuario from "../../pages/home/usuario/Usuario.jsx";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 function Navbar(props) {
     const { window } = props;
@@ -27,6 +34,11 @@ function Navbar(props) {
     const [logoutMessage, setLogoutMessage] = useState(false);
     const navigate = useNavigate();
     const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
+    const { windows } = props;
+    const navigate = useNavigate();
+    const rolAdmin = import.meta.env.VITE_ADMIN;
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -40,47 +52,69 @@ function Navbar(props) {
             setLogoutMessage(false);
             navigate("/");
         }, 2000);
+        window.location.reload();
     };
 
-    const drawer = (
-        <div>
-            <Toolbar />
-            <List style={{ color: "#CE8B67" }}>
-                {menuItems.map(({ id, path, title, Icon }) => {
-                    return (
-                        <Link key={id} to={path} onClick={() => handleDrawerToggle()}>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <Icon sx={{ color: "#CE8B67" }} />
-                                    </ListItemIcon>
-                                    <Typography
-                                        sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                                        color="#CE8B67"
-                                    >
-                                        {title}
-                                    </Typography>
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                    );
-                })}
-                <ListItem disablePadding>
-                    <ListItemButton onClick={() => cerrarSesion()}>
-                        <ListItemIcon>
-                            <LogoutIcon sx={{ color: "#CE8B67" }} />
-                        </ListItemIcon>
-                        <Typography
-                            sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                            color="#CE8B67"
-                        >
-                            Cerrar sesión
-                        </Typography>
-                    </ListItemButton>
-                </ListItem>
-            </List>
-        </div>
-    );
+  const drawer = (
+    <div>
+      <Toolbar />
+      <List style={{ color: "#CE8B67" }}>
+        {menuItems.map(({ id, path, title, Icon }) => {
+          return (
+            <Link key={id} to={path} onClick={() => handleDrawerToggle()}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Icon sx={{ color: "#CE8B67" }} />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                    color="#CE8B67"
+                  >
+                    {title}
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          );
+        })}
+        {user.rol === rolAdmin && (
+          <Link to={"/form"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AddBusinessIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  color="#CE8B67"
+                >
+                  Nuevo Espacio{" "}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        {user.rol === rolAdmin && (
+          <Link to={"/list"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DeckIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  color="#CE8B67"
+                >
+                  Espacios{" "}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+      </List>
+    </div>
+  );
 
     const container =
         window !== undefined ? () => window().document.body : undefined;
@@ -124,7 +158,13 @@ function Navbar(props) {
                                     display: "flex",
                                     alignItems: "center",
                                 }}>
-                                    <Avatar sx={{ bgcolor: "#FF9550", marginRight: "8px" }}>
+                                    <Avatar
+                                        onClick={() => navigate("/login")}
+                                        sx={{
+                                            bgcolor: "#FF9550",
+                                            marginRight: "8px",
+                                        }}
+                                    >
                                         {user.email.charAt(0).toUpperCase()} {/*Cambiar por nombre y apellido para tomar iniciales*/}
                                     </Avatar>
                                 </div>
@@ -142,6 +182,7 @@ function Navbar(props) {
                                         <LogoutIcon sx={{ fontSize: '1.3rem' }} />
                                     </IconButton>
                                 </div>
+                                <div>{isLogged && user.email && <Usuario />}</div>
                             </div>
 
                         ) : (
@@ -273,4 +314,3 @@ function Navbar(props) {
 }
 
 export default Navbar;
-

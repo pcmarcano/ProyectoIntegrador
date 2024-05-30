@@ -1,27 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
+  Grid,
+  TextField,
   Button,
   FormControl,
-  Grid,
-  IconButton,
-  InputAdornment,
   InputLabel,
   OutlinedInput,
-  TextField,
-  useMediaQuery,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { signUp } from "../../../firebaseConfig"; // Asegúrate de importar tu servicio de autenticación
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
-import { db, signUp } from "../../../firebaseConfig";
-
+import { db } from "../../../firebaseConfig"; // Asegúrate de importar tu configuración de Firebase
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 const Register = () => {
   const navigate = useNavigate();
   const [errorTelefono, setErrorTelefono] = useState("");
-  const [errorLogin, setErrorLogin] = useState(false);
+  const [errorLogin, setErrorLogin] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [userCredentials, setUserCredentials] = useState({
     email: "",
@@ -29,22 +29,65 @@ const Register = () => {
     confirmPassword: "",
     name: "",
     apellido: "",
-    numeroTelefono: "",
+    telefono: "",
   });
-  const [passwordError, setPasswordError] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const theme = useTheme();
   const isNarrowScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!userCredentials.name) {
+      newErrors.name = "Nombre no puede estar en blanco";
+    } else if (
+      userCredentials.name.length < 2 ||
+      userCredentials.name.length > 30
+    ) {
+      newErrors.name = "Nombre debe tener entre 2 y 30 caracteres";
+    }
+
+    if (!userCredentials.apellido) {
+      newErrors.apellido = "Apellido no puede estar en blanco";
+    } else if (
+      userCredentials.apellido.length < 2 ||
+      userCredentials.apellido.length > 50
+    ) {
+      newErrors.apellido = "Apellido debe tener entre 2 y 50 caracteres";
+    }
+
+    if (!userCredentials.email) {
+      newErrors.email = "Email no puede estar en blanco";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userCredentials.email)
+    ) {
+      newErrors.email = "Email debe ser un email válido";
+    }
+
+    if (!userCredentials.password) {
+      newErrors.password = "Contraseña no puede estar en blanco";
+    } else if (userCredentials.password.length < 8) {
+      newErrors.password = "Contraseña debe tener por lo menos 8 caracteres";
+    }
+
+    if (userCredentials.password !== userCredentials.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
-    // Validate and allow only numeric characters for phone number
     if (e.target.name === "telefono" && !/^\d*$/.test(e.target.value)) {
       setErrorTelefono("El formato del telefono es incorrecto");
       return;
     } else {
-      setErrorTelefono(""); // Restablecer el error a una cadena vacía si el formato es correcto
+      setErrorTelefono("");
     }
 
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
@@ -52,13 +95,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateFields()) return;
+
     const { email, password, name, apellido, telefono, confirmPassword } =
       userCredentials;
-
-    if (password !== confirmPassword) {
-      setPasswordError(true);
-      return;
-    }
 
     try {
       const res = await signUp({ email, password });
@@ -73,7 +114,7 @@ const Register = () => {
       if (res.user.uid) {
         const userDoc = {
           email: res.user.email,
-          roll: "customer",
+          roll: "usuario",
           name,
           apellido,
           telefono,
@@ -82,17 +123,39 @@ const Register = () => {
         };
         await setDoc(doc(db, "users", res.user.uid), userDoc);
       }
+
+      const usuarioEntradaDTO = {
+        nombre: name,
+        apellido: apellido,
+        email: email,
+        password: password,
+        firebase: res.user.uid,
+      };
+
+      const response = await fetch("http://localhost:8080/usuarios/agregar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuarioEntradaDTO),
+      });
+
+      if (response.ok) {
+        console.log(
+          "User added to secondary database successfully with status 200"
+        );
+      } else {
+        console.log("Failed to add user to secondary database");
+        throw new Error("Failed to add user to secondary database");
+      }
+
       navigate("/");
     } catch (error) {
-      // Manejo de errores de Firebase
       console.error(error);
-      // Mostrar un mensaje de error al usuario
       if (error.code === "auth/email-already-in-use") {
-        // Aquí puedes mostrar un mensaje al usuario indicando que la dirección de correo electrónico ya está en uso
-        // Por ejemplo:
         setErrorLogin("La dirección de correo electrónico ya está en uso.");
       } else {
-        // Puedes manejar otros tipos de errores aquí
+        setErrorLogin("Ocurrió un error al registrar el usuario.");
       }
     }
   };
@@ -101,7 +164,6 @@ const Register = () => {
     <Box
       sx={{
         width: "100%",
-
         minHeight: "100vh",
         display: "flex",
         justifyContent: "flex-start",
@@ -109,8 +171,6 @@ const Register = () => {
         flexDirection: "column",
         padding: "5%",
         paddingTop: "0",
-
-        // backgroundColor: theme.palette.secondary.main,
       }}
     >
       <img
@@ -136,6 +196,8 @@ const Register = () => {
               name="name"
               label="Nombre"
               fullWidth
+              error={!!errors.name}
+              helperText={errors.name}
             />
           </Grid>
           <Grid item xs={10} md={12}>
@@ -144,6 +206,8 @@ const Register = () => {
               name="apellido"
               label="Apellido"
               fullWidth
+              error={!!errors.apellido}
+              helperText={errors.apellido}
             />
           </Grid>
           <Grid item xs={10} md={12}>
@@ -152,7 +216,7 @@ const Register = () => {
               name="telefono"
               label="Número de Teléfono"
               fullWidth
-              error={errorTelefono !== ""}
+              error={!!errorTelefono}
               helperText={errorTelefono}
             />
           </Grid>
@@ -162,10 +226,12 @@ const Register = () => {
               name="email"
               label="Email"
               fullWidth
+              error={!!errors.email}
+              helperText={errors.email}
             />
           </Grid>
           <Grid item xs={10} md={12}>
-            <FormControl variant="outlined" fullWidth error={passwordError}>
+            <FormControl variant="outlined" fullWidth error={!!errors.password}>
               <InputLabel htmlFor="outlined-adornment-password">
                 Contraseña
               </InputLabel>
@@ -192,21 +258,28 @@ const Register = () => {
                 label="Contraseña"
               />
             </FormControl>
+            {errors.password && (
+              <p style={{ color: "red" }}>{errors.password}</p>
+            )}
           </Grid>
           <Grid item xs={10} md={12}>
-            <FormControl variant="outlined" fullWidth error={passwordError}>
-              <InputLabel htmlFor="outlined-adornment-password">
+            <FormControl
+              variant="outlined"
+              fullWidth
+              error={!!errors.confirmPassword}
+            >
+              <InputLabel htmlFor="outlined-adornment-confirm-password">
                 Confirmar contraseña
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
+                id="outlined-adornment-confirm-password"
                 type={showPassword ? "text" : "password"}
                 name="confirmPassword"
                 onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
-                      aria-label="toggle password visibility"
+                      aria-label="toggle confirm password visibility"
                       onClick={handleClickShowPassword}
                       edge="end"
                     >
@@ -222,20 +295,18 @@ const Register = () => {
               />
             </FormControl>
           </Grid>
-          {passwordError && (
+          {errors.confirmPassword && (
             <Grid item xs={10} md={12}>
-              <p style={{ color: "red" }}>Las contraseñas no coinciden.</p>
+              <p style={{ color: "red" }}>{errors.confirmPassword}</p>
             </Grid>
           )}
           {errorLogin && (
             <Grid item xs={10} md={12}>
-              <p style={{ color: "red" }}>
-                Este correo ya tiene una cuenta asociada
-              </p>
+              <p style={{ color: "red" }}>{errorLogin}</p>
               <p style={{ color: "red" }}>
                 Haz click{" "}
                 <Link style={{ color: "blue" }} to="/forgot-password">
-                  aqui
+                  aquí
                 </Link>{" "}
                 para reestablecer su contraseña
               </p>

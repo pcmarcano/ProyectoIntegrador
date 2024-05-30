@@ -12,18 +12,18 @@ export const menuItems = [
     title: "Inicio",
     Icon: HomeIcon,
   },
-  {
+  /*   {
     id: "formulario",
     path: "/form",
     title: "Crear Espacio",
     Icon: SaveAsIcon,
-  },
-  {
+  }, */
+  /*   {
     id: "listado",
     path: "/list",
     title: "Espacios",
     Icon: DeckIcon,
-  },
+  }, */
   /*   {
     id: "cart",
     path: "/cart",
@@ -37,4 +37,3 @@ export const menuItems = [
     Icon: ShopIcon,
   }, */
 ];
-

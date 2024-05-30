@@ -13,19 +13,31 @@ const Search = () => {
       <h2>
         Encuentra, explora y descubre espacios de manera rápida y sencilla
       </h2>
-      <div>
+      <div style={{ width: "80vw" }}>
         <div className="filter-container">
           <FilterList className="filter-icon" />
-          <span className="filter-text">Filtrar</span>
+          <span
+            style={{ fontSize: isMobile ? "0.5rem" : "1rem" }}
+            className="filter-text"
+          >
+            Filtrar
+          </span>
         </div>
-        <div className="input-container">
+        <div
+          style={{
+            display: isMobile ? "flex" : "border-box",
+            alignItems: "center",
+            marginTop: "1rem",
+          }}
+          /* className="input-container" */
+        >
           <input
             type="text"
             placeholder="Category1..."
             className="search-input"
           />
           {!isMobile && (
-            <div>
+            <>
               <input
                 type="text"
                 placeholder="Category2..."
@@ -36,7 +48,7 @@ const Search = () => {
                 placeholder="Category3..."
                 className="search-input"
               />
-            </div>
+            </>
           )}
           <button className="search-button">Buscar</button>
         </div>

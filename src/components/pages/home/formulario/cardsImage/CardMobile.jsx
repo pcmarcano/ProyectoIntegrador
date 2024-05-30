@@ -6,7 +6,12 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function CardMobile({ space, arrayFotos }) {
+export default function CardMobile({
+  space,
+  arrayFotos,
+  caracteristicas,
+  categorias,
+}) {
   const [fotoPortada, setFotoPortada] = React.useState(false);
 
   React.useEffect(() => {
@@ -59,6 +64,24 @@ export default function CardMobile({ space, arrayFotos }) {
             color="text.secondary"
           >
             {space.descripcion}
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Dosis", textAlign: "left", margin: "1rem" }}
+            variant="body2"
+            color="text.secondary"
+          >
+            {categorias.map((categoria, index) => (
+              <li key={index}>{categoria.nombre}</li>
+            ))}
+          </Typography>
+          <Typography
+            style={{ fontFamily: "Dosis", textAlign: "left", margin: "1rem" }}
+            variant="body2"
+            color="text.secondary"
+          >
+            {caracteristicas.map((categoria, index) => (
+              <li key={index}>{categoria.nombre}</li>
+            ))}
           </Typography>
           <Typography
             style={{ fontFamily: "Dosis", textAlign: "right", margin: "1rem" }}

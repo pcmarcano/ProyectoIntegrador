@@ -4,18 +4,7 @@ import "./Listado.css"; // Archivo CSS para estilos personalizados
 import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Listado = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
-
-  const rolAdmin = import.meta.env.VITE_ADMIN;
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user || user.rol !== rolAdmin) {
-      navigate("/login");
-    }
-  }, [user, rolAdmin, navigate]);
+const ListadoAleatorio = () => {
   const [lugares, setLugares] = useState([]);
 
   useEffect(() => {
@@ -37,4 +26,4 @@ const Listado = () => {
   );
 };
 
-export default Listado;
+export default ListadoAleatorio;

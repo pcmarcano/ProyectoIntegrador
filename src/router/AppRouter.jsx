@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "../components/layout/navbar/Navbar";
 import Footer from "../components/layout/footer/Footer.jsx";
-import { routes } from "./routes.jsx";
+import { routes } from "./routes.js";
 import Login from "../components/pages/login/Login";
 import Register from "../components/pages/register/Register";
 import ForgotPassword from "../components/pages/forgotPassword/ForgotPassword";
@@ -15,6 +15,7 @@ const AppRouter = () => {
             <Route key={id} path={path} element={<Element />} />
           ))}
         </Route>
+
         {/* Login */}
         <Route path="/login" element={<Login />} />
 
