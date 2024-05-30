@@ -28,6 +28,7 @@ const Formulario = () => {
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     let imagenUrl = await uploadFile(file);
+    console.log(imagenUrl);
     if (imagenUrl) {
       setArrayImagenes([...arrayImagenes, { rutaFoto: imagenUrl }]);
     }
