@@ -27,6 +27,7 @@ import { WindowSharp } from "@mui/icons-material";
 import Usuario from "../../pages/home/usuario/Usuario.jsx";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 
 function Navbar(props) {
   const { windows } = props;
@@ -36,6 +37,7 @@ function Navbar(props) {
   const rolAdmin = import.meta.env.VITE_ADMIN;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -69,7 +71,7 @@ function Navbar(props) {
             </Link>
           );
         })}
-        {user.rol === rolAdmin && (
+        {user.rol === rolAdminTotal && (
           <Link to={"/form"}>
             <ListItem disablePadding>
               <ListItemButton>
@@ -98,6 +100,40 @@ function Navbar(props) {
                   color="#CE8B67"
                 >
                   Espacios{" "}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        {user.rol === rolAdminTotal && (
+          <Link to={"/list"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DeckIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  color="#CE8B67"
+                >
+                  Espacios{" "}
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        {user.rol === rolAdminTotal && (
+          <Link to={"/dashboard"}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DashboardCustomizeIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  color="#CE8B67"
+                >
+                  Dashboard{" "}
                 </Typography>
               </ListItemButton>
             </ListItem>

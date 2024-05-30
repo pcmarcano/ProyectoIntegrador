@@ -8,8 +8,17 @@ const Usuario = () => {
   console.log(user);
   const firstLetter = user?.email ? user.email.charAt(0).toUpperCase() : "";
 
-  const rolAdmin = import.meta.env.VITE_ADMIN;
+  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
   const navigate = useNavigate();
+
+  const renderAdmin = (rol) => {
+    console.log(rol);
+    if (rol === rolAdminTotal) {
+      return "Administrador";
+    } else if (rol === "usuario") return "Reservador";
+    else return "Anonimo";
+  };
+
   return (
     <div
       style={{
@@ -30,7 +39,7 @@ const Usuario = () => {
               Comunidad: <strong>{user.rol && "#537"}</strong>
             </h4>
             <h4 style={{ fontWeight: 100 }}>
-              Usuario: <strong>{user.rol}</strong>
+              Usuario: <strong>{renderAdmin(user.rol)}</strong>
             </h4>
             <h4 style={{ fontWeight: 100 }}>
               Email: <strong>{user.email}</strong>

@@ -20,14 +20,14 @@ const Formulario = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
 
-  const rolAdmin = import.meta.env.VITE_ADMIN;
+  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user || user.rol !== rolAdmin) {
+    if (!user || user.rol !== rolAdminTotal) {
       navigate("/login");
     }
-  }, [user, rolAdmin, navigate]);
+  }, [user, rolAdminTotal, navigate]);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -74,8 +74,6 @@ const Formulario = () => {
       }
     }
   };
-
-  let caracteristicaPrueba = [2, 5, 8, 10];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
