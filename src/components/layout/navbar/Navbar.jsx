@@ -136,36 +136,84 @@ function Navbar(props) {
                     <Link to="/" style={{ color: "whitesmoke", display: "flex", alignItems: "center", padding: "0.5rem" }}>
                         <img className="logoimg" src={logo} alt="Logo" />
                     </Link>
-                    <div className="menu-container">
-                        <div className="user-info" style={{ display: "flex", alignItems: "center" }}>
-                            {userData ? (
-                                <div style={{ display: "flex", alignItems: "center" }}>
+                    <div className="user-info" style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}>
+                        {userData && isLogged ? (
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <Link to="/cuenta">
                                     <Avatar onClick={() => navigate("/login")} sx={{ bgcolor: "#FF9550", marginRight: "8px" }}>
                                         {userData.nombre.charAt(0).toUpperCase()}
                                         {userData.apellido.charAt(0).toUpperCase()}
                                     </Avatar>
-                                </div>
-                            ) : (
-                                <IconButton onClick={() => navigate("/login")}>
-                                    <AccountCircleIcon />
-                                </IconButton>
-                            )}
-                            {userData ? (
+                                </Link>
                                 <div style={{ fontFamily: "Dosis", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                    <Typography variant="body1" color="inherit" sx={{ color: "#FFFFFF", fontFamily: "Dosis" }}>
-                                        ¡Hola, {userData.nombre} {userData.apellido}!
-                                    </Typography>
+                                    <Link to="/cuenta">
+                                        <Typography variant="body1" color="inherit" sx={{ color: "#FFFFFF", fontFamily: "Dosis" }}>
+                                            ¡Hola, {userData.nombre} {userData.apellido}!
+                                        </Typography>
+                                    </Link>
                                     <IconButton onClick={() => cerrarSesion()} sx={{ color: "#FFFFFF" }}>
                                         <LogoutIcon sx={{ fontSize: "1.3rem" }} />
                                     </IconButton>
                                 </div>
-                            ) : (
-                                <IconButton onClick={() => navigate("/login")}>
+                            </div>
+                        ) : (
+                            <>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => navigate("/login")}
+                                    sx={{
+                                        width: "150px",
+                                        height: "32px",
+                                        fontFamily: "Dosis",
+                                        fontSize: "80%",
+                                        backgroundColor: "#FF9550",
+                                        color: "#FFFFFF",
+                                        marginRight: "10px",
+                                        display: { xs: "none", sm: "block" },
+                                    }}
+                                >
+                                    Iniciar Sesión
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => navigate("/register")}
+                                    sx={{
+                                        width: "150px",
+                                        height: "32px",
+                                        fontFamily: "Dosis",
+                                        fontSize: "80%",
+                                        backgroundColor: "#94B7D0",
+                                        color: "#FFFFFF",
+                                        marginRight: "10px",
+                                        display: { xs: "none", sm: "block" },
+                                    }}
+                                >
+                                    Crear Cuenta
+                                </Button>
+                                <IconButton
+                                    onClick={() => navigate("/login")}
+                                    sx={{
+                                        display: { xs: "block", sm: "none" },
+                                        color: "#FF9550",
+                                        marginRight: "10px",
+                                    }}
+                                >
                                     <AccountCircleIcon />
                                 </IconButton>
-                            )}
-                            <div>{isLogged && user.email && <Usuario />}</div>
-                        </div>
+                                <IconButton
+                                    onClick={() => navigate("/register")}
+                                    sx={{
+                                        display: { xs: "block", sm: "none" },
+                                        color: "#94B7D0",
+                                        marginRight: "10px",
+                                    }}
+                                >
+                                    <PersonAddIcon />
+                                </IconButton>
+                            </>
+                        )}
+                    </div>
+                    {isLogged && (
                         <IconButton
                             color="secondary.primary"
                             aria-label="open drawer"
@@ -183,7 +231,7 @@ function Navbar(props) {
                                 color="secondary.primary"
                             />
                         </IconButton>
-                    </div>
+                    )}
                 </Toolbar>
             </AppBar>
             <Box component="nav" aria-label="mailbox folders">
