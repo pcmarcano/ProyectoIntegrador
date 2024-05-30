@@ -12,40 +12,35 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import { menuItems } from "../../../router/navigation.jsx";
-import "./Navbar.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Button, Typography, ListItemText, Avatar, Snackbar, Alert } from "@mui/material";
+import { Button, Typography, Avatar, Snackbar, Alert } from "@mui/material";
 import logo from "../../../../public/logo1.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { logOut } from "../../../firebaseConfig.js";
-import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DeckIcon from "@mui/icons-material/Deck";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
-import { WindowSharp } from "@mui/icons-material";
-import Usuario from "../../pages/home/usuario/Usuario.jsx";
+import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
+import "./Navbar.css";
 
 function Navbar(props) {
-  const { windows } = props;
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate();
-  const { user, isLogged } = useContext(AuthContext);
-  const rolAdmin = import.meta.env.VITE_ADMIN;
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
-  const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [logoutMessage, setLogoutMessage] = useState(false);
-  const [userData, setUserData] = useState(null);
+    const { window } = props;
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const navigate = useNavigate();
+    const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
+    const rolAdmin = import.meta.env.VITE_ADMIN;
+    const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const [logoutMessage, setLogoutMessage] = useState(false);
+    const [userData, setUserData] = useState(null);
 
-  const handleDrawerToggle = () => {
-      setMobileOpen(!mobileOpen);
-  };
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
 
     useEffect(() => {
         if (user && user.email) {
@@ -58,123 +53,89 @@ function Navbar(props) {
         }
     }, [user]);
 
-  const cerrarSesion = () => {
-      handleLogoutContext();
-      logOut();
-      setLogoutMessage(true);
-      setTimeout(() => {
-          setLogoutMessage(false);
-          navigate("/");}, 2000);
-  };
+    const cerrarSesion = () => {
+        handleLogoutContext();
+        logOut();
+        setLogoutMessage(true);
+        setTimeout(() => {
+            setLogoutMessage(false);
+            navigate("/");
+        }, 2000);
+    };
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <List style={{ color: "#CE8B67" }}>
-        {menuItems.map(({ id, path, title, Icon }) => {
-          return (
-            <Link key={id} to={path} onClick={() => handleDrawerToggle()}>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Icon sx={{ color: "#CE8B67" }} />
-                  </ListItemIcon>
-                  <Typography
-                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                    color="#CE8B67"
-                  >
-                    {title}
-                  </Typography>
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          );
-        })}
-        {user.rol === rolAdminTotal && (
-          <Link to={"/form"}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AddBusinessIcon sx={{ color: "#CE8B67" }} />
-                </ListItemIcon>
-                <Typography
-                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                  color="#CE8B67"
-                >
-                  Nuevo Espacio{" "}
-                </Typography>
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        )}
-        {user.rol === rolAdmin && (
-          <Link to={"/list"}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <DeckIcon sx={{ color: "#CE8B67" }} />
-                </ListItemIcon>
-                <Typography
-                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                  color="#CE8B67"
-                >
-                  Espacios{" "}
-                </Typography>
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        )}
-        {user.rol === rolAdminTotal && (
-          <Link to={"/list"}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <DeckIcon sx={{ color: "#CE8B67" }} />
-                </ListItemIcon>
-                <Typography
-                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                  color="#CE8B67"
-                >
-                  Espacios{" "}
-                </Typography>
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        )}
-        {user.rol === rolAdminTotal && (
-          <Link to={"/dashboard"}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <DashboardCustomizeIcon sx={{ color: "#CE8B67" }} />
-                </ListItemIcon>
-                <Typography
-                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                  color="#CE8B67"
-                >
-                  Dashboard{" "}
-                </Typography>
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        )}
-
-        <ListItem disablePadding>
-          <ListItemButton onClick={() => cerrarSesion()}>
-            <ListItemIcon>
-              <LogoutIcon sx={{ color: "#CE8B67" }} />
-            </ListItemIcon>
-            <Typography
-              sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-              color="#CE8B67"
-            >
-              Cerrar sesion
-            </Typography>
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </div>
-  );
+    const drawer = (
+        <div>
+            <Toolbar />
+            <List style={{ color: "#CE8B67" }}>
+                {menuItems.map(({ id, path, title, Icon }) => (
+                    <Link key={id} to={path} onClick={handleDrawerToggle}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <Icon sx={{ color: "#CE8B67" }} />
+                                </ListItemIcon>
+                                <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
+                                    {title}
+                                </Typography>
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                ))}
+                {user?.rol === rolAdminTotal && (
+                    <>
+                        <Link to="/form" onClick={handleDrawerToggle}>
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <AddBusinessIcon sx={{ color: "#CE8B67" }} />
+                                    </ListItemIcon>
+                                    <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
+                                        Nuevo Espacio
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link to="/dashboard" onClick={handleDrawerToggle}>
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <DashboardCustomizeIcon sx={{ color: "#CE8B67" }} />
+                                    </ListItemIcon>
+                                    <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
+                                        Dashboard
+                                    </Typography>
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                    </>
+                )}
+                {(user?.rol === rolAdmin || user?.rol === rolAdminTotal) && (
+                    <Link to="/list" onClick={handleDrawerToggle}>
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <DeckIcon sx={{ color: "#CE8B67" }} />
+                                </ListItemIcon>
+                                <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
+                                    Espacios
+                                </Typography>
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                )}
+                <ListItem disablePadding>
+                    <ListItemButton onClick={cerrarSesion}>
+                        <ListItemIcon>
+                            <LogoutIcon sx={{ color: "#CE8B67" }} />
+                        </ListItemIcon>
+                        <Typography sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}>
+                            Cerrar sesión
+                        </Typography>
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </div>
+    );
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -190,18 +151,18 @@ function Navbar(props) {
                         {userData && isLogged ? (
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <Link to="/cuenta">
-                                    <Avatar onClick={() => navigate("/login")} sx={{ bgcolor: "#FF9550", marginRight: "8px" }}>
+                                    <Avatar sx={{ bgcolor: "#FF9550", marginRight: "8px" }}>
                                         {userData.nombre.charAt(0).toUpperCase()}
                                         {userData.apellido.charAt(0).toUpperCase()}
                                     </Avatar>
                                 </Link>
                                 <div style={{ fontFamily: "Dosis", display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <Link to="/cuenta">
-                                        <Typography variant="body1" color="inherit" sx={{ color: "#FFFFFF", fontFamily: "Dosis" }}>
+                                        <Typography variant="body1" sx={{ color: "#FFFFFF" }}>
                                             ¡Hola, {userData.nombre} {userData.apellido}!
                                         </Typography>
                                     </Link>
-                                    <IconButton onClick={() => cerrarSesion()} sx={{ color: "#FFFFFF" }}>
+                                    <IconButton onClick={cerrarSesion} sx={{ color: "#FFFFFF" }}>
                                         <LogoutIcon sx={{ fontSize: "1.3rem" }} />
                                     </IconButton>
                                 </div>
@@ -265,21 +226,12 @@ function Navbar(props) {
                     </div>
                     {isLogged && (
                         <IconButton
-                            color="secondary.primary"
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
                             sx={{ marginLeft: "0.5rem" }}
                         >
-                            <MenuIcon
-                                style={{
-                                    fontSize: "200%",
-                                    "@media (maxWidth: 620px)": {
-                                        fontSize: "30px",
-                                    },
-                                }}
-                                color="secondary.primary"
-                            />
+                            <MenuIcon sx={{ fontSize: "200%" }} />
                         </IconButton>
                     )}
                 </Toolbar>
@@ -304,10 +256,7 @@ function Navbar(props) {
                     {drawer}
                 </Drawer>
             </Box>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, py: 4, width: "100%", minHeight: "100vh", px: 2 }}
-            >
+            <Box component="main" sx={{ flexGrow: 1, py: 4, width: "100%", minHeight: "100vh", px: 2 }}>
                 <Toolbar />
                 <Outlet />
             </Box>
@@ -327,3 +276,5 @@ function Navbar(props) {
 }
 
 export default Navbar;
+
+
