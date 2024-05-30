@@ -270,8 +270,6 @@ const EspacioVista = () => {
                 padding: "1rem",
                 display: "flex",
                 flexDirection: "column",
-
-                height: "auto",
               }}
             >
               <div

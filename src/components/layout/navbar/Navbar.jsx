@@ -11,7 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { menuItems } from "../../../router/navigation.js";
+import { menuItems } from "../../../router/navigation.jsx";
 import "./Navbar.css";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button, Typography, ListItemText, Avatar, Snackbar, Alert } from "@mui/material";
@@ -32,7 +32,6 @@ function Navbar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const [logoutMessage, setLogoutMessage] = useState(false);
-    const navigate = useNavigate();
     const { isLogged, user, handleLogoutContext } = useContext(AuthContext);
     const { windows } = props;
     const navigate = useNavigate();
