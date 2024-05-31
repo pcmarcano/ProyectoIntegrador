@@ -14,6 +14,7 @@ export default function ActionAreaCard({ datos }) {
   const openSpace = () => {
     navigate(`/space/${datos.id}`);
   };
+  console.log(datos.fotos[0]);
 
   return (
     <Card className="cards" sx={{ width: 275 }}>
