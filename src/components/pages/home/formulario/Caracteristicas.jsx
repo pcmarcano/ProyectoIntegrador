@@ -161,7 +161,48 @@ const Listbox = styled("ul")(
 `
 );
 
-export default function Caracteristicas() {
+export default function Caracteristicas({ setCaracteristics }) {
+  const [caracteristicas, setCaracteristicas] = React.useState([]);
+  const [selectedCaracteristicas, setSelectedCaracteristicas] = React.useState(
+    []
+  );
+
+  // Función para manejar el cambio de selección
+  const handleSelectionChange = (event, values) => {
+    setSelectedCaracteristicas(values);
+    const selectedIds = values.map((category) => category.id);
+    console.log(selectedIds);
+    setCaracteristics(selectedIds);
+  };
+
+  // Obtiene las opciones de características
+  const obtenerCategorias = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/caracteristicas/listar",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setCaracteristicas(data);
+      } else {
+        console.error("Error en la solicitud HTTP GET:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud HTTP GET:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    obtenerCategorias();
+  }, []);
+
   const {
     getRootProps,
     getInputLabelProps,
@@ -169,16 +210,16 @@ export default function Caracteristicas() {
     getTagProps,
     getListboxProps,
     getOptionProps,
-    groupedOptions,
     value,
     focused,
     setAnchorEl,
   } = useAutocomplete({
     id: "customized-hook-demo",
-    defaultValue: [top100Films[1]],
+    defaultValue: [],
     multiple: true,
-    options: top100Films,
-    getOptionLabel: (option) => option.title,
+    options: caracteristicas,
+    getOptionLabel: (option) => option.nombre,
+    onChange: handleSelectionChange, // Agrega el manejador de eventos onChange
   });
 
   return (
@@ -187,16 +228,16 @@ export default function Caracteristicas() {
         <Label {...getInputLabelProps()}>Caracteristicas</Label>
         <InputWrapper ref={setAnchorEl} className={focused ? "focused" : ""}>
           {value.map((option, index) => (
-            <StyledTag label={option.title} {...getTagProps({ index })} />
+            <StyledTag label={option.nombre} {...getTagProps({ index })} />
           ))}
           <input {...getInputProps()} />
         </InputWrapper>
       </div>
-      {groupedOptions.length > 0 ? (
+      {focused && caracteristicas.length > 0 ? (
         <Listbox {...getListboxProps()}>
-          {groupedOptions.map((option, index) => (
+          {caracteristicas.map((option, index) => (
             <li {...getOptionProps({ option, index })}>
-              <span>{option.title}</span>
+              <span>{option.nombre}</span>
               <CheckIcon fontSize="small" />
             </li>
           ))}
@@ -205,14 +246,3 @@ export default function Caracteristicas() {
     </Root>
   );
 }
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: "Lavarropa", year: 1994 },
-  { title: "Cocina", year: 1972 },
-  { title: "Microondas", year: 1974 },
-  { title: "Mesa", year: 2008 },
-  { title: "Cafetera", year: 1957 },
-  { title: "Pileta", year: 1993 },
-  { title: "Cubiertos", year: 1994 },
-];

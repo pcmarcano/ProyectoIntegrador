@@ -20,14 +20,14 @@ const Formulario = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
 
-  const rolAdmin = import.meta.env.VITE_ADMIN;
+  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user || user.rol !== rolAdmin) {
+    if (!user || user.rol !== rolAdminTotal) {
       navigate("/login");
     }
-  }, [user, rolAdmin, navigate]);
+  }, [user, rolAdminTotal, navigate]);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -36,7 +36,11 @@ const Formulario = () => {
     description: "",
     image: [],
   });
+
+  const [categorys, setCategorys] = useState([]);
+  const [caracteristics, setCaracteristics] = useState([]);
   const [arrayImagenes, setArrayImagenes] = useState([]);
+
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -80,6 +84,8 @@ const Formulario = () => {
         nombre: formData.name,
         descripcion: formData.description,
         fotos: arrayImagenes,
+        categorias: categorys,
+        caracteristicas: caracteristics,
       };
 
       const response = await fetch("http://localhost:8080/lugares/agregar", {
@@ -157,10 +163,10 @@ const Formulario = () => {
             )}
           </Grid>
           <Grid item xs={12}>
-            <Categorias />
+            <Categorias setCategorys={setCategorys} />
           </Grid>
           <Grid item xs={12}>
-            <Caracteristicas />
+            <Caracteristicas setCaracteristics={setCaracteristics} />
           </Grid>
 
           {[...Array(5)].map((_, index) => (
