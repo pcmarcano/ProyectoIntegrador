@@ -14,7 +14,6 @@ export default function ActionAreaCard({ datos }) {
   const openSpace = () => {
     navigate(`/space/${datos.id}`);
   };
-  console.log(datos.fotos[0]);
 
   return (
     <Card className="cards" sx={{ width: 275 }}>
@@ -34,7 +33,7 @@ export default function ActionAreaCard({ datos }) {
             variant="h6"
             component="div"
           >
-            ID: #{datos.id}
+            ID : #{datos.id}
           </Typography>
           <Typography
             style={{ fontFamily: "Dosis", fontWeight: "600" }}

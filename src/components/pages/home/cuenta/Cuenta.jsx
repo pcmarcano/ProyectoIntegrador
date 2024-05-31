@@ -37,52 +37,60 @@ const Cuenta = () => {
 
   useEffect(() => {
     if (user && user.email) {
-      fetch(`http://localhost:8080/usuarios/email/${user.email}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setUserData(data);
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
+      fetch(
+        `https://api.curso.spazioserver.online/usuarios/email/${user.email}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setUserData(data);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
     }
   }, [user]);
 
   return (
-      <Container maxWidth="md" style={{marginTop: "40px"}}>
-        <Typography variant="h4" gutterBottom>
-          Mi Perfil
-        </Typography>
-        {userData && ( // Conditional rendering based on userData
-            <UserInfo>
-              <Avatar
-                  sx={{
-                    bgcolor: "#FF9550",
-                    marginRight: "20px",
-                    width: "70px",
-                    height: "70px",
-                  }}
-              >
-                {userData.nombre.charAt(0).toUpperCase()}
-                {userData.apellido.charAt(0).toUpperCase()}
-              </Avatar>
-              <UserDetails>
-                <Typography color="textSecondary">Nombre: {userData.nombre}</Typography>
-                <Typography color="textSecondary">Apellido: {userData.apellido}</Typography>
-                <Typography color="textSecondary">Email: {userData.email}</Typography>
-                <Typography color="textSecondary">Tipo: {user?.rol}</Typography>
-                {/*<Typography color="textSecondary">{userData?.phone}</Typography>*/}
-              </UserDetails>
-            </UserInfo>
-        )}
-        <Grid container justifyContent="flex-end">
-          <Button
-              variant="contained"
-              color="primary"
-              startIcon={<LockResetIcon />}
+    <Container maxWidth="md" style={{ marginTop: "40px" }}>
+      <Typography variant="h4" gutterBottom>
+        Mi Perfil
+      </Typography>
+      {userData && ( // Conditional rendering based on userData
+        <UserInfo>
+          <Avatar
+            sx={{
+              bgcolor: "#FF9550",
+              marginRight: "20px",
+              width: "70px",
+              height: "70px",
+            }}
           >
-            Cambiar Contraseña
-          </Button>
-        </Grid>
-      </Container>
+            {userData.nombre.charAt(0).toUpperCase()}
+            {userData.apellido.charAt(0).toUpperCase()}
+          </Avatar>
+          <UserDetails>
+            <Typography color="textSecondary">
+              Nombre: {userData.nombre}
+            </Typography>
+            <Typography color="textSecondary">
+              Apellido: {userData.apellido}
+            </Typography>
+            <Typography color="textSecondary">
+              Email: {userData.email}
+            </Typography>
+            <Typography color="textSecondary">Tipo: {user?.rol}</Typography>
+            {/*<Typography color="textSecondary">{userData?.phone}</Typography>*/}
+          </UserDetails>
+        </UserInfo>
+      )}
+      <Grid container justifyContent="flex-end">
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<LockResetIcon />}
+        >
+          Cambiar Contraseña
+        </Button>
+      </Grid>
+    </Container>
   );
 };
 

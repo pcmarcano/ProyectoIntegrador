@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { menuItems } from "../../../router/navigation.jsx";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button, Typography, Avatar, Snackbar, Alert } from "@mui/material";
-import logo from "../../../../public/logo1.png";
+
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -45,7 +45,9 @@ function Navbar(props) {
 
   useEffect(() => {
     if (user && user.email) {
-      fetch(`http://localhost:8080/usuarios/email/${user.email}`)
+      fetch(
+        `https://api.curso.spazioserver.online/usuarios/email/${user.email}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setUserData(data);
@@ -132,18 +134,6 @@ function Navbar(props) {
             </ListItem>
           </Link>
         )}
-        <ListItem disablePadding>
-          <ListItemButton onClick={cerrarSesion}>
-            <ListItemIcon>
-              <LogoutIcon sx={{ color: "#CE8B67" }} />
-            </ListItemIcon>
-            <Typography
-              sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-            >
-              Cerrar sesión
-            </Typography>
-          </ListItemButton>
-        </ListItem>
       </List>
     </div>
   );
@@ -174,7 +164,11 @@ function Navbar(props) {
               padding: "0.5rem",
             }}
           >
-            <img className="logoimg" src={logo} alt="Logo" />
+            <img
+              className="logoimg"
+              src="https://firebasestorage.googleapis.com/v0/b/spazio-f05f1.appspot.com/o/nuevaCarpeta%2FLogo1.png?alt=media&token=4ca5bdc7-8152-4f89-86ea-21ee3ee6f7a7"
+              alt="Logo"
+            />
           </Link>
           <div
             className="user-info"
@@ -184,8 +178,68 @@ function Navbar(props) {
               marginLeft: "auto",
             }}
           >
-            <Usuario />
+            {userData && isLogged ? (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Usuario />
+              </div>
+            ) : (
+              <>
+                <Button
+                  variant="contained"
+                  onClick={() => navigate("/login")}
+                  sx={{
+                    width: "150px",
+                    height: "32px",
+                    fontFamily: "Dosis",
+                    fontSize: "80%",
+                    backgroundColor: "#FF9550",
+                    color: "#FFFFFF",
+                    marginRight: "10px",
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  Iniciar Sesión
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => navigate("/register")}
+                  sx={{
+                    width: "150px",
+                    height: "32px",
+                    fontFamily: "Dosis",
+                    fontSize: "80%",
+                    backgroundColor: "#94B7D0",
+                    color: "#FFFFFF",
+                    marginRight: "10px",
+                    display: { xs: "none", sm: "block" },
+                  }}
+                >
+                  Crear Cuenta
+                </Button>
+                <IconButton
+                  onClick={() => navigate("/login")}
+                  sx={{
+                    display: { xs: "block", sm: "none" },
+                    color: "#FF9550",
+                    marginRight: "10px",
+                  }}
+                >
+                  <AccountCircleIcon />
+                </IconButton>
+                <IconButton
+                  onClick={() => navigate("/register")}
+                  sx={{
+                    display: { xs: "block", sm: "none" },
+                    color: "#94B7D0",
+                    marginRight: "10px",
+                  }}
+                >
+                  <PersonAddIcon />
+                </IconButton>
+              </>
+            )}
           </div>
+
           {isLogged && (
             <IconButton
               aria-label="open drawer"

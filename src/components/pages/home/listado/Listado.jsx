@@ -11,18 +11,20 @@ const Listado = () => {
   const rolAdmin = import.meta.env.VITE_ADMIN;
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(user.rol);
     if (!user || (user.rol !== rolAdmin && user.rol !== rolAdminTotal)) {
       navigate("/login");
     }
   }, [user, rolAdmin, rolAdminTotal, navigate]);
+*/
 
   const [lugares, setLugares] = useState([]);
 
+  
   useEffect(() => {
     // Llamada a la API
-    fetch("http://localhost:8080/lugares/listar")
+    fetch("https://api.curso.spazioserver.online/lugares/listar")
       .then((response) => response.json())
       .then((data) => setLugares(data))
       .catch((error) => console.error("Error fetching data:", error));
