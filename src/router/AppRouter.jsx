@@ -7,28 +7,29 @@ import Register from "../components/pages/register/Register";
 import ForgotPassword from "../components/pages/forgotPassword/ForgotPassword";
 
 const AppRouter = () => {
-    return (
-        <>
-            <Routes>
-                <Route element={<Navbar />}>
-                    {routes.map(({ id, path, Element }) => (
-                        <Route key={id} path={path} element={<Element />} />
-                    ))}
-                </Route>
-                {/* Login */}
-                <Route path="/login" element={<Login />} />
+  return (
+    <>
+      <Routes>
+        <Route element={<Navbar />}>
+          {routes.map(({ id, path, Element }) => (
+            <Route key={id} path={path} element={<Element />} />
+          ))}
+        </Route>
 
-                {/* register  */}
-                <Route path="/register" element={<Register />} />
+        {/* Login */}
+        <Route path="/login" element={<Login />} />
 
-                {/* forgot password  */}
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+        {/* register  */}
+        <Route path="/register" element={<Register />} />
 
-                <Route path="*" element={<h1>Not found</h1>} />
-            </Routes>
-            <Footer />
-        </>
-    );
+        {/* forgot password  */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="*" element={<h1>Not found</h1>} />
+      </Routes>
+      <Footer />
+    </>
+  );
 };
 
 export default AppRouter;

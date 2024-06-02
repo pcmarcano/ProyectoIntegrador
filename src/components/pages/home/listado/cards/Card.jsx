@@ -33,7 +33,7 @@ export default function ActionAreaCard({ datos }) {
             variant="h6"
             component="div"
           >
-            ID: #{datos.id}
+            ID : #{datos.id}
           </Typography>
           <Typography
             style={{ fontFamily: "Dosis", fontWeight: "600" }}

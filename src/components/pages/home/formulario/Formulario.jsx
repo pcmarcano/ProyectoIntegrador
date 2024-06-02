@@ -1,19 +1,52 @@
-import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { uploadFile } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import Caracteristicas from "./Caracteristicas";
+import Categorias from "./Categorias";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Formulario = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
+  const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user || user.rol !== rolAdminTotal) {
+      navigate("/login");
+    }
+  }, [user, rolAdminTotal, navigate]);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     image: [],
   });
+
+  const [categorys, setCategorys] = useState([]);
+  const [caracteristics, setCaracteristics] = useState([]);
+  const [arrayImagenes, setArrayImagenes] = useState([]);
+
+  const [errors, setErrors] = useState({
+    name: "",
+    description: "",
+  });
+  const [imageCount, setImageCount] = useState(0);
+  const [thumbnails, setThumbnails] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,14 +56,22 @@ const Formulario = () => {
     });
   };
 
-  const [arrayImagenes, setArrayImagenes] = useState([]);
-
-  const handleImageChange = async (event) => {
+  const handleImageChange = async (event, index) => {
     const file = event.target.files[0];
-    let imagenUrl = await uploadFile(file);
-    console.log(imagenUrl);
-    if (imagenUrl) {
-      setArrayImagenes([...arrayImagenes, { rutaFoto: imagenUrl }]);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newThumbnails = [...thumbnails];
+        newThumbnails[index] = reader.result;
+        setThumbnails(newThumbnails);
+      };
+      reader.readAsDataURL(file);
+
+      let imagenUrl = await uploadFile(file);
+      if (imagenUrl) {
+        setArrayImagenes([...arrayImagenes, { rutaFoto: imagenUrl }]);
+        setImageCount(imageCount + 1);
+      }
     }
   };
 
@@ -43,15 +84,20 @@ const Formulario = () => {
         nombre: formData.name,
         descripcion: formData.description,
         fotos: arrayImagenes,
+        categorias: categorys,
+        caracteristicas: caracteristics,
       };
 
-      const response = await fetch("http://localhost:8080/lugares/agregar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://api.curso.spazioserver.online/lugares/agregar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       if (response.ok) {
         console.log("Solicitud HTTP POST exitosa");
@@ -67,110 +113,137 @@ const Formulario = () => {
   return (
     <Box
       sx={{
+        width: "100%",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
-        bgcolor: "#f0f0f0",
-        p: 2,
+        justifyContent: "center",
+        fontFamily: '"Dosis", sans-serif',
+        marginTop: "30px",
       }}
     >
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          p: 3,
-          borderRadius: 2,
-          boxShadow: 3,
-          bgcolor: "#fff",
-          maxWidth: 500,
-          width: "100%",
-        }}
-      >
-        <Typography variant="h5" mb={2} align="center">
-          Formulario
-        </Typography>
-        <div style={{ marginBottom: "1rem" }}>
-          <TextField
-            type="text"
-            name="name"
-            label="Nombre"
-            variant="outlined"
-            fullWidth
-            required
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div style={{ marginBottom: "1rem" }}>
-          <TextField
-            type="text"
-            name="description"
-            label="Descripción"
-            variant="outlined"
-            fullWidth
-            required
-            value={formData.description}
-            onChange={handleInputChange}
-          />
-        </div>
-        {arrayImagenes.length <= 0 && (
-          <div style={{ marginBottom: "1rem" }}>
-            <Typography variant="body1" mb={1}>
-              Subir imagen 1
+      <form onSubmit={handleSubmit} style={{ maxWidth: "350px" }}>
+        <Grid container spacing={2} alignItems="center" justifyContent="center">
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              align="center"
+              mb={2}
+              sx={{
+                fontFamily: '"Dosis", sans-serif',
+              }}
+            >
+              Formulario
             </Typography>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: "block", width: "100%" }}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              name="name"
+              label="Nombre"
+              fullWidth
+              value={formData.name}
+              onChange={handleInputChange}
+              InputLabelProps={{ style: { fontFamily: '"Dosis", sans-serif' } }}
+              inputProps={{ style: { fontFamily: '"Dosis", sans-serif' } }}
+              sx={{ backgroundColor: "white" }}
             />
-          </div>
-        )}
+            {errors.name && (
+              <FormHelperText error>{errors.name}</FormHelperText>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              name="description"
+              label="Descripción"
+              fullWidth
+              value={formData.description}
+              onChange={handleInputChange}
+              InputLabelProps={{ style: { fontFamily: '"Dosis", sans-serif' } }}
+              inputProps={{ style: { fontFamily: '"Dosis", sans-serif' } }}
+              sx={{ backgroundColor: "white" }}
+            />
+            {errors.description && (
+              <FormHelperText error>{errors.description}</FormHelperText>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <Categorias setCategorys={setCategorys} />
+          </Grid>
+          <Grid item xs={12}>
+            <Caracteristicas setCaracteristics={setCaracteristics} />
+          </Grid>
 
-        {arrayImagenes.length <= 1 && (
-          <div style={{ marginBottom: "1rem" }}>
-            <Typography variant="body1" mb={1}>
-              Subir imagen 2
-            </Typography>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: "block", width: "100%" }}
-            />
-          </div>
-        )}
-        {arrayImagenes.length <= 2 && (
-          <div style={{ marginBottom: "1rem" }}>
-            <Typography variant="body1" mb={1}>
-              Subir imagen 3
-            </Typography>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: "block", width: "100%" }}
-            />
-          </div>
-        )}
-        {arrayImagenes.length <= 3 && (
-          <div style={{ marginBottom: "1rem" }}>
-            <Typography variant="body1" mb={1}>
-              Subir imagen 4
-            </Typography>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: "block", width: "100%" }}
-            />
-          </div>
-        )}
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Enviar
-        </Button>
-      </Box>
+          {[...Array(5)].map((_, index) => (
+            <Grid
+              item
+              xs={12}
+              key={index}
+              sx={{
+                textAlign: "center",
+                display: index <= imageCount ? "block" : "none",
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: "4px",
+                  padding: "10px 10px",
+                  display: "inline-block",
+                  width: "100%",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  component="label"
+                  sx={{
+                    fontFamily: '"Dosis", sans-serif',
+                    textTransform: "none",
+                    backgroundColor: "#FF9550",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#1976d2",
+                    },
+                  }}
+                >
+                  Subir imagen {index + 1}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(event) => handleImageChange(event, index)}
+                    hidden
+                  />
+                </Button>
+                {thumbnails[index] && (
+                  <Box mt={2} sx={{ textAlign: "center" }}>
+                    <img
+                      src={thumbnails[index]}
+                      alt={`Imagen ${index + 1}`}
+                      style={{ maxWidth: "40%", height: "auto" }}
+                    />
+                  </Box>
+                )}
+              </Box>
+            </Grid>
+          ))}
+          <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{
+                color: "white",
+                textTransform: "none",
+                textShadow: "2px 2px 2px grey",
+                fontFamily: '"Dosis", sans-serif',
+                padding: "10px",
+                maxWidth: "130px",
+                marginBottom: "20px",
+              }}
+            >
+              Enviar
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     </Box>
   );
 };
