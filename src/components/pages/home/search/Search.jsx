@@ -1,4 +1,3 @@
-import React from "react";
 import { FilterList } from "@mui/icons-material";
 import "./Search.css";
 import { useMediaQuery } from "@mui/material";

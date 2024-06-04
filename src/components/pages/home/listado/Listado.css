@@ -2,13 +2,13 @@
   display: flex;
   flex-wrap: wrap; /* Permite que los elementos se envuelvan en múltiples líneas */
   justify-content: center;
-  gap: 20px;
   padding: 20px;
   max-width: 100vw;
-  margin-left: 30vw;
-  margin-right: 30vw;
-  margin-top: 5rem;
+  margin-top: 3rem;
   margin-bottom: 5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho */
+  gap: 25px; /* Espacio entre las tarjetas */
 }
 
 @media screen and (max-width: 760px) {

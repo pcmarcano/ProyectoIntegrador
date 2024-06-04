@@ -16,7 +16,7 @@ export default function ActionAreaCard({ datos }) {
   };
 
   return (
-    <Card className="cards" sx={{ width: 275 }}>
+    <Card className="cards" sx={{ width: 375 }}>  
       <CardActionArea onClick={() => openSpace()}>
         <CardMedia
           component="img"

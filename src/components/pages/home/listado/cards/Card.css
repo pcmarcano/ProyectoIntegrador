@@ -5,6 +5,12 @@
   font-size: 10px;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho */
+  gap: 16px; /* Espacio entre las tarjetas */
+}
+
 .cards {
   /* Otros estilos de la tarjeta */
   background-color: #ffffff;
