@@ -9,14 +9,7 @@ import Box from "@mui/material/Box";
 import Login from "../components/pages/login/Login.jsx";
 import Cuenta from "../components/pages/home/cuenta/Cuenta.jsx";
 import Dashboard from "../components/pages/home/dashboard/Dashboard.jsx";
-
-// const HomeAndSearch = () => (
-//     <Box sx={{ margin: 0, padding: 0 }}>
-//         <Search />
-//         <Home />
-//     </Box>
-// );
-
+import Reserva from "../components/pages/reserva/Reserva.jsx";
 export const routes = [
   {
     id: "home",
@@ -35,7 +28,7 @@ export const routes = [
   },
   {
     id: "espacio",
-    path: "/space/:id", // Ajustar la ruta para aceptar un parámetro dinámico
+    path: "/space/:id",
     Element: EspacioVista,
   },
   {
@@ -57,5 +50,10 @@ export const routes = [
     id: "dashboard",
     path: "/dashboard",
     Element: Dashboard,
+  },
+  {
+    id: "reserva",
+    path: "/reserva/:id",
+    Element: Reserva,
   },
 ];
