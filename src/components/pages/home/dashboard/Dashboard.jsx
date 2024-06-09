@@ -52,14 +52,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Llamada a la API
-    fetch("http://localhost:8080/lugares/listar")
+    fetch("https://api.curso.spazioserver.online/lugares/listar")
       .then((response) => response.json())
       .then((data) => setLugares(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, [state]);
 
   const deleteLugar = (id) => {
-    fetch(`http://localhost:8080/lugares/eliminar/${id}`, {
+    fetch(`https://api.curso.spazioserver.online/lugares/eliminar/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -76,6 +76,36 @@ const Dashboard = () => {
       })
       .catch((error) => console.error("Error:", error));
   };
+
+  const [categorias, setCategorias] = React.useState([]);
+
+  const obtenerCategorias = async () => {
+    try {
+      const response = await fetch(
+        "https://api.curso.spazioserver.online/categorias/listar",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setCategorias(data);
+        console.log("Solicitud HTTP GET exitosa");
+      } else {
+        console.error("Error en la solicitud HTTP GET:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud HTTP GET:", error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerCategorias();
+  }, []);
 
   const agregarCategoria = (lugar) => {
     setSelectedLugar(lugar);
@@ -112,13 +142,16 @@ const Dashboard = () => {
 
       console.log(updatedLugar);
 
-      const response = await fetch(`http://localhost:8080/lugares/actualizar`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedLugar),
-      });
+      const response = await fetch(
+        `https://api.curso.spazioserver.online/lugares/actualizar`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedLugar),
+        }
+      );
 
       if (response.ok) {
         console.log("Solicitud HTTP PUT exitosa");
@@ -164,12 +197,11 @@ const Dashboard = () => {
                 <Autocomplete
                   multiple
                   id="tags-outlined"
-                  options={lugares.reduce((acc, curr) => {
-                    curr.categorias.forEach((cat) => {
-                      if (!acc.find((el) => el.id === cat.id)) acc.push(cat);
-                    });
-                    return acc;
-                  }, [])}
+                  options={categorias.filter(
+                    (cat) =>
+                      !lugar.categorias.includes(cat.id) &&
+                      !selectedCategories.map((sc) => sc.id).includes(cat.id)
+                  )}
                   getOptionLabel={(option) => option.nombre}
                   filterSelectedOptions
                   value={selectedCategories}

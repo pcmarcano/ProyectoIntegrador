@@ -179,7 +179,7 @@ export default function Caracteristicas({ setCaracteristics }) {
   const obtenerCategorias = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/caracteristicas/listar",
+        "https://api.curso.spazioserver.online/caracteristicas/listar",
         {
           method: "GET",
           headers: {

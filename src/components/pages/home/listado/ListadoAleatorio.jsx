@@ -9,7 +9,7 @@ const ListadoAleatorio = () => {
 
   useEffect(() => {
     // Llamada a la API
-    fetch("http://localhost:8080/lugares/listar")
+    fetch("https://api.curso.spazioserver.online/lugares/listar")
       .then((response) => response.json())
       .then((data) => setLugares(data))
       .catch((error) => console.error("Error fetching data:", error));

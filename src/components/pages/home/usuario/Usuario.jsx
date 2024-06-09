@@ -4,10 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+
 const Usuario = () => {
   const { user, isLogged, handleLogoutContext } = useContext(AuthContext);
   const firstLetter = user?.email ? user.email.charAt(0).toUpperCase() : "";
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const rolAdmin = import.meta.env.VITE_ADMIN;
   const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
   const navigate = useNavigate();
@@ -15,13 +19,6 @@ const Usuario = () => {
   const [userData, setUserData] = useState(null);
   const [logoutMessage, setLogoutMessage] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-
-  useEffect(() => {
-    console.log(user.rol);
-    if (!user || (user.rol !== rolAdmin && user.rol !== rolAdminTotal)) {
-      navigate("/login");
-    }
-  }, [user, rolAdmin, rolAdminTotal, navigate]);
 
   const open = Boolean(anchorEl);
 
@@ -44,7 +41,9 @@ const Usuario = () => {
 
   useEffect(() => {
     if (user && user.email) {
-      fetch(`http://localhost:8080/usuarios/email/${user.email}`)
+      fetch(
+        `https://api.curso.spazioserver.online/usuarios/email/${user.email}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setUserData(data);
@@ -74,19 +73,22 @@ const Usuario = () => {
     >
       {userData && isLogged && (
         <>
-          <div>
-            <h4 style={{ fontWeight: 100 }}>
-              Comunidad: <strong>{user.rol && "#537"}</strong>
-            </h4>
-            <h4 style={{ fontWeight: 100 }}>
-              Usuario: <strong>{renderAdmin(user.rol)}</strong>
-            </h4>
-            <h4 style={{ fontWeight: 100 }}>
-              <strong>
-                {userData.nombre}, {userData.apellido}
-              </strong>
-            </h4>
-          </div>
+          {!isMobile && (
+            <div>
+              <h4 style={{ fontWeight: 100 }}>
+                Comunidad: <strong>{user.rol && "#537"}</strong>
+              </h4>
+              <h4 style={{ fontWeight: 100 }}>
+                Usuario: <strong>{renderAdmin(user.rol)}</strong>
+              </h4>
+              <h4 style={{ fontWeight: 100 }}>
+                <strong>
+                  {userData.nombre}, {userData.apellido}
+                </strong>
+              </h4>
+            </div>
+          )}
+
           <div>
             <Link
               id="basic-button"

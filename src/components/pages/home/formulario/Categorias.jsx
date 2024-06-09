@@ -10,12 +10,15 @@ export default function Categorias({ setCategorys }) {
 
   const obtenerCategorias = async () => {
     try {
-      const response = await fetch("http://localhost:8080/categorias/listar", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://api.curso.spazioserver.online/categorias/listar",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();

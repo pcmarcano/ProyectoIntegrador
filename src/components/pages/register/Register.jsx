@@ -132,13 +132,16 @@ const Register = () => {
         firebase: res.user.uid,
       };
 
-      const response = await fetch("http://localhost:8080/usuarios/agregar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(usuarioEntradaDTO),
-      });
+      const response = await fetch(
+        "https://api.curso.spazioserver.online/usuarios/agregar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(usuarioEntradaDTO),
+        }
+      );
 
       if (response.ok) {
         console.log(
@@ -149,7 +152,7 @@ const Register = () => {
         throw new Error("Failed to add user to secondary database");
       }
 
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error(error);
       if (error.code === "auth/email-already-in-use") {
