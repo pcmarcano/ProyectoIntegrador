@@ -3,12 +3,19 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const CardMobileReserva = ({ space, arrayFotos, caracteristicas, categorias }) => {
+    const navigate = useNavigate();
     const fotoPortada = arrayFotos.length > 0 ? arrayFotos[0].rutaFoto : "/placeholder.jpg"; // Use the first photo as cover image
 
+    const handleButtonClick = () => {
+        navigate("/list");
+    };
+
     return (
-        <Card className="cards" sx={{ width: 275, marginBottom: "5rem" }}>
+        <Card className="cards" sx={{ width: 275, marginBottom: "5rem", position: "relative" }}>
             <CardMedia
                 component="img"
                 width="270px"
@@ -60,13 +67,24 @@ const CardMobileReserva = ({ space, arrayFotos, caracteristicas, categorias }) =
                         <li key={index}>{caracteristica.nombre}</li>
                     ))}
                 </Typography>
-                <Typography
-                    style={{ fontFamily: "Dosis", textAlign: "right", margin: "1rem" }}
-                    variant="body2"
-                    color="text.secondary"
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleButtonClick}
+                    sx={{
+                        position: "absolute",
+                        bottom: "7px",
+                        right: "7px",
+                        backgroundColor: "#FF9550",
+                        '&:hover': {
+                            backgroundColor: "#115293",
+                        },
+                        fontFamily: "Dosis",
+                        textTransform: "none",
+                    }}
                 >
-                    Cantidad fotos: {arrayFotos.length}
-                </Typography>
+                    Ver más espacios
+                </Button>
             </CardContent>
         </Card>
     );
