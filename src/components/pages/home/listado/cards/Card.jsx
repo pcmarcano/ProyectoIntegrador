@@ -44,6 +44,16 @@ export default function ActionAreaCard({ datos }) {
             {datos.nombre}
           </Typography>
           <Typography
+            style={{ fontFamily: "Dosis", textAlign: "left" }}
+            variant="body2"
+            color="text.secondary"
+          >
+            Categorias:
+            {datos.categorias.map((categoria) => (
+              <h5>{categoria.nombre}</h5>
+            ))}
+          </Typography>
+          <Typography
             style={{ fontFamily: "Dosis", textAlign: "right" }}
             variant="body2"
             color="text.secondary"

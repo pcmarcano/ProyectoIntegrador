@@ -4,7 +4,12 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
-export default function Categorias({ setCategorys, search }) {
+export default function Categorias({
+  setCategorys,
+  search,
+  setCategoriaFiltroID,
+  categoriaFiltroID,
+}) {
   const [categorias, setCategorias] = React.useState([]);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
 
@@ -39,6 +44,7 @@ export default function Categorias({ setCategorys, search }) {
   const handleSelectionChange = (event, values) => {
     setSelectedCategories(values);
     const selectedIds = values.map((category) => category.id);
+    setCategoriaFiltroID(selectedIds);
     setCategorys(selectedIds);
     console.log(selectedIds);
   };
