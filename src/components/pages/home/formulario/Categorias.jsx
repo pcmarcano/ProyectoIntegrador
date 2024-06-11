@@ -4,7 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 
-export default function Categorias({ setCategorys }) {
+export default function Categorias({ setCategorys, search }) {
   const [categorias, setCategorias] = React.useState([]);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
 
@@ -53,6 +53,7 @@ export default function Categorias({ setCategorys }) {
         filterSelectedOptions
         value={selectedCategories}
         onChange={handleSelectionChange}
+        sx={{ backgroundColor: "white", borderRadius: "5%" }}
         renderInput={(params) => (
           <TextField {...params} label="Selecciona Categorias" placeholder="" />
         )}
