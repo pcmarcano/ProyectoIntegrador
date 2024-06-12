@@ -34,7 +34,7 @@ const AuthContextComponent = ({ children }) => {
     const obtenerId = async () => {
       try {
         if(user.email){
-          const res = await axios.get(`http://localhost:8080/usuarios/email/${user.email}`); // Reemplazar por url de aws
+          const res = await axios.get(`https://api.curso.spazioserver.online/usuarios/email/${user.email}`); // Reemplazar por url de aws
           console.log(res)
           const backId = res.data.id
           setUserId(backId)

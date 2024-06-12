@@ -32,7 +32,7 @@ const ListadoAleatorio = () => {
     // Buscar favoritos en componente
     const buscarFavoritos = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/usuarios/${userId}`);
+        const response = await axios.get(`https://api.curso.spazioserver.online/usuarios/${userId}`);
         const favoritos = response.data.lugaresFavoritos.map(favorito => favorito.id);
         setIsFavorite(favoritos);
       } catch (error) {

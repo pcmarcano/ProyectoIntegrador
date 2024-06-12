@@ -31,7 +31,7 @@ export default function ActionAreaCard({ datos, setActualizarLugares, actualizar
   //#region Agregar o quitar favorito
   const toggleFavorite = async () => {
     try {
-        await axios.post(`http://localhost:8080/usuarios/${userId}/favoritos/${datos.id}`);
+        await axios.post(`https://api.curso.spazioserver.online/usuarios/${userId}/favoritos/${datos.id}`);
         setIsFavorite([...isFavorite, datos.id]);
         setActualizarLugares(!actualizarLugares)
     } catch (error) {
