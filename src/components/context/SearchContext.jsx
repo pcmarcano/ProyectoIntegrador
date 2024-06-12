@@ -12,10 +12,14 @@ const SearchContextComponent = ({ children }) => {
     localStorage.setItem("categorysFiltro", JSON.stringify(categorysFiltro));
   };
 
+  const [categoriaFiltroID, setCategoriaFiltroID] = useState("");
+
   let data = {
     setCategorysFiltro,
     categorysFiltro,
     saveCategoryStorage,
+    categoriaFiltroID,
+    setCategoriaFiltroID,
   };
 
   return (

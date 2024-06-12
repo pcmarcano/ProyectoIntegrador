@@ -3,16 +3,19 @@ import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import { SearchContext } from "../../../context/SearchContext";
 
-export default function Categorias({
-  setCategorys,
-  search,
-  setCategoriaFiltroID,
-  categoriaFiltroID,
-}) {
+export default function Categorias({ setCategorys, search }) {
   const [categorias, setCategorias] = React.useState([]);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
 
+  const {
+    categoriaFiltroID,
+    setCategoriaFiltroID,
+    setCategorysFiltro,
+    categorysFiltro,
+    saveCategoryStorage,
+  } = React.useContext(SearchContext);
   const obtenerCategorias = async () => {
     try {
       const response = await fetch(

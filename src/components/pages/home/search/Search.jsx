@@ -16,11 +16,9 @@ const Search = () => {
   const [search, setSearch] = useState("white");
   const [selectedOption2, setSelectedOption2] = useState(null);
   const [lugares, setLugares] = useState([]);
-  const [categoriaFiltroID, setCategoriaFiltroID] = useState("");
   const [lugaresFiltrados, setLugaresFiltrados] = useState([]);
   const navigate = useNavigate();
-  const { setCategorysFiltro, categorysFiltro, saveCategoryStorage } =
-    useContext(SearchContext);
+  const { categoriaFiltroID, setCategorysFiltro } = useContext(SearchContext);
 
   console.log(categoriaFiltroID);
 
@@ -61,12 +59,7 @@ const Search = () => {
           }}
         >
           <div>
-            <Categorias
-              setCategoriaFiltroID={setCategoriaFiltroID}
-              categoriaFiltroID={categoriaFiltroID}
-              setCategorys={setCategorys}
-              search={search}
-            />
+            <Categorias setCategorys={setCategorys} search={search} />
           </div>
 
           <div style={{ marginBottom: "1rem" }}>
