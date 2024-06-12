@@ -41,21 +41,26 @@ const Search = () => {
         Encuentra, explora y descubre espacios de manera rápida y sencilla
       </h2>
       <div style={{ width: "90vw" }}>
-        <div className="filter-container">
-          <FilterList className="filter-icon" />
-          <span
-            style={{ fontSize: isMobile ? "0.5rem" : "1rem" }}
-            className="filter-text"
-          >
-            Filtrar
-          </span>
-        </div>
+        {!isMobile && (
+          <div className="filter-container">
+            <FilterList className="filter-icon" />
+            <span
+              style={{ fontSize: isMobile ? "0.5rem" : "1rem" }}
+              className="filter-text"
+            >
+              Filtrar
+            </span>
+          </div>
+        )}
+
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-            width: "90vw",
+            flexDirection: isMobile ? "column" : "row",
+            width: isMobile ? "90%" : "50vw",
+            marginTop: isMobile ? "1rem" : "0",
           }}
         >
           <div>
