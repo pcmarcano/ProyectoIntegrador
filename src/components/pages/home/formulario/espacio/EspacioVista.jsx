@@ -423,97 +423,106 @@ const EspacioVista = () => {
                                 </h6>
 
                                 <h6
-  style={{
-    fontFamily: "Dosis",
-    fontSize: "120%",
-    fontWeight: "600",
-    margin: "1rem",
-    color: "black",
-  }}
->
-  <div
-    style={{
-      width: "100%",
-      borderBottom: "2px solid #FF9550",
-      paddingBottom: "0.5rem",
-      marginBottom: "1rem",
-    }}
-  >
-    <p
-      style={{
-        fontFamily: "Dosis",
-        fontSize: "120%",
-        fontWeight: "600",
-        margin: "0",
-      }}
-    >
-      Políticas de Uso
-    </p>
-  </div>
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
-      gridGap: "1rem",
-      width: "100%",
-    }}
-  >
-    {politicasDeUso[space.nombre]?.map((politica, index) => (
-      <div
-        key={index}
-        style={{
-          backgroundColor: "#f9f9f9",
-          padding: "1rem",
-          borderRadius: "4px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <h6
-          style={{
-            fontFamily: "Dosis",
-            fontSize: "100%",
-            fontWeight: "600",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Política {index + 1}
-        </h6>
-        <p
-          style={{
-            fontFamily: "Dosis",
-            fontSize: "90%",
-            fontWeight: "400",
-            margin: "0",
-          }}
-        >
-          {politica}
-        </p>
-      </div>
-    ))}
-    {!politicasDeUso[space.nombre] && (
-      <div
-        style={{
-          backgroundColor: "#f9f9f9",
-          padding: "1rem",
-          borderRadius: "4px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          gridColumn: "1 / -1", // Ocupa todo el ancho de la cuadrícula
-        }}
-      >
-        <p
-          style={{
-            fontFamily: "Dosis",
-            fontSize: "100%",
-            fontWeight: "400",
-            margin: "0",
-          }}
-        >
-          No hay políticas de uso disponibles para este lugar.
-        </p>
-      </div>
-    )}
-  </div>
-</h6>
+                                  style={{
+                                    fontFamily: "Dosis",
+                                    fontSize: "120%",
+                                    fontWeight: "600",
+                                    margin: "1rem",
+                                    color: "black",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "100%",
+                                      borderBottom: "2px solid #FF9550",
+                                      paddingBottom: "0.5rem",
+                                      marginBottom: "1rem",
+                                    }}
+                                  >
+                                    <p
+                                      style={{
+                                        fontFamily: "Dosis",
+                                        fontSize: "120%",
+                                        fontWeight: "600",
+                                        margin: "0",
+                                      }}
+                                    >
+                                      Políticas de Uso
+                                    </p>
+                                  </div>
+                                  <div
+                                    style={{
+                                      display: "grid",
+                                      gridTemplateColumns: "repeat(2, 1fr)",
+                                      gridGap: "1rem",
+                                      width: "100%",
+                                      "@media (max-width: 768px)": {
+                                        gridTemplateColumns: "1fr",
+                                      },
+                                    }}
+                                  >
+                                    {politicasDeUso[space.nombre]?.map((politica, index) => (
+                                      <div
+                                        key={index}
+                                        style={{
+                                          backgroundColor: "#f9f9f9",
+                                          padding: "1rem",
+                                          borderRadius: "4px",
+                                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                          "@media (max-width: 768px)": {
+                                            padding: "0.5rem",
+                                          },
+                                        }}
+                                      >
+                                        <h6
+                                          style={{
+                                            fontFamily: "Dosis",
+                                            fontSize: "100%",
+                                            fontWeight: "600",
+                                            marginBottom: "0.5rem",
+                                          }}
+                                        >
+                                          Política {index + 1}
+                                        </h6>
+                                        <p
+                                          style={{
+                                            fontFamily: "Dosis",
+                                            fontSize: "90%",
+                                            fontWeight: "400",
+                                            margin: "0",
+                                          }}
+                                        >
+                                          {politica}
+                                        </p>
+                                      </div>
+                                    ))}
+                                    {!politicasDeUso[space.nombre] && (
+                                      <div
+                                        style={{
+                                          backgroundColor: "#f9f9f9",
+                                          padding: "1rem",
+                                          borderRadius: "4px",
+                                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                          gridColumn: "1 / -1",
+                                          "@media (max-width: 768px)": {
+                                            padding: "0.5rem",
+                                          },
+                                        }}
+                                      >
+                                        <p
+                                          style={{
+                                            fontFamily: "Dosis",
+                                            fontSize: "100%",
+                                            fontWeight: "400",
+                                            margin: "0",
+                                          }}
+                                        >
+                                          No hay políticas de uso disponibles para este lugar.
+                                        </p>
+                                      </div>
+                                    )}
+                                  </div>
+                                </h6>
 
                                 <div style={{ width: "100%", textAlign: "right" }}>
                                     <Button
