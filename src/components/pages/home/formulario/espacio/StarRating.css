@@ -1,0 +1,19 @@
+.star-rating {
+    display: flex;
+    direction: row;
+  }
+  
+  .star-rating .fa-star {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 200ms;
+  }
+  
+  .star-rating .fa-star.empty {
+    color: #cccccc7a;
+  }
+  
+  .star-rating .fa-star.filled {
+    color: #002d06;
+  }
+  

@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap");
+
+main.MuiBox-root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  padding-bottom: 40px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Dosis", sans-serif;
+}
+
+@media (max-width: 830px) {
+  main.MuiBox-root {
+    padding-bottom: 26px;
+  }
+}

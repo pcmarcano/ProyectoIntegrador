@@ -1,0 +1,28 @@
+.footer-container {
+    background-color: #1E3231;
+    color: #FFFFFF;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-family: "Dosis", sans-serif;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.logo {
+    height: 90%;
+}
+
+.copyright {
+    margin-left: 10px;
+}
+
+@media (max-width: 830px) {
+    .footer-container {
+        height: 26px;
+        font-size: 12px;
+    }
+}

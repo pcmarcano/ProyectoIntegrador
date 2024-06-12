@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: #64b7b7;
+  background-image: linear-gradient(0deg, #64b7b7 0%, #f9feff 100%);
+}
+
+.form {
+  width: 80%;
+}
+
+.grid-container {
+  display: flex;
+  width: 100%;
+}
+
+.half {
+  flex: 1;
+}
+
+.half-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.textfield {
+  width: 100%;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+/* Estilos para cada tarjeta */
+.MuiBox-root .css-1pjauv {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #64b7b7;
+  background-image: linear-gradient(0deg, #64b7b7 0%, #f9feff 100%);
+}

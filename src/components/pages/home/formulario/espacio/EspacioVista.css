@@ -1,0 +1,7 @@
+.card-group {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, auto); /* 4 columnas de ancho igual */
+  gap: 0; /* Sin espacio entre las tarjetas */
+  width: "5rem";
+}
