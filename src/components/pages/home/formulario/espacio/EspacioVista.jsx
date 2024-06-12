@@ -173,6 +173,10 @@ const EspacioVista = () => {
     ),
   };
 
+    const handleReserve = () => {
+        navigate(`/reserva/${id}`);
+    };
+
   return (
     <div style={{ width: "100vw", height: "100%" }}>
       <Search />
