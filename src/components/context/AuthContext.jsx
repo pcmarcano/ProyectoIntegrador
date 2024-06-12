@@ -5,9 +5,7 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 const AuthContextComponent = ({ children }) => {
-
-  const [userId, setUserId] = useState("")
-
+  const [userId, setUserId] = useState("");
 
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("userInfo")) || {}
@@ -33,19 +31,20 @@ const AuthContextComponent = ({ children }) => {
   useEffect(() => {
     const obtenerId = async () => {
       try {
-        if(user.email){
-          const res = await axios.get(`https://api.curso.spazioserver.online/usuarios/email/${user.email}`); // Reemplazar por url de aws
-          console.log(res)
-          const backId = res.data.id
-          setUserId(backId)
+        if (user.email) {
+          const res = await axios.get(
+            `https://api.curso.spazioserver.online/usuarios/email/${user.email}`
+          ); // Reemplazar por url de aws
+          console.log(res);
+          const backId = res.data.id;
+          setUserId(backId);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    obtenerId()
+    };
+    obtenerId();
   }, [user]);
-
 
   let data = {
     user,

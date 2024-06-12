@@ -4,6 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { SearchContext } from "../../../context/SearchContext";
+import { InputBase } from "@mui/material";
 
 export default function Categorias({ setCategorys, search }) {
   const [categorias, setCategorias] = React.useState([]);
@@ -53,7 +54,7 @@ export default function Categorias({ setCategorys, search }) {
   };
 
   return (
-    <Stack spacing={3} sx={{ width: 350 }}>
+    <Stack spacing={3} sx={{ width: 300 }}>
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -62,9 +63,23 @@ export default function Categorias({ setCategorys, search }) {
         filterSelectedOptions
         value={selectedCategories}
         onChange={handleSelectionChange}
-        sx={{ backgroundColor: "white", borderRadius: "5%" }}
+        sx={{ backgroundColor: "transparent" }}
         renderInput={(params) => (
-          <TextField {...params} label="Selecciona Categorias" placeholder="" />
+          <InputBase
+            {...params.InputProps}
+            inputProps={{ ...params.inputProps }}
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "50px",
+              border: "0px",
+              padding: "10px",
+              width: "100%",
+              boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+            }}
+            placeholder={
+              selectedCategories.length > 0 ? "" : " Selecciona Categorias"
+            }
+          />
         )}
       />
     </Stack>

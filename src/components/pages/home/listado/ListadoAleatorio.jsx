@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 const ListadoAleatorio = () => {
   const [lugares, setLugares] = useState([]);
-  const [actualizarLugares, setActualizarLugares] = useState(false)
+  const [actualizarLugares, setActualizarLugares] = useState(false);
   const [isFavorite, setIsFavorite] = useState([]);
-  const { isLogged,userId } = useContext(AuthContext)
+  const { isLogged, userId } = useContext(AuthContext);
 
   useEffect(() => {
     // Llamada a la API
@@ -27,16 +27,19 @@ const ListadoAleatorio = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, [actualizarLugares]);
 
-
   useEffect(() => {
     // Buscar favoritos en componente
     const buscarFavoritos = async () => {
       try {
-        const response = await axios.get(`https://api.curso.spazioserver.online/usuarios/${userId}`);
-        const favoritos = response.data.lugaresFavoritos.map(favorito => favorito.id);
+        const response = await axios.get(
+          `https://api.curso.spazioserver.online/usuarios/${userId}`
+        );
+        const favoritos = response.data.lugaresFavoritos.map(
+          (favorito) => favorito.id
+        );
         setIsFavorite(favoritos);
       } catch (error) {
-        console.error('error buscando favoritos:', error);
+        console.error("error buscando favoritos:", error);
       }
     };
     if (isLogged && userId) {
@@ -44,11 +47,17 @@ const ListadoAleatorio = () => {
     }
   }, [userId, actualizarLugares]);
 
-
   return (
     <div className="listado-container">
       {lugares.map((lugar) => (
-        <ActionAreaCard key={lugar.id} datos={lugar} setActualizarLugares={setActualizarLugares} actualizarLugares={actualizarLugares} isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
+        <ActionAreaCard
+          key={lugar.id}
+          datos={lugar}
+          setActualizarLugares={setActualizarLugares}
+          actualizarLugares={actualizarLugares}
+          isFavorite={isFavorite}
+          setIsFavorite={setIsFavorite}
+        />
       ))}
     </div>
   );
