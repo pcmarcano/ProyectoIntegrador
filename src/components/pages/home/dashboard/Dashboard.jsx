@@ -243,7 +243,7 @@ const Dashboard = () => {
               {lugar.categorias.map((cat) => (
                 <div key={cat.id}>
                   <Typography style={{ fontFamily: "Dosis" }} variant="h6">
-                    -> {cat.nombre}
+                     {cat.nombre}
                   </Typography>
                 </div>
               ))}

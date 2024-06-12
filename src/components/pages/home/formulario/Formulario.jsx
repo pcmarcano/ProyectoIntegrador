@@ -12,6 +12,7 @@ import { uploadFile } from "../../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Caracteristicas from "./Caracteristicas";
 import Categorias from "./Categorias";
+import Politicas from "./Politicas";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../../context/AuthContext";
@@ -39,6 +40,7 @@ const Formulario = () => {
 
   const [categorys, setCategorys] = useState([]);
   const [caracteristics, setCaracteristics] = useState([]);
+  const [policies, setPoliticas] = useState([]);
   const [arrayImagenes, setArrayImagenes] = useState([]);
 
   const [errors, setErrors] = useState({
@@ -86,6 +88,7 @@ const Formulario = () => {
         fotos: arrayImagenes,
         categorias: categorys,
         caracteristicas: caracteristics,
+        politicas: policies,
       };
 
       const response = await fetch(
@@ -170,6 +173,9 @@ const Formulario = () => {
           </Grid>
           <Grid item xs={12}>
             <Caracteristicas setCaracteristics={setCaracteristics} />
+          </Grid>
+          <Grid item xs={12}>
+            <Politicas setPoliticas={setPoliticas} />
           </Grid>
 
           {[...Array(5)].map((_, index) => (

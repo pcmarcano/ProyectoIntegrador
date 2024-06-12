@@ -17,6 +17,7 @@ const EspacioVista = () => {
     const [arrayFotos, setArrayFotos] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [caracteristicas, setCaracteristicas] = useState([]);
+    const [politicas, setPoliticas] = useState([]);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -30,11 +31,13 @@ const EspacioVista = () => {
                 setCategorias(data.categorias);
                 setCaracteristicas(data.caracteristicas);
                 arrFotos(data); // Llama a arrFotos después de establecer space
+                setPoliticas(data.politicas && Array.isArray(data.politicas) ? data.politicas : []); //por el momento
             })
             .catch((error) => console.error("Error fetching data:", error));
     }, [id]);
 
     console.log(categorias);
+    console.log(politicas);
 
     const arrFotos = (data) => {
         if (data && data.fotos && data.fotos.length > 0) {
@@ -46,6 +49,150 @@ const EspacioVista = () => {
             setArrayFotos(arr);
         }
     };
+
+
+const politicaRenderMap = {
+  1: (
+    <h1 style={{ color: "black" }}>
+      Respetar el horario reservado
+    </h1>
+  ),
+  2: (
+    <h1 style={{ color: "black" }}>
+      Prohibido fumar
+    </h1>
+  ),
+  3: (
+    <h1 style={{ color: "black" }}>
+      Prohibido superar la capacidad permitida de personas por turno
+    </h1>
+  ),
+  4: (
+    <h1 style={{ color: "black" }}>
+      Cuidar el mobiliario que se encuentra a disposición
+    </h1>
+  ),
+  5: (
+    <h1 style={{ color: "black" }}>
+      Prohibido el uso indebido de los elementos puestos a disposición
+    </h1>
+  ),
+  6: (
+    <h1 style={{ color: "black" }}>
+      Prohibido dejar menores sin supervisión de un adulto
+    </h1>
+  ),
+  7: (
+    <h1 style={{ color: "black" }}>
+      Cuidar los juegos, no escribir, ni romper los mismos
+    </h1>
+  ),
+  8: (
+    <h1 style={{ color: "black" }}>
+      Prohibido correr
+    </h1>
+  ),
+  9: (
+    <h1 style={{ color: "black" }}>
+      Se ruega guardar silencio
+    </h1>
+  ),
+  10: (
+    <h1 style={{ color: "black" }}>
+      Respetar los lugares asignados
+    </h1>
+  ),
+  11: (
+    <h1 style={{ color: "black" }}>
+      Cuidar los libros y el mobiliario
+    </h1>
+  ),
+  12: (
+    <h1 style={{ color: "black" }}>
+      Prohibido llevarse libros sin autorización expresa
+    </h1>
+  ),
+  13: (
+    <h1 style={{ color: "black" }}>
+      Prohibido arrojar basura
+    </h1>
+  ),
+  14: (
+    <h1 style={{ color: "black" }}>
+      Se ruega mantener el orden
+    </h1>
+  ),
+  15: (
+    <h1 style={{ color: "black" }}>
+      Cuidar el mobiliario que se encuentra a disposición
+    </h1>
+  ),
+  16: (
+    <h1 style={{ color: "black" }}>
+      Prohibido correr o jugar en el sector
+    </h1>
+  ),
+  17: (
+    <h1 style={{ color: "black" }}>
+      Prohibidas las mascotas
+    </h1>
+  ),
+  18: (
+    <h1 style={{ color: "black" }}>
+      Prohibido consumir bebidas alcohólicas
+    </h1>
+  ),
+  19: (
+    <h1 style={{ color: "black" }}>
+      Prohibido dejar basura u otros elementos desechables
+    </h1>
+  ),
+  20: (
+    <h1 style={{ color: "black" }}>
+      Prohibido dejar basura u otros elementos desechables
+    </h1>
+  ),
+  21: (
+    <h1 style={{ color: "black" }}>
+      Se ruega mantener el orden de los elementos
+    </h1>
+  ),
+  22: (
+    <h1 style={{ color: "black" }}>
+      Respetar los horarios de uso
+    </h1>
+  ),
+  23: (
+    <h1 style={{ color: "black" }}>
+      Se ruega mantener la limpieza
+    </h1>
+  ),
+  24: (
+    <h1 style={{ color: "black" }}>
+      Recoger las heces de sus mascotas
+    </h1>
+  ),
+  25: (
+    <h1 style={{ color: "black" }}>
+      Se ruega mantener el orden de los elementos
+    </h1>
+  ),
+  26: (
+    <h1 style={{ color: "black" }}>
+      Cuidar la limpieza
+    </h1>
+  ),
+  27: (
+    <h1 style={{ color: "black" }}>
+      No maltratar los elementos
+    </h1>
+  ),
+  28: (
+    <h1 style={{ color: "black" }}>
+      Cuidar los elementos personales
+    </h1>
+  ),
+};
 
   const caracteristicaRenderMap = {
     1: (
@@ -351,6 +498,7 @@ const EspacioVista = () => {
                                     {caracteristicas.map((categoria, index) => (
                                         <div
                                             style={{
+                                              
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "flex-start",
@@ -363,6 +511,54 @@ const EspacioVista = () => {
                                             <p style={{ textAlign: "left" }}>{categoria.nombre}</p>
                                         </div>
                                     ))}
+                                </h6>
+
+                                <h6
+                                    style={{
+                                        fontFamily: "Dosis",
+                                        fontSize: "120%",
+                                        fontWeight: "600",
+                                        margin: "1rem",
+                                        color: "black",
+                                    }}
+                                >
+                                    <p
+                                        style={{
+                                            fontFamily: "Dosis",
+                                            fontSize: "120%",
+                                            fontWeight: "100",
+                                            margin: "1rem",
+                                        }}
+                                    >
+                                        Políticas de Uso:
+                                    </p>
+                                      
+                                    <div
+                                        style={{
+                                            display: "grid",
+                                            gridTemplateColumns: "1fr 1fr",
+                                            gap: "1rem",
+                                            alignItems: "start",
+                                        }}
+                                    >
+                                        {politicas.map((politica, index) => (
+                                            <div key={index} style={{ width: "100%", margin: "1rem 0" }}>
+                                                <h6
+                                                    style={{
+                                                        fontFamily: "Dosis",
+                                                        fontSize: "120%",
+                                                        fontWeight: "600",
+                                                        marginBottom: "0.5rem",
+                                                    }}
+                                                >
+                                                    {politicaRenderMap[politica.id]}
+                                                </h6>
+                                                <p style={{ fontFamily: "Dosis", fontSize: "100%", margin: 0 }}>
+                                                    {politica.description}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </h6>
 
                                 <div style={{ width: "100%", textAlign: "right" }}>
@@ -399,6 +595,7 @@ const EspacioVista = () => {
                             arrayFotos={arrayFotos}
                             caracteristicas={caracteristicas}
                             categorias={categorias}
+                            politicas={politicas}
                             onReserve={handleReserve}
                         />
                     </div>

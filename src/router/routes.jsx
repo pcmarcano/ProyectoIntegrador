@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Login from "../components/pages/login/Login.jsx";
 import Cuenta from "../components/pages/home/cuenta/Cuenta.jsx";
 import Dashboard from "../components/pages/home/dashboard/Dashboard.jsx";
+import ListadoSearch from "../components/pages/home/listado/ListadoSearch.jsx";
 import Reserva from "../components/pages/reserva/Reserva.jsx";
 export const routes = [
   {
@@ -25,6 +26,11 @@ export const routes = [
     id: "listado",
     path: "/list",
     Element: Listado,
+  },
+  {
+    id: "listSearch",
+    path: "/listSearch",
+    Element: ListadoSearch,
   },
   {
     id: "espacio",
