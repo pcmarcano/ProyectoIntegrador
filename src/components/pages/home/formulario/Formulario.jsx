@@ -36,6 +36,7 @@ const Formulario = () => {
     name: "",
     description: "",
     image: [],
+    politicas: "",
   });
 
   const [categorys, setCategorys] = useState([]);
@@ -88,7 +89,7 @@ const Formulario = () => {
         fotos: arrayImagenes,
         categorias: categorys,
         caracteristicas: caracteristics,
-        politicas: policies,
+        politicasUso: policies,
       };
 
       const response = await fetch(
@@ -175,8 +176,8 @@ const Formulario = () => {
             <Caracteristicas setCaracteristics={setCaracteristics} />
           </Grid>
           <Grid item xs={12}>
-            <Politicas setPoliticas={setPoliticas} />
-          </Grid>
+  <Politicas setPoliticas={setPoliticas} />
+</Grid>
 
           {[...Array(5)].map((_, index) => (
             <Grid

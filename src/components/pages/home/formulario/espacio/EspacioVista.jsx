@@ -9,6 +9,7 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import CardMobile from "../cardsImage/CardMobile.jsx";
 
+
 const EspacioVista = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const EspacioVista = () => {
                 setCategorias(data.categorias);
                 setCaracteristicas(data.caracteristicas);
                 arrFotos(data); // Llama a arrFotos después de establecer space
-                setPoliticas(data.politicas && Array.isArray(data.politicas) ? data.politicas : []); //por el momento
+                setPoliticas(data.politicas); //por el momento
             })
             .catch((error) => console.error("Error fetching data:", error));
     }, [id]);
@@ -50,149 +51,57 @@ const EspacioVista = () => {
         }
     };
 
-
-const politicaRenderMap = {
-  1: (
-    <h1 style={{ color: "black" }}>
-      Respetar el horario reservado
-    </h1>
-  ),
-  2: (
-    <h1 style={{ color: "black" }}>
-      Prohibido fumar
-    </h1>
-  ),
-  3: (
-    <h1 style={{ color: "black" }}>
-      Prohibido superar la capacidad permitida de personas por turno
-    </h1>
-  ),
-  4: (
-    <h1 style={{ color: "black" }}>
-      Cuidar el mobiliario que se encuentra a disposición
-    </h1>
-  ),
-  5: (
-    <h1 style={{ color: "black" }}>
-      Prohibido el uso indebido de los elementos puestos a disposición
-    </h1>
-  ),
-  6: (
-    <h1 style={{ color: "black" }}>
-      Prohibido dejar menores sin supervisión de un adulto
-    </h1>
-  ),
-  7: (
-    <h1 style={{ color: "black" }}>
-      Cuidar los juegos, no escribir, ni romper los mismos
-    </h1>
-  ),
-  8: (
-    <h1 style={{ color: "black" }}>
-      Prohibido correr
-    </h1>
-  ),
-  9: (
-    <h1 style={{ color: "black" }}>
-      Se ruega guardar silencio
-    </h1>
-  ),
-  10: (
-    <h1 style={{ color: "black" }}>
-      Respetar los lugares asignados
-    </h1>
-  ),
-  11: (
-    <h1 style={{ color: "black" }}>
-      Cuidar los libros y el mobiliario
-    </h1>
-  ),
-  12: (
-    <h1 style={{ color: "black" }}>
-      Prohibido llevarse libros sin autorización expresa
-    </h1>
-  ),
-  13: (
-    <h1 style={{ color: "black" }}>
-      Prohibido arrojar basura
-    </h1>
-  ),
-  14: (
-    <h1 style={{ color: "black" }}>
-      Se ruega mantener el orden
-    </h1>
-  ),
-  15: (
-    <h1 style={{ color: "black" }}>
-      Cuidar el mobiliario que se encuentra a disposición
-    </h1>
-  ),
-  16: (
-    <h1 style={{ color: "black" }}>
-      Prohibido correr o jugar en el sector
-    </h1>
-  ),
-  17: (
-    <h1 style={{ color: "black" }}>
-      Prohibidas las mascotas
-    </h1>
-  ),
-  18: (
-    <h1 style={{ color: "black" }}>
-      Prohibido consumir bebidas alcohólicas
-    </h1>
-  ),
-  19: (
-    <h1 style={{ color: "black" }}>
-      Prohibido dejar basura u otros elementos desechables
-    </h1>
-  ),
-  20: (
-    <h1 style={{ color: "black" }}>
-      Prohibido dejar basura u otros elementos desechables
-    </h1>
-  ),
-  21: (
-    <h1 style={{ color: "black" }}>
-      Se ruega mantener el orden de los elementos
-    </h1>
-  ),
-  22: (
-    <h1 style={{ color: "black" }}>
-      Respetar los horarios de uso
-    </h1>
-  ),
-  23: (
-    <h1 style={{ color: "black" }}>
-      Se ruega mantener la limpieza
-    </h1>
-  ),
-  24: (
-    <h1 style={{ color: "black" }}>
-      Recoger las heces de sus mascotas
-    </h1>
-  ),
-  25: (
-    <h1 style={{ color: "black" }}>
-      Se ruega mantener el orden de los elementos
-    </h1>
-  ),
-  26: (
-    <h1 style={{ color: "black" }}>
-      Cuidar la limpieza
-    </h1>
-  ),
-  27: (
-    <h1 style={{ color: "black" }}>
-      No maltratar los elementos
-    </h1>
-  ),
-  28: (
-    <h1 style={{ color: "black" }}>
-      Cuidar los elementos personales
-    </h1>
-  ),
-};
+  const politicasDeUso = {
+      "Sala de Reuniones": [
+        "Respetar el horario reservado",
+        "Prohibido fumar",
+        "Prohibido superar la capacidad permitida de personas por turno",
+        "Cuidar el mobiliario que se encuentra a disposición",
+      ],
+      "Sala de Juegos": [
+        "Prohibido el uso indebido de los elementos puestos a disposición",
+        "Prohibido dejar menores sin supervisión de un adulto",
+        "Cuidar los juegos, no escribir, ni romper los mismo",
+        "Prohibido fumar",
+        "Prohibido correr",
+      ],
+      "Sala de Lectura": [
+        "Se ruega guardar silencio",
+        "Respetar los lugares asignados",
+        "Cuidar los libros y el mobiliario",
+        "Prohibido llegerse libros sin autorización expresa",
+        "Prohibido fumar",
+      ],
+      "Salón de Fiestas": [
+        "Respetar el horario reservado",
+        "Prohibido fumar",
+        "Prohibido superar la capacidad permitida de personas por turno",
+        "Cuidar el mobiliario que se encuentra a disposición",
+        "Prohibido arrojar basura",
+        "Se ruega mantener el orden",
+      ],
+      "Sum y Parrilla": [
+        "Respetar el horario reservado",
+        "Prohibido fumar",
+        "Prohibido superar la capacidad permitida de personas por turno",
+        "Cuidar el mobiliario que se encuentra a disposición",
+        "Prohibido arrojar basura",
+        "Se ruega mantener el orden",
+      ],
+      "Patio para Mascotas": [
+        "Prohibido correo o jugar en el sector",
+        "Prohibidas las mascotas",
+        "Prohibido consumir bebidas alcohólicas",
+        "Prohibido dejar basura u otros elementos desechables",
+      ],
+      "Gimnasio": [
+        "Se ruega mantener el orden de los elementos",
+        "Cuidar la limpieza",
+        "No maltratar los elementos",
+        "Cuidar los elementos personales",
+        "Respetar los horarios de uso",
+      ],
+    };
 
   const caracteristicaRenderMap = {
     1: (
@@ -514,52 +423,97 @@ const politicaRenderMap = {
                                 </h6>
 
                                 <h6
-                                    style={{
-                                        fontFamily: "Dosis",
-                                        fontSize: "120%",
-                                        fontWeight: "600",
-                                        margin: "1rem",
-                                        color: "black",
-                                    }}
-                                >
-                                    <p
-                                        style={{
-                                            fontFamily: "Dosis",
-                                            fontSize: "120%",
-                                            fontWeight: "100",
-                                            margin: "1rem",
-                                        }}
-                                    >
-                                        Políticas de Uso:
-                                    </p>
-                                      
-                                    <div
-                                        style={{
-                                            display: "grid",
-                                            gridTemplateColumns: "1fr 1fr",
-                                            gap: "1rem",
-                                            alignItems: "start",
-                                        }}
-                                    >
-                                        {politicas.map((politica, index) => (
-                                            <div key={index} style={{ width: "100%", margin: "1rem 0" }}>
-                                                <h6
-                                                    style={{
-                                                        fontFamily: "Dosis",
-                                                        fontSize: "120%",
-                                                        fontWeight: "600",
-                                                        marginBottom: "0.5rem",
-                                                    }}
-                                                >
-                                                    {politicaRenderMap[politica.id]}
-                                                </h6>
-                                                <p style={{ fontFamily: "Dosis", fontSize: "100%", margin: 0 }}>
-                                                    {politica.description}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </h6>
+  style={{
+    fontFamily: "Dosis",
+    fontSize: "120%",
+    fontWeight: "600",
+    margin: "1rem",
+    color: "black",
+  }}
+>
+  <div
+    style={{
+      width: "100%",
+      borderBottom: "2px solid #FF9550",
+      paddingBottom: "0.5rem",
+      marginBottom: "1rem",
+    }}
+  >
+    <p
+      style={{
+        fontFamily: "Dosis",
+        fontSize: "120%",
+        fontWeight: "600",
+        margin: "0",
+      }}
+    >
+      Políticas de Uso
+    </p>
+  </div>
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gridGap: "1rem",
+      width: "100%",
+    }}
+  >
+    {politicasDeUso[space.nombre]?.map((politica, index) => (
+      <div
+        key={index}
+        style={{
+          backgroundColor: "#f9f9f9",
+          padding: "1rem",
+          borderRadius: "4px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <h6
+          style={{
+            fontFamily: "Dosis",
+            fontSize: "100%",
+            fontWeight: "600",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Política {index + 1}
+        </h6>
+        <p
+          style={{
+            fontFamily: "Dosis",
+            fontSize: "90%",
+            fontWeight: "400",
+            margin: "0",
+          }}
+        >
+          {politica}
+        </p>
+      </div>
+    ))}
+    {!politicasDeUso[space.nombre] && (
+      <div
+        style={{
+          backgroundColor: "#f9f9f9",
+          padding: "1rem",
+          borderRadius: "4px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+          gridColumn: "1 / -1", // Ocupa todo el ancho de la cuadrícula
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "Dosis",
+            fontSize: "100%",
+            fontWeight: "400",
+            margin: "0",
+          }}
+        >
+          No hay políticas de uso disponibles para este lugar.
+        </p>
+      </div>
+    )}
+  </div>
+</h6>
 
                                 <div style={{ width: "100%", textAlign: "right" }}>
                                     <Button
