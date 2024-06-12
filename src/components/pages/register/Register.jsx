@@ -133,7 +133,7 @@ const Register = () => {
       };
 
       const response = await fetch(
-        "http://localhost:8080/usuarios/agregar",
+        "https://api.curso.spazioserver.online/usuarios/agregar",
         {
           method: "POST",
           headers: {

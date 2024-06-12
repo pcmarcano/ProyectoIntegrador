@@ -88,6 +88,8 @@ const Formulario = () => {
         caracteristicas: caracteristics,
       };
 
+      console.log(body);
+
       const response = await fetch(
         "https://api.curso.spazioserver.online/lugares/agregar",
         {

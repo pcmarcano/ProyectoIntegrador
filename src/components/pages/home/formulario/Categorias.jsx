@@ -3,11 +3,19 @@ import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import { SearchContext } from "../../../context/SearchContext";
 
-export default function Categorias({ setCategorys }) {
+export default function Categorias({ setCategorys, search }) {
   const [categorias, setCategorias] = React.useState([]);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
 
+  const {
+    categoriaFiltroID,
+    setCategoriaFiltroID,
+    setCategorysFiltro,
+    categorysFiltro,
+    saveCategoryStorage,
+  } = React.useContext(SearchContext);
   const obtenerCategorias = async () => {
     try {
       const response = await fetch(
@@ -39,6 +47,7 @@ export default function Categorias({ setCategorys }) {
   const handleSelectionChange = (event, values) => {
     setSelectedCategories(values);
     const selectedIds = values.map((category) => category.id);
+    setCategoriaFiltroID(selectedIds);
     setCategorys(selectedIds);
     console.log(selectedIds);
   };
@@ -53,6 +62,7 @@ export default function Categorias({ setCategorys }) {
         filterSelectedOptions
         value={selectedCategories}
         onChange={handleSelectionChange}
+        sx={{ backgroundColor: "white", borderRadius: "5%" }}
         renderInput={(params) => (
           <TextField {...params} label="Selecciona Categorias" placeholder="" />
         )}

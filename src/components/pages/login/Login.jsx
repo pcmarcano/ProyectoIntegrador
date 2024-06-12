@@ -58,6 +58,7 @@ const Login = () => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
   };
 
+  console.log(userCredentials);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
