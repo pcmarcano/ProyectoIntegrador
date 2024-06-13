@@ -75,68 +75,89 @@ const HorarioDia = ({ selectedDate }) => {
             <h2
                 style={{
                     color: "#1E3231",
-                    fontSize: "1rem",
+                    fontSize: "1.2rem",
+                    fontFamily: "Dosis",
+                    fontWeight: "600",
                 }}
             >
                 Horarios {selectedDate.toLocaleDateString()}
             </h2>
-            <div style={containerStyle}>
-                {franjasHorarias.map((franja, index) => {
-                    const isUnavailable = franjasNoDisponibles.includes(franja);
+            <div style={{ fontFamily: "Dosis", textAlign: "left", margin: "1rem" }}>
+                <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", borderBottom: "2px solid #FF9550", paddingBottom: "0.5rem", color: "#1E3231" }}>
+                    Selecciona tus horarios
+                </h4>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gridGap: "1rem", width: "100%" }}>
+                    {franjasHorarias.map((franja, index) => {
+                        const isUnavailable = franjasNoDisponibles.includes(franja);
 
-                    return (
-                        <div
-                            key={index}
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <input
-                                type="checkbox"
-                                id={franja}
-                                name={franja}
-                                style={{ display: "none" }}
-                                checked={selectedHoras.includes(franja)}
-                                onChange={() => handleHoraChange(franja)}
-                                disabled={isUnavailable}
-                            />
-                            <label
-                                htmlFor={franja}
+                        return (
+                            <div
+                                key={index}
                                 style={{
-                                    display: "inline-block",
-                                    border: selectedHoras.includes(franja) ? "1px solid blue" : "1px solid black",
-                                    borderRadius: "5px",
-                                    backgroundColor: isUnavailable ? "red" : (selectedHoras.includes(franja) ? "lightblue" : (hoveredHora === franja ? "yellow" : "lightgreen")),
-                                    color: isUnavailable ? "white" : "black",
-                                    fontFamily: "'Dosis', sans-serif",
+                                    backgroundColor: "#EFEFEF",
                                     padding: "0.5rem",
-                                    cursor: isUnavailable ? "not-allowed" : "pointer",
-                                    width: "100%",
-                                    textAlign: "center",
-                                    transition: "background-color 0.3s, border 0.3s",
-                                }}
-                                onMouseEnter={() => setHoveredHora(franja)}
-                                onMouseLeave={() => setHoveredHora(null)}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleHoraChange(franja);
+                                    borderRadius: "4px",
+                                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
                                 }}
                             >
-                                {franja}
-                            </label>
-                        </div>
-                    );
-                })}
+                                <input
+                                    type="checkbox"
+                                    id={franja}
+                                    name={franja}
+                                    style={{ display: "none" }}
+                                    checked={selectedHoras.includes(franja)}
+                                    onChange={() => handleHoraChange(franja)}
+                                    disabled={isUnavailable}
+                                />
+                                <label
+                                    htmlFor={franja}
+                                    style={{
+                                        display: "inline-block",
+                                        border: `1px solid ${selectedHoras.includes(franja) ? "#00B5AD" : "#94B7D0"}`,
+                                        borderRadius: "5px",
+                                        backgroundColor: isUnavailable
+                                            ? "#4D4D4D"
+                                            : selectedHoras.includes(franja)
+                                                ? "#FF9550"
+                                                : hoveredHora === franja
+                                                    ? "#94B7D0"
+                                                    : "#FFFFFF",
+                                        color: isUnavailable
+                                            ? "#FFFFFF"
+                                            : selectedHoras.includes(franja) || hoveredHora === franja
+                                                ? "#FFFFFF"
+                                                : "#1E3231",
+                                        fontFamily: "'Dosis', sans-serif",
+                                        padding: "0.5rem",
+                                        cursor: isUnavailable ? "not-allowed" : "pointer",
+                                        width: "100%",
+                                        textAlign: "center",
+                                        transition: "background-color 0.3s, color 0.3s, border 0.3s",
+                                    }}
+                                    onMouseEnter={() => setHoveredHora(franja)}
+                                    onMouseLeave={() => setHoveredHora(null)}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleHoraChange(franja);
+                                    }}
+                                >
+                                    {franja}
+                                </label>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
             <button
                 onClick={handleReservarAhoraClick}
                 style={{
                     marginTop: "1rem",
-                    marginBottom:"10px",
-                    backgroundColor: "#1976d2",
-                    color: "white",
+                    marginBottom: "10px",
+                    backgroundColor: "#00B5AD",
+                    color: "#FFFFFF",
                     padding: "0.5rem 1rem",
                     border: "none",
                     borderRadius: "5px",
@@ -146,10 +167,10 @@ const HorarioDia = ({ selectedDate }) => {
                     transition: "background-color 0.3s",
                 }}
                 onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = "#135492";
+                    e.target.style.backgroundColor = "#007A75";
                 }}
                 onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "#1976d2";
+                    e.target.style.backgroundColor = "#00B5AD";
                 }}
             >
                 Reservar ahora
