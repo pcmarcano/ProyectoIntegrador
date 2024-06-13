@@ -1,39 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CardGrande from "../cardsImage/CardGrande";
 import CardChica from "../cardsImage/CardChica";
 import { Button } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Search from "../../search/Search.jsx";
 import "./EspacioVista.css";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import CardMobile from "../cardsImage/CardMobile.jsx";
+import StarRating from "./StarRating.jsx";
+import { AuthContext } from "../../../../context/AuthContext.jsx";
 
 const EspacioVista = () => {
   const { id } = useParams();
+  const {isLogged} = useContext(AuthContext)
+  const navigate = useNavigate();
 
   const [space, setSpace] = useState([]);
   const [arrayFotos, setArrayFotos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [caracteristicas, setCaracteristicas] = useState([]);
+  const [rating, setRating] = useState(0);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  useEffect(() => {
-    // Llamada a la API
-    fetch(`https://api.curso.spazioserver.online/lugares/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSpace(data);
-        setCategorias(data.categorias);
-        setCaracteristicas(data.caracteristicas);
-        arrFotos(data); // Llama a arrFotos después de establecer space
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+    useEffect(() => {
+        // Llamada a la API
+        fetch(`https://api.curso.spazioserver.online/lugares/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setSpace(data);
+                setCategorias(data.categorias);
+                setCaracteristicas(data.caracteristicas);
+                arrFotos(data); // Llama a arrFotos después de establecer space
+            })
+            .catch((error) => console.error("Error fetching data:", error));
+    }, [id]);
 
-  console.log(categorias);
+    console.log(categorias);
 
   const arrFotos = (data) => {
     if (data && data.fotos && data.fotos.length > 0) {
@@ -167,6 +172,10 @@ const EspacioVista = () => {
       </h1>
     ),
   };
+
+    const handleReserve = () => {
+        navigate(`/reserva/${id}`);
+    };
 
   return (
     <div style={{ width: "100vw", height: "100%" }}>
@@ -360,6 +369,8 @@ const EspacioVista = () => {
                     </div>
                   ))}
                 </h6>
+                {isLogged &&(<StarRating rating={rating} setRating={setRating}/>)}
+
 
                 <div style={{ width: "100%", textAlign: "right" }}>
                   <Button
@@ -374,19 +385,29 @@ const EspacioVista = () => {
                     Ver más
                   </Button>
                 </div>
+                <div style={{ width: "100%", textAlign: "center" }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleReserve}
+                    >
+                        Reservar
+                    </Button>
+                </div>
               </div>
             </div>
           </div>
         )}
         {isMobile && (
-          <div style={{ marginTop: "5rem" }}>
-            <CardMobile
-              space={space}
-              arrayFotos={arrayFotos}
-              caracteristicas={caracteristicas}
-              categorias={categorias}
-            />
-          </div>
+            <div style={{ marginTop: "5rem" }}>
+                <CardMobile
+                    space={space}
+                    arrayFotos={arrayFotos}
+                    caracteristicas={caracteristicas}
+                    categorias={categorias}
+                    onReserve={handleReserve}
+                />
+            </div>
         )}
       </div>
     </div>

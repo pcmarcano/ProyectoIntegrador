@@ -3,11 +3,20 @@ import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import { SearchContext } from "../../../context/SearchContext";
+import { InputBase } from "@mui/material";
 
-export default function Categorias({ setCategorys }) {
+export default function Categorias({ setCategorys, search }) {
   const [categorias, setCategorias] = React.useState([]);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
 
+  const {
+    categoriaFiltroID,
+    setCategoriaFiltroID,
+    setCategorysFiltro,
+    categorysFiltro,
+    saveCategoryStorage,
+  } = React.useContext(SearchContext);
   const obtenerCategorias = async () => {
     try {
       const response = await fetch(
@@ -39,12 +48,13 @@ export default function Categorias({ setCategorys }) {
   const handleSelectionChange = (event, values) => {
     setSelectedCategories(values);
     const selectedIds = values.map((category) => category.id);
+    setCategoriaFiltroID(selectedIds);
     setCategorys(selectedIds);
     console.log(selectedIds);
   };
 
   return (
-    <Stack spacing={3} sx={{ width: 350 }}>
+    <Stack spacing={3} sx={{ width: 300 }}>
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -53,8 +63,23 @@ export default function Categorias({ setCategorys }) {
         filterSelectedOptions
         value={selectedCategories}
         onChange={handleSelectionChange}
+        sx={{ backgroundColor: "transparent" }}
         renderInput={(params) => (
-          <TextField {...params} label="Selecciona Categorias" placeholder="" />
+          <InputBase
+            {...params.InputProps}
+            inputProps={{ ...params.inputProps }}
+            sx={{
+              backgroundColor: "white",
+              borderRadius: "50px",
+              border: "0px",
+              padding: "10px",
+              width: "100%",
+              boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+            }}
+            placeholder={
+              selectedCategories.length > 0 ? "" : " Selecciona Categorias"
+            }
+          />
         )}
       />
     </Stack>

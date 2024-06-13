@@ -1,7 +1,7 @@
 import Home from "../components/pages/home/Home.jsx";
 import Formulario from "../components/pages/home/formulario/Formulario.jsx";
 import EspacioVista from "../components/pages/home/formulario/espacio/EspacioVista.jsx";
-import Listado from "../components/pages/home/listado/Listado.jsx";
+import ListadoAleatorio from "../components/pages/home/listado/ListadoAleatorio.jsx";
 
 export const routes = [
   {
@@ -17,7 +17,7 @@ export const routes = [
   {
     id: "listado",
     path: "/list",
-    Element: Listado,
+    Element: ListadoAleatorio,
   },
   {
     id: "espacio",
