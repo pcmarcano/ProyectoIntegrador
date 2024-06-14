@@ -22,8 +22,8 @@ const AuthContextComponent = ({ children }) => {
   };
 
   const handleLogoutContext = () => {
+    setUser({});
     setIsLogged(false);
-    setUser(null);
     localStorage.removeItem("userInfo");
     localStorage.removeItem("isLogged");
   };

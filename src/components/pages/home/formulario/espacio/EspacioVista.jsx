@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import CardGrande from "../cardsImage/CardGrande";
 import CardChica from "../cardsImage/CardChica";
 import { Button } from "@mui/material";
@@ -9,36 +9,36 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import CardMobile from "../cardsImage/CardMobile.jsx";
 import StarRating from "./StarRating.jsx";
-import { AuthContext } from "../../../../context/AuthContext.jsx";
 
 const EspacioVista = () => {
   const { id } = useParams();
-  const {isLogged} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const [space, setSpace] = useState([]);
   const [arrayFotos, setArrayFotos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [caracteristicas, setCaracteristicas] = useState([]);
-  const [rating, setRating] = useState(0);
+  const [politicas, setPoliticas] = useState([]);
 
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    useEffect(() => {
-        // Llamada a la API
-        fetch(`https://api.curso.spazioserver.online/lugares/${id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSpace(data);
-                setCategorias(data.categorias);
-                setCaracteristicas(data.caracteristicas);
-                arrFotos(data); // Llama a arrFotos después de establecer space
-            })
-            .catch((error) => console.error("Error fetching data:", error));
-    }, [id]);
+  useEffect(() => {
+    // Llamada a la API
+    fetch(`https://api.curso.spazioserver.online/lugares/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSpace(data);
+        setCategorias(data.categorias);
+        setCaracteristicas(data.caracteristicas);
+        arrFotos(data); // Llama a arrFotos después de establecer space
+        setPoliticas(data.politicas); //por el momento
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [id]);
 
-    console.log(categorias);
+  console.log(categorias);
+  console.log(politicas);
 
   const arrFotos = (data) => {
     if (data && data.fotos && data.fotos.length > 0) {
@@ -49,6 +49,58 @@ const EspacioVista = () => {
       });
       setArrayFotos(arr);
     }
+  };
+
+  const politicasDeUso = {
+    "Sala de Reuniones": [
+      "Respetar el horario reservado",
+      "Prohibido fumar",
+      "Prohibido superar la capacidad permitida de personas por turno",
+      "Cuidar el mobiliario que se encuentra a disposición",
+    ],
+    "Sala de Juegos": [
+      "Prohibido el uso indebido de los elementos puestos a disposición",
+      "Prohibido dejar menores sin supervisión de un adulto",
+      "Cuidar los juegos, no escribir, ni romper los mismo",
+      "Prohibido fumar",
+      "Prohibido correr",
+    ],
+    "Sala de Lectura": [
+      "Se ruega guardar silencio",
+      "Respetar los lugares asignados",
+      "Cuidar los libros y el mobiliario",
+      "Prohibido llegerse libros sin autorización expresa",
+      "Prohibido fumar",
+    ],
+    "Salón de Fiestas": [
+      "Respetar el horario reservado",
+      "Prohibido fumar",
+      "Prohibido superar la capacidad permitida de personas por turno",
+      "Cuidar el mobiliario que se encuentra a disposición",
+      "Prohibido arrojar basura",
+      "Se ruega mantener el orden",
+    ],
+    "Sum y Parrilla": [
+      "Respetar el horario reservado",
+      "Prohibido fumar",
+      "Prohibido superar la capacidad permitida de personas por turno",
+      "Cuidar el mobiliario que se encuentra a disposición",
+      "Prohibido arrojar basura",
+      "Se ruega mantener el orden",
+    ],
+    "Patio para Mascotas": [
+      "Prohibido correo o jugar en el sector",
+      "Prohibidas las mascotas",
+      "Prohibido consumir bebidas alcohólicas",
+      "Prohibido dejar basura u otros elementos desechables",
+    ],
+    Gimnasio: [
+      "Se ruega mantener el orden de los elementos",
+      "Cuidar la limpieza",
+      "No maltratar los elementos",
+      "Cuidar los elementos personales",
+      "Respetar los horarios de uso",
+    ],
   };
 
   const caracteristicaRenderMap = {
@@ -173,9 +225,9 @@ const EspacioVista = () => {
     ),
   };
 
-    const handleReserve = () => {
-        navigate(`/reserva/${id}`);
-    };
+  const handleReserve = () => {
+    navigate(`/reserva/${id}`);
+  };
 
   return (
     <div style={{ width: "100vw", height: "100%" }}>
@@ -193,8 +245,7 @@ const EspacioVista = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              gridTemplateColumns: "70% auto", // 50% para el CardGrande, y el resto se divide automáticamente
-              width: "50rem", // Ajustar al 100% del contenedor
+              width: "50rem",
               marginTop: "1rem",
               height: "auto",
             }}
@@ -203,8 +254,7 @@ const EspacioVista = () => {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                gridTemplateColumns: "70% auto", // 50% para el CardGrande, y el resto se divide automáticamente
-                width: "100%", // Ajustar al 100% del contenedor
+                width: "100%",
                 marginTop: "1rem",
               }}
             >
@@ -301,7 +351,7 @@ const EspacioVista = () => {
                   >
                     <span
                       style={{ color: "black" }}
-                      class="material-symbols-outlined"
+                      className="material-symbols-outlined"
                     >
                       done_outline
                     </span>
@@ -361,53 +411,145 @@ const EspacioVista = () => {
                         alignItems: "center",
                         justifyContent: "flex-start",
                       }}
+                      key={index}
                     >
-                      <p style={{ textAlign: "left" }} key={index}>
+                      <p style={{ textAlign: "left" }}>
                         {caracteristicaRenderMap[categoria.id]}
                       </p>
                       <p style={{ textAlign: "left" }}>{categoria.nombre}</p>
                     </div>
                   ))}
                 </h6>
-                {isLogged &&(<StarRating rating={rating} setRating={setRating}/>)}
 
+                <StarRating />
 
-                <div style={{ width: "100%", textAlign: "right" }}>
-                  <Button
-                    variant="text"
+                <h6
+                  style={{
+                    fontFamily: "Dosis",
+                    fontSize: "120%",
+                    fontWeight: "600",
+                    margin: "1rem",
+                    color: "black",
+                  }}
+                >
+                  <div
                     style={{
-                      color: "#FF9550",
-                      marginBottom: "2rem",
-                      fontWeight: "600",
-                      fontFamily: "Dosis",
+                      width: "100%",
+                      borderBottom: "2px solid #FF9550",
+                      paddingBottom: "0.5rem",
+                      marginBottom: "1rem",
                     }}
                   >
-                    Ver más
-                  </Button>
-                </div>
-                <div style={{ width: "100%", textAlign: "center" }}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleReserve}
+                    <p
+                      style={{
+                        fontFamily: "Dosis",
+                        fontSize: "120%",
+                        fontWeight: "600",
+                        margin: "0",
+                      }}
                     >
-                        Reservar
-                    </Button>
+                      Políticas de Uso
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(2, 1fr)",
+                      gridGap: "1rem",
+                      width: "100%",
+                      "@media (max-width: 768px)": {
+                        gridTemplateColumns: "1fr",
+                      },
+                    }}
+                  >
+                    {politicasDeUso[space.nombre]?.map((politica, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          backgroundColor: "#f9f9f9",
+                          padding: "1rem",
+                          borderRadius: "4px",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                          "@media (max-width: 768px)": {
+                            padding: "0.5rem",
+                          },
+                        }}
+                      >
+                        <h6
+                          style={{
+                            fontFamily: "Dosis",
+                            fontSize: "100%",
+                            fontWeight: "600",
+                            marginBottom: "0.5rem",
+                          }}
+                        >
+                          Política {index + 1}
+                        </h6>
+                        <p
+                          style={{
+                            fontFamily: "Dosis",
+                            fontSize: "90%",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          {politica}
+                        </p>
+                      </div>
+                    ))}
+                    {!politicasDeUso[space.nombre] && (
+                      <div
+                        style={{
+                          backgroundColor: "#f9f9f9",
+                          padding: "1rem",
+                          borderRadius: "4px",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                          gridColumn: "1 / -1",
+                          "@media (max-width: 768px)": {
+                            padding: "0.5rem",
+                          },
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "Dosis",
+                            fontSize: "100%",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          No hay políticas de uso disponibles para este lugar.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </h6>
+
+                <div style={{ width: "100%", textAlign: "center" }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleReserve}
+                    style={{ fontFamily: "Dosis" }}
+                  >
+                    Reservar
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         )}
         {isMobile && (
-            <div style={{ marginTop: "5rem" }}>
-                <CardMobile
-                    space={space}
-                    arrayFotos={arrayFotos}
-                    caracteristicas={caracteristicas}
-                    categorias={categorias}
-                    onReserve={handleReserve}
-                />
-            </div>
+          <div style={{ marginTop: "5rem" }}>
+            <CardMobile
+              space={space}
+              arrayFotos={arrayFotos}
+              caracteristicas={caracteristicas}
+              categorias={categorias}
+              politicas={politicas}
+              onReserve={handleReserve}
+            />
+          </div>
         )}
       </div>
     </div>

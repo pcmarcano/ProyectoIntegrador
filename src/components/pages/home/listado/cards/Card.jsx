@@ -59,14 +59,14 @@ export default function ActionAreaCard({
           alt={datos.nombre}
         />
         <CardContent>
-          <Typography
+          {/*           <Typography
             style={{ fontFamily: "Dosis", fontSize: "1rem" }}
             gutterBottom
             variant="h6"
             component="div"
           >
             ID : #{datos.id}
-          </Typography>
+          </Typography> */}
           <Typography
             style={{ fontFamily: "Dosis", fontWeight: "600" }}
             gutterBottom
