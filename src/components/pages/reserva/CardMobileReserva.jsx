@@ -25,14 +25,6 @@ const CardMobileReserva = ({ space, arrayFotos, caracteristicas, categorias }) =
             />
             <CardContent>
                 <Typography
-                    style={{ fontFamily: "Dosis", fontSize: "1rem" }}
-                    gutterBottom
-                    variant="h6"
-                    component="div"
-                >
-                    ID: #{space.id}
-                </Typography>
-                <Typography
                     style={{ fontFamily: "Dosis", fontWeight: "600", margin: "1rem" }}
                     gutterBottom
                     variant="h6"
