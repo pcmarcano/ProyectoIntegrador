@@ -37,29 +37,3 @@ const WhatsAppChat = ({ numeroFono, mensaje }) => {
 };
 
 export default WhatsAppChat;
-
-/*
-const WhatsAppChat = ({ numeroFono, mensage }) => {
-  const handleClick = () => {
-    const url = `https://wa.me/${numeroFono}?text=${encodeURIComponent(mensage)}`;
-    window.open(url, '_blank');
-  };
-
-  return (
-    <Fab 
-      color="primary" 
-      aria-label="WhatsApp"
-      onClick={handleClick}
-      style={{
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        backgroundColor: '#25D366',
-      }}
-    >
-      <WhatsAppIcon />
-    </Fab>
-  );
-};
-
-export default WhatsAppChat;*/
