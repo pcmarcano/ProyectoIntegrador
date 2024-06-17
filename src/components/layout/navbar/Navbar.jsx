@@ -23,6 +23,8 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import "./Navbar.css";
 import Usuario from "../../pages/home/usuario/Usuario.jsx";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 function Navbar(props) {
   const { window } = props;
@@ -105,6 +107,9 @@ function Navbar(props) {
           </>
         )}
         {(user?.rol === rolAdmin || user?.rol === rolAdminTotal) && (
+<>
+
+
           <Link to="/list" onClick={handleDrawerToggle}>
             <ListItem disablePadding>
               <ListItemButton>
@@ -119,8 +124,26 @@ function Navbar(props) {
               </ListItemButton>
             </ListItem>
           </Link>
+
+          <Link to="/favoritos" onClick={handleDrawerToggle}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <FavoriteIcon sx={{ color: "#CE8B67" }} />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  >
+                    Favoritos
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+</>
         )}
       </List>
+
     </div>
   );
 
