@@ -12,6 +12,12 @@ import {
   Autocomplete,
   TextField,
   Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import EditIcon from "@mui/icons-material/Edit";
@@ -39,18 +45,29 @@ const SpaceDetails = styled(Box)(({ theme }) => ({
   },
 }));
 
+
 const Dashboard = () => {
   const [lugares, setLugares] = useState([]);
+  const [usuarios, setUsuarios] = useState([]); 
+  //const [categorias, setCategorias] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [selectedLugar, setSelectedLugar] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [nuevasCategorias, setNuevasCategorias] = useState([]);
   const [idCaracteristicas, setIdCaracteristicas] = useState([]);
   const [state, setState] = useState(false);
-
   const navigate = useNavigate();
 
-  useEffect(() => {
+
+
+  // Inicializa usuarios lugares categorias
+  const [showLugares, setShowLugares] = useState(true);
+  const [showUsuarios, setShowUsuarios] = useState(false);
+  const [showCategorias, setShowCategorias] = useState(false);
+
+//#region llama API Lugares
+useEffect(() => {
     // Llamada a la API
     fetch("https://api.curso.spazioserver.online/lugares/listar")
       .then((response) => response.json())
@@ -169,6 +186,8 @@ const Dashboard = () => {
       console.error("Error al enviar la solicitud HTTP PUT:", error);
     }
   };
+//#endregion
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -181,8 +200,85 @@ const Dashboard = () => {
     p: 4,
   };
 
+
+//#region llama API usuarios
+  useEffect(() => {
+    fetch("https://api.curso.spazioserver.online/usuarios/listar")
+      .then((response) => response.json())
+      .then((data) => setUsuarios(data))
+      .catch((error) => console.error("Error buscando datos de usuarios:", error));
+  }, []);
+//#endregion
+
+//#region llama API categorias
+useEffect(() => {
+  fetch("https://api.curso.spazioserver.online/categorias/listar")
+  .then((response) => response.json())
+  .then((data) => setCategorias(data))
+  .catch((error) => console.error("Error buscado datos de categorias:", error));
+}, []);
+//#endregion
+
+
+
+const handleToggleLugares = () => {
+  setShowLugares(true);
+  setShowUsuarios(false);
+  setShowCategorias(false);
+};
+
+const handleToggleUsuarios = () => {
+  setShowLugares(false);
+  setShowUsuarios(true);
+  setShowCategorias(false);
+};
+
+const handleToggleCategorias = () => {
+  setShowLugares(false);
+  setShowUsuarios(false);
+  setShowCategorias(true);
+};
+
+
+//#region return
   return (
     <Container maxWidth="md">
+      <Typography  style={{ fontFamily: "Dosis" }}  variant="h4" gutterBottom>
+        Panel de Administrador
+      </Typography>
+{/*
+      <Box display="flex" justifyContent="center" mb={2}>
+        <Button
+          variant="contained"
+          onClick={handleToggleLugares}
+          color="primary"
+          style={{ marginRight: "1rem" }}
+        >
+          Mostrar Lugares
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleToggleUsuarios}
+          color="secondary"
+          style={{ marginRight: "1rem" }}
+        >
+          Mostrar Usuarios
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleToggleCategorias}
+          color="default"
+        >
+          Mostrar Categorías
+        </Button>
+      </Box>
+ */}
+      
+      
+      {/*Lista de lugares*/} 
+      <Typography variant="h5" gutterBottom>
+        Lugares
+      </Typography>
       <Typography variant="h4" gutterBottom></Typography>
       {lugares.map((lugar) => (
         <SpaceCard key={lugar.id}>
@@ -233,12 +329,7 @@ const Dashboard = () => {
             <Typography style={{ fontFamily: "Dosis" }} variant="h6">
               {lugar.nombre}
             </Typography>
-            <Typography
-              style={{ fontFamily: "Dosis", fontWeight: "900" }}
-              variant="h6"
-            >
-              #{lugar.id}
-            </Typography>
+
             <Typography style={{ fontFamily: "Dosis" }} color="textSecondary">
               {lugar.categorias.map((cat) => (
                 <div key={cat.id}>
@@ -248,21 +339,7 @@ const Dashboard = () => {
                 </div>
               ))}
             </Typography>
-            {/*             <Typography style={{ fontFamily: "Dosis" }} color="textSecondary">
-              {lugar.descripcion}
-            </Typography>
-            <Box mt={1}>
-              {lugar.caracteristicas.map((caracteristica) => (
-                <Typography
-                  key={caracteristica.id}
-                  variant="body2"
-                  color="textSecondary"
-                  style={{ fontFamily: "Dosis" }}
-                >
-                  - {caracteristica.nombre}
-                </Typography>
-              ))}
-            </Box> */}
+            {}
           </SpaceDetails>
           <Box>
             <Tooltip title="Editar">
@@ -291,8 +368,48 @@ const Dashboard = () => {
           </Box>
         </SpaceCard>
       ))}
+
+      {/*Lista de usuarios */}
+      <Typography variant="h5" gutterBottom>
+        Usuarios
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Acción</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {usuarios.map((usuario) => (
+              <TableRow key={usuario.id}>
+                <TableCell>{usuario.id}</TableCell>
+                <TableCell>{usuario.nombre} {usuario.apellido}</TableCell>
+                <TableCell>{usuario.email}</TableCell>
+                <TableCell>{usuario.role}</TableCell>
+                <TableCell>
+                  {/* Add action buttons or icons here */}
+                  <IconButton color="primary">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton color="secondary">
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+
     </Container>
   );
 };
 
 export default Dashboard;
+//#endregion
