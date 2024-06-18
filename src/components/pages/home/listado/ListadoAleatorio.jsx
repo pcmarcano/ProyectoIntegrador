@@ -3,7 +3,7 @@ import ActionAreaCard from "./cards/Card";
 import "./Listado.css";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+
 
 const ListadoAleatorio = () => {
   const [lugares, setLugares] = useState([]);
