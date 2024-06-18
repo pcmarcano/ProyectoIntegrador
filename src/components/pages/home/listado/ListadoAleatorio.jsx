@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import ActionAreaCard from "./cards/Card";
-import "./Listado.css"; // Archivo CSS para estilos personalizados
+import "./Listado.css";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
