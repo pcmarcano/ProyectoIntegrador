@@ -49,6 +49,9 @@ const Listado = () => {
 
   const handleShowAll = () => {
     setShowAll(!showAll);
+    if (showAll) {
+      setCurrentPage(1);
+    }
   };
 
   const handlePageClick = (page) => {
@@ -68,7 +71,7 @@ const Listado = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        }}
+      }}
       >
         <div className="listado-container">
           {displayItems.map((lugar) => (
@@ -81,21 +84,25 @@ const Listado = () => {
           ))}
         </div>
         <div className="pagination">
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-            Atrás
-          </button>
-          {[...Array(totalPages)].map((_, i) => (
-              <button
-                  key={i}
-                  onClick={() => handlePageClick(i + 1)}
-                  className={currentPage === i + 1 ? "active" : ""}
-              >
-                {i + 1}
-              </button>
-          ))}
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-            Siguiente
-          </button>
+          {!showAll && (
+              <>
+                <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                  Atrás
+                </button>
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => handlePageClick(i + 1)}
+                        className={currentPage === i + 1 ? "active" : ""}
+                    >
+                      {i + 1}
+                    </button>
+                ))}
+                <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                  Siguiente
+                </button>
+              </>
+          )}
           <button onClick={handleShowAll}>
             {showAll ? "4 por página" : "Ver todo"}
           </button>
