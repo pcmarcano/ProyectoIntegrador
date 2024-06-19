@@ -28,7 +28,7 @@ const HorarioDia = ({ selectedDate }) => {
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      if (screenWidth >= 570 && screenWidth <= 670) {
+      if (screenWidth >= 640) {
         setContainerStyle({
           display: "grid",
           maxWidth: "125px",
@@ -72,16 +72,6 @@ const HorarioDia = ({ selectedDate }) => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h2
-        style={{
-          color: "#1E3231",
-          fontSize: "1.2rem",
-          fontFamily: "Dosis",
-          fontWeight: "600",
-        }}
-      >
-        Horarios {selectedDate.toLocaleDateString()}
-      </h2>
       <div style={{ fontFamily: "Dosis", textAlign: "left", margin: "1rem" }}>
         <h4
           style={{
@@ -90,9 +80,10 @@ const HorarioDia = ({ selectedDate }) => {
             borderBottom: "2px solid #FF9550",
             paddingBottom: "0.5rem",
             color: "#1E3231",
+            textAlign: "center",
           }}
         >
-          Selecciona tus horarios
+          Elige tus horarios para el {selectedDate.toLocaleDateString()}
         </h4>
         <div
           style={{

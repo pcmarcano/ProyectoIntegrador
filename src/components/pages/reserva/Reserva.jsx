@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 const Reserva = () => {
   const { isLogged } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 570);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 640);
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 570);
+      setIsMobileView(window.innerWidth <= 640);
     };
 
     window.addEventListener("resize", handleResize);
@@ -85,7 +85,7 @@ const Reserva = () => {
       </Box>
       <Box
         sx={{
-          width: isMobileView ? "100%" : "auto",
+          width: isMobileView ? "auto" : "auto",
           marginTop: isMobileView ? "-70px" : "0px",
         }}
       >
