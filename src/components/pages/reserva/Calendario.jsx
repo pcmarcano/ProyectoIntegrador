@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 const Calendario = ({ handleDateChange }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const handleDateChangeInternal = (date) => {
+        setSelectedDate(date);
+        handleDateChange(format(date, 'yyyy-MM-dd')); // Formato de fecha ISO 8601
+    };
 
     return (
         <div style={{
             textAlign: "center",
             marginTop: "20px",
-            marginBottom:"10px",
+            marginBottom: "10px",
         }}
         >
             <h2 style={{
@@ -19,10 +25,7 @@ const Calendario = ({ handleDateChange }) => {
             >Selecciona una fecha</h2>
             <DatePicker
                 selected={selectedDate}
-                onChange={(date) => {
-                    setSelectedDate(date);
-                    handleDateChange(date);
-                }}
+                onChange={handleDateChangeInternal}
                 dateFormat="dd/MM/yyyy"
                 minDate={new Date()}
                 isClearable

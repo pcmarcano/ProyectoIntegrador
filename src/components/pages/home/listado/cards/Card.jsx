@@ -12,12 +12,12 @@ import "./Card.css";
 import axios from "axios";
 
 export default function ActionAreaCard({
-  datos,
-  setActualizarLugares,
-  actualizarLugares,
-  isFavorite,
-  setIsFavorite,
-}) {
+                                         datos,
+                                         setActualizarLugares,
+                                         actualizarLugares,
+                                         isFavorite,
+                                         setIsFavorite,
+                                       }) {
   const navigate = useNavigate();
   const { isLogged, userId } = React.useContext(AuthContext); // Accesa estado de authcontext
 
@@ -38,7 +38,7 @@ export default function ActionAreaCard({
     console.log(userId, datos.id);
     try {
       await axios.post(
-        `https://api.curso.spazioserver.online/usuarios/${userId}/favoritos/${datos.id}`
+          `https://api.curso.spazioserver.online/usuarios/${userId}/favoritos/${datos.id}`
       );
       setIsFavorite([...isFavorite, datos.id]);
       setActualizarLugares(!actualizarLugares);
@@ -49,73 +49,73 @@ export default function ActionAreaCard({
   //#endregion
 
   return (
-    <Card className="cards" sx={{ width: 275 }}>
-      <CardActionArea onClick={openSpace}>
-        <CardMedia
-          component="img"
-          width="270px"
-          height="140"
-          image={datos.fotos[0].rutaFoto} // Aquí asumo que siempre habrá al menos una foto
-          alt={datos.nombre}
-        />
-        <CardContent>
-          {/*           <Typography
-            style={{ fontFamily: "Dosis", fontSize: "1rem" }}
-            gutterBottom
-            variant="h6"
-            component="div"
-          >
-            ID : #{datos.id}
-          </Typography> */}
-          <Typography
-            style={{ fontFamily: "Dosis", fontWeight: "600" }}
-            gutterBottom
-            variant="h6"
-            component="div"
-          >
-            {datos.nombre}
-          </Typography>
-          <Typography
-            style={{ fontFamily: "Dosis", textAlign: "left", color: "grey" }}
-            variant="body2"
-            color="text.secondary"
-          >
-            Categorias:
+      <Card className="cards" sx={{ width: 275 }}>
+        <CardActionArea onClick={openSpace}>
+          <CardMedia
+              component="img"
+              width="270px"
+              height="140"
+              image={datos.fotos[0].rutaFoto} // Aquí asumo que siempre habrá al menos una foto
+              alt={datos.nombre}
+          />
+          <CardContent>
+            <Typography
+                style={{ fontFamily: "Dosis", fontWeight: "600" }}
+                gutterBottom
+                variant="h6"
+                component="div"
+            >
+              {datos.nombre}
+            </Typography>
+            <Typography
+                style={{ fontFamily: "Dosis", textAlign: "left", color: "grey" }}
+                variant="body2"
+                color="text.secondary"
+            >
+              Categorias:
+            </Typography>
             {datos.categorias.map((categoria) => (
-              <h5 key={categoria.id}>{categoria.nombre} </h5>
+                <Typography
+                    key={categoria.id}
+                    component="div"
+                    style={{ fontFamily: "Dosis", textAlign: "left", color: "grey" }}
+                    variant="body2"
+                    color="text.secondary"
+                >
+                  {categoria.nombre}
+                </Typography>
             ))}
-          </Typography>
-          <Typography
-            style={{ fontFamily: "Dosis", textAlign: "right" }}
-            variant="body2"
-            color="text.secondary"
-          >
-            Cantidad fotos: {datos.fotos.length}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+            <Typography
+                style={{ fontFamily: "Dosis", textAlign: "right" }}
+                variant="body2"
+                color="text.secondary"
+            >
+              Cantidad fotos: {datos.fotos.length}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
 
-      {isLogged && ( // Muestra botón favorito solo si hay un usuario logueado
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "flex-start",
-          }}
-        >
-          <IconButton
-            aria-label="favorite"
-            onClick={toggleFavorite}
-            style={{ color: renderCorazon(datos.id) }}
-          >
-            {isFavorite.includes(datos.id) ? (
-              <FavoriteIcon />
-            ) : (
-              <FavoriteBorderIcon />
-            )}
-          </IconButton>
-        </div>
-      )}
-    </Card>
+        {isLogged && ( // Muestra botón favorito solo si hay un usuario logueado
+            <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                }}
+            >
+              <IconButton
+                  aria-label="favorite"
+                  onClick={toggleFavorite}
+                  style={{ color: renderCorazon(datos.id) }}
+              >
+                {isFavorite.includes(datos.id) ? (
+                    <FavoriteIcon />
+                ) : (
+                    <FavoriteBorderIcon />
+                )}
+              </IconButton>
+            </div>
+        )}
+      </Card>
   );
 }

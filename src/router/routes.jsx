@@ -11,6 +11,7 @@ import Favoritos from "../components/pages/home/favoritos/Favoritos.jsx";
 import ListadoAleatorio from "../components/pages/home/listado/ListadoAleatorio.jsx";
 import ListadoSearch from "../components/pages/home/listado/ListadoSearch.jsx";
 import Reserva from "../components/pages/reserva/Reserva.jsx";
+import ConfirmarReserva from "../components/pages/reserva/ConfirmarReserva.jsx";
 
 
 export const routes = [
@@ -68,5 +69,10 @@ export const routes = [
     id: "reserva",
     path: "/reserva/:id",
     Element: Reserva,
+  },
+  {
+    id: "Confirmacion",
+    path: "/confirmacion/:id",
+    Element: ConfirmarReserva,
   },
 ];
