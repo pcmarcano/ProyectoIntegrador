@@ -1,9 +1,11 @@
-
 import React from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 //import { Fab, makeStyles } from '@material-ui/core';
 import { Fab } from '@mui/material';
 import { styled } from '@mui/system';
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 const WhatsAppBoton = styled(Fab)(({ theme }) => ({
   position: 'fixed',
@@ -25,14 +27,22 @@ const WhatsAppBoton = styled(Fab)(({ theme }) => ({
 
 const WhatsAppChat = ({ numeroFono, mensaje }) => {
   const handleClick = () => {
-    const url = `https://wa.me/${numeroFono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    try {
+      const url = `https://wa.me/${numeroFono}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+      toast.success('Mensaje enviado a través de WhatsApp.');
+    } catch (error) {
+      console.error('Error al enviar mensaje por WhatsApp:', error);
+      toast.error('Ocurrió un error al intentar enviar el mensaje por WhatsApp. Por favor, inténtelo de nuevo más tarde.');
+    }
   };
+
 
   return (
     <WhatsAppBoton onClick={handleClick} aria-label="WhatsApp">
       <WhatsAppIcon />
     </WhatsAppBoton>
+    
   );
 };
 

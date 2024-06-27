@@ -37,4 +37,6 @@ Battiato Dorian  (dorian.battiato@digitalhouse.com)
 ### React 18
 Usar Material-UI version 5
 npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
-
+npm install --force @material-ui/core @material-ui/icons
+### Toastify
+npm install react-toastify

@@ -6,6 +6,9 @@ import SearchContextComponent, {
   SearchContext,
 } from "./components/context/SearchContext";
 import WhatsAppChat from "./components/WhatsAppChat";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -16,8 +19,9 @@ function App() {
             <AppRouter />
             <WhatsAppChat 
               numeroFono="56997142272"  // Numero de telefono sin + ni espacios ni simbolos
-              mensaje="" //mensaje que se va a colocar en campo de ingreso.... esta vacio para qu el usuario ingresa su propia consulta
+              mensaje="Mensaje" //mensaje que se va a colocar en campo de ingreso.... esta vacio para qu el usuario ingresa su propia consulta
             />
+            <ToastContainer />
           </SearchContextComponent>
         </AuthContextComponent>
       </BrowserRouter>
