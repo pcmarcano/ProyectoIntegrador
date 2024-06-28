@@ -19,8 +19,9 @@ const DatePickerComponent = ({ setSelectedOption2, selectedOption2 }) => {
                 onChange={handleDateChange}
                 sx={{
                     backgroundColor: "white",
-                    borderRadius: "8px",
-                    border: "2px",
+                    borderRadius: "5px",
+                    border: "0px",
+                    boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
                 }}
             />
         </LocalizationProvider>

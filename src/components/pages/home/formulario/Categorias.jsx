@@ -70,14 +70,14 @@ export default function Categorias({ setCategorys, search }) {
             inputProps={{ ...params.inputProps }}
             sx={{
               backgroundColor: "white",
-              borderRadius: "50px",
+              borderRadius: "5px",
               border: "0px",
               padding: "10px",
               width: "100%",
               boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
             }}
             placeholder={
-              selectedCategories.length > 0 ? "" : " Selecciona Categorias"
+              selectedCategories.length > 0 ? "" : " Selecciona Categorías"
             }
           />
         )}

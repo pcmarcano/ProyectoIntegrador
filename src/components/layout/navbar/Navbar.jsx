@@ -27,7 +27,6 @@ import Usuario from "../../pages/home/usuario/Usuario.jsx";
 import ReservationIcon from "@mui/icons-material/EventNote";
 //import FavoriteIcon from '@mui/icons-material/Favorite';
 
-
 function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -140,23 +139,6 @@ function Navbar(props) {
                 </ListItemButton>
             </ListItem>
         </Link>
-
-{/**
-          <Link to="/favoritos" onClick={handleDrawerToggle}>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <FavoriteIcon sx={{ color: "#CE8B67" }} />
-                  </ListItemIcon>
-                  <Typography
-                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
-                  >
-                    Favoritos
-                  </Typography>
-                </ListItemButton>
-              </ListItem>
-            </Link>
- */}
 </>
         )}
         {isLogged && (
@@ -195,7 +177,7 @@ function Navbar(props) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "90%",
+            right: "20px"
           }}
         >
           <Link

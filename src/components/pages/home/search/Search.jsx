@@ -60,10 +60,6 @@ const Search = () => {
               selectedOption2={selectedOption2}
           />
           <Button
-              style={{
-                width: "4rem",
-                height: "2rem",
-              }}
               variant="contained"
               className="search-button"
               color="warning"

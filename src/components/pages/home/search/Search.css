@@ -44,8 +44,10 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 10px;
+  margin-top: 10px;
   gap: 10px;
+
+  box-shadow: 0px 1 px 5px rgba(0, 0, 0, 0.1);
 }
 
 .css-10o2lyd-MuiStack-root {
@@ -55,13 +57,16 @@ h2 {
 .search-button {
   background-color: #ff9550;
   border: 2px solid #ff9550;
-  width: 70px;
+  width: auto;
+  height: 55px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   color: #ffffff;
   font-family: "Dosis", sans-serif;
-  margin-left: 1rem;
+
+
+  
 }
 
 .filter-icon {
@@ -120,5 +125,6 @@ span {
     font-size: 14px;
     height: 30px;
     margin-top: 4px;
+    text-transform: capitalize;
   }
 }
