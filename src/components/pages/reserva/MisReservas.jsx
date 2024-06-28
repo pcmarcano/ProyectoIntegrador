@@ -4,6 +4,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -55,10 +57,26 @@ const MisReservas = () => {
             return;
         }
 
-        fetch(`http://localhost:8080/reservas`)  // Endpoint para obtener todas las reservas
+        fetch(`http://localhost:8080/reservas`)
             .then((response) => response.json())
             .then((data) => {
                 const filteredReservations = data.filter(reserva => reserva.usuarioId === userData.id);
+
+                // Ordenar reservas por fecha y luego por hora
+                filteredReservations.sort((a, b) => {
+                    const dateA = new Date(a.fecha);
+                    const dateB = new Date(b.fecha);
+
+                    if (dateA < dateB) return -1;
+                    if (dateA > dateB) return 1;
+
+                    // Si las fechas son iguales, ordenar por hora de inicio
+                    const horaInicioA = new Date(`1970-01-01T${a.horaInicio}`);
+                    const horaInicioB = new Date(`1970-01-01T${b.horaInicio}`);
+
+                    return horaInicioA - horaInicioB;
+                });
+
                 setUserReservations(filteredReservations);
 
                 // Obtener los nombres de los lugares para las reservas
@@ -117,6 +135,13 @@ const MisReservas = () => {
     };
 
     const truncateTime = (time) => time.slice(0, 5);
+
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split('-');
+        const months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+        const monthName = months[parseInt(month, 10) - 1];
+        return `${day} de ${monthName} de ${year}`;
+    };
 
     const handleTogglePastReservations = () => {
         setShowPastReservations(!showPastReservations);
@@ -208,8 +233,9 @@ const MisReservas = () => {
             </Typography>
             {Object.keys(past).length > 0 && (
                 <>
-                    <Typography variant="h5" sx={{ cursor: "pointer", color: "#FF9550", marginBottom: "10px" }} onClick={handleTogglePastReservations}>
+                    <Typography variant="h5" sx={{ display: "flex", alignItems: "center", cursor: "pointer", color: "#FF9550", marginBottom: "10px" }} onClick={handleTogglePastReservations}>
                         Reservas Pasadas
+                        {showPastReservations ? <ExpandLessIcon sx={{ marginLeft: '5px' }} /> : <ExpandMoreIcon sx={{ marginLeft: '5px' }} />}
                     </Typography>
                     {showPastReservations && Object.keys(past).map((date) => (
                         <Box
@@ -224,7 +250,7 @@ const MisReservas = () => {
                             }}
                         >
                             <Typography variant="h6" component="h3" sx={{ marginBottom: "10px" }}>
-                                {new Date(date).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}
+                                {formatDate(date)}
                             </Typography>
                             {Object.keys(past[date]).map((placeId) => (
                                 <Box key={placeId}
@@ -268,8 +294,9 @@ const MisReservas = () => {
             )}
             {Object.keys(future).length > 0 && (
                 <>
-                    <Typography variant="h5" sx={{ cursor: "pointer", color: "#FF9550", marginBottom: "10px" }} onClick={handleToggleFutureReservations}>
+                    <Typography variant="h5" sx={{ display: "flex", alignItems: "center", cursor: "pointer", color: "#FF9550", marginBottom: "10px" }} onClick={handleToggleFutureReservations}>
                         Reservas Futuras
+                        {showFutureReservations ? <ExpandLessIcon sx={{ marginLeft: '5px' }} /> : <ExpandMoreIcon sx={{ marginLeft: '5px' }} />}
                     </Typography>
                     {showFutureReservations && Object.keys(future).map((date) => (
                         <Box
@@ -284,7 +311,7 @@ const MisReservas = () => {
                             }}
                         >
                             <Typography variant="h6" component="h3" sx={{ marginBottom: "10px" }}>
-                                {new Date(date).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}
+                                {formatDate(date)}
                             </Typography>
                             {Object.keys(future[date]).map((placeId) => (
                                 <Box key={placeId}
