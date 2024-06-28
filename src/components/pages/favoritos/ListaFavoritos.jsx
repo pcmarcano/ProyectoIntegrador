@@ -3,8 +3,6 @@ import axios from 'axios';
 import { Box, Typography } from '@mui/material';
 import Favoritos from '../home/favoritos/Favoritos';
 import { AuthContext } from '../../context/AuthContext';
-import Navbar from '../../layout/navbar/Navbar';
-import Footer from '../../layout/footer/Footer';
 import ActionAreaCard from '../home/listado/cards/Card';
 import "./Listado.css"
 
@@ -63,19 +61,45 @@ console.log (favoritos)
             justifyContent: "center",
           }}
       >
-        <div className="listado-container">
-          {favoritos.map((lugar) => (
-              <div>
-                <ActionAreaCard
-                    key={lugar.id}
-                    datos={lugar}
-                    setActualizarLugares={setActualizarLugares}
-                    actualizarLugares={actualizarLugares}
-                    setIsFavorite={setIsFavorite}
-                    isFavorite={isFavorite}
-                />
+        <div style={{ padding: '10px' }}>
+          {favoritos.length === 0 ? (
+                  <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textAlign: "center",
+                        fontFamily: "'Dosis', sans-serif",
+                        fontWeight: "bold",
+                        fontSize: "18px",
+                        maxWidth: "400px",
+                        margin: "50px auto",
+                        padding: "20px",
+                        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                        borderRadius: "8px",
+                        backgroundColor: "white",
+                      }}
+                  >
+                    <p>
+                      No tienes favoritos guardados
+                    </p>
+                  </Box>
+          ) : (
+              <div className="listado-container">
+                {favoritos.map((lugar) => (
+                    <div>
+                      <ActionAreaCard
+                          key={lugar.id}
+                          datos={lugar}
+                          setActualizarLugares={setActualizarLugares}
+                          actualizarLugares={actualizarLugares}
+                          setIsFavorite={setIsFavorite}
+                          isFavorite={isFavorite}
+                      />
+                    </div>
+                ))}
               </div>
-          ))}
+          )}
         </div>
       </div>
   );
