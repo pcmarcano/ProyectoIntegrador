@@ -22,6 +22,7 @@ import { logOut } from "../../../firebaseConfig.js";
 import DeckIcon from "@mui/icons-material/Deck";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import "./Navbar.css";
@@ -129,6 +130,22 @@ function Navbar(props) {
                   sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
                 >
                   Espacios
+                </Typography>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        {isLogged && (
+          <Link to="/lista-favoritos" onClick={handleDrawerToggle}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <FavoriteIcon sx={{ color: "#CE8B67" }} />
+                </ListItemIcon>
+                <Typography
+                  sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                >
+                  Favoritos
                 </Typography>
               </ListItemButton>
             </ListItem>

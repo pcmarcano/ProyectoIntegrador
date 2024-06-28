@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from 'react';
 import dayjs from "dayjs";
 import "dayjs/locale/es"; // Importa el idioma
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";

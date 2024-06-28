@@ -5,6 +5,7 @@ import { routes } from "./routes.jsx";
 import Login from "../components/pages/login/Login";
 import Register from "../components/pages/register/Register";
 import ForgotPassword from "../components/pages/forgotPassword/ForgotPassword";
+import ListaFavoritos from "../components/pages/favoritos/ListaFavoritos";
 
 const AppRouter = () => {
   return (
@@ -15,7 +16,7 @@ const AppRouter = () => {
             <Route key={id} path={path} element={<Element />} />
           ))}
         </Route>
-
+      
         {/* Login */}
         <Route path="/login" element={<Login />} />
 
