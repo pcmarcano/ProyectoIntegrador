@@ -13,6 +13,7 @@ import ListadoSearch from "../components/pages/home/listado/ListadoSearch.jsx";
 import Reserva from "../components/pages/reserva/Reserva.jsx";
 import ListaFavoritos from "../components/pages/favoritos/ListaFavoritos.jsx";
 
+
 export const routes = [
   {
     id: "home",
@@ -27,7 +28,7 @@ export const routes = [
   {
     id: "listado",
     path: "/list",
-    Element: ListadoAleatorio,
+    Element: Listado,
   },
   {
     id: "listSearch",

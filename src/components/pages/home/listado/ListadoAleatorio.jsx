@@ -1,41 +1,44 @@
 import React, { useContext, useEffect, useState } from "react";
 import ActionAreaCard from "./cards/Card";
-import "./Listado.css"; // Archivo CSS para estilos personalizados
+import "./Listado.css";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 const ListadoAleatorio = () => {
   const [lugares, setLugares] = useState([]);
-  const [actualizarLugares, setActualizarLugares] = useState(false);
   const [isFavorite, setIsFavorite] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [showAll, setShowAll] = useState(false);
   const { isLogged, userId } = useContext(AuthContext);
 
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   useEffect(() => {
-    // Llamada a la API
     fetch("https://api.curso.spazioserver.online/lugares/listar")
-      .then((response) => response.json())
-      .then((data) => setLugares(data))
-      .catch((error) => console.error("Error fetching data:", error));
+        .then((response) => response.json())
+        .then((data) => {
+          const shuffledData = shuffleArray(data);
+          setLugares(shuffledData);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   useEffect(() => {
-    // Llamada a la API
-    fetch("https://api.curso.spazioserver.online/lugares/listar")
-      .then((response) => response.json())
-      .then((data) => setLugares(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, [actualizarLugares]);
-
-  useEffect(() => {
-    // Buscar favoritos en componente
     const buscarFavoritos = async () => {
       try {
         const response = await axios.get(
-          `https://api.curso.spazioserver.online/usuarios/${userId}`
+            `https://api.curso.spazioserver.online/usuarios/${userId}`
         );
         const favoritos = response.data.lugaresFavoritos.map(
-          (favorito) => favorito.id
+            (favorito) => favorito.id
         );
         setIsFavorite(favoritos);
       } catch (error) {
@@ -45,21 +48,77 @@ const ListadoAleatorio = () => {
     if (isLogged && userId) {
       buscarFavoritos();
     }
-  }, [userId, actualizarLugares]);
+  }, [userId]);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleShowAll = () => {
+    setShowAll(!showAll);
+    if (showAll) {
+      setCurrentPage(1);
+    }
+  };
+
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(lugares.length / itemsPerPage);
+  const displayItems = showAll
+      ? lugares
+      : lugares.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+      );
 
   return (
-    <div className="listado-container">
-      {lugares.map((lugar) => (
-        <ActionAreaCard
-          key={lugar.id}
-          datos={lugar}
-          setActualizarLugares={setActualizarLugares}
-          actualizarLugares={actualizarLugares}
-          isFavorite={isFavorite}
-          setIsFavorite={setIsFavorite}
-        />
-      ))}
-    </div>
+      <Box sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+      >
+        <div className="listado-container">
+          {displayItems.map((lugar) => (
+              <ActionAreaCard
+                  key={lugar.id}
+                  datos={lugar}
+                  isFavorite={isFavorite}
+                  setIsFavorite={setIsFavorite}
+              />
+          ))}
+        </div>
+        <div className="pagination">
+          {!showAll && (
+              <>
+                <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                  Atrás
+                </button>
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => handlePageClick(i + 1)}
+                        className={currentPage === i + 1 ? "active" : ""}
+                    >
+                      {i + 1}
+                    </button>
+                ))}
+                <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                  Siguiente
+                </button>
+              </>
+          )}
+          <button onClick={handleShowAll}>
+            {showAll ? "4 por página" : "Ver todo"}
+          </button>
+        </div>
+      </Box>
   );
 };
 

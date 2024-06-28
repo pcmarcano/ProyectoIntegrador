@@ -40,7 +40,7 @@ const Search = () => {
       <h2>
         Encuentra, explora y descubre espacios de manera rápida y sencilla
       </h2>
-      <div style={{ width: "90vw" }}>
+      <div>
         {!isMobile && (
           <div className="filter-container">
             <FilterList className="filter-icon" />
@@ -53,33 +53,21 @@ const Search = () => {
           </div>
         )}
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-            flexDirection: isMobile ? "column" : "row",
-            width: isMobile ? "90%" : "50vw",
-            marginTop: isMobile ? "1rem" : "0",
-          }}
-        >
-          <div>
-            <Categorias setCategorys={setCategorys} search={search} />
-          </div>
-
-          <div style={{ marginBottom: "1rem" }}>
-            <DatePickerComponent
+        <div className="input-container">
+          <Categorias setCategorys={setCategorys} search={search} />
+          <DatePickerComponent
               setSelectedOption2={setSelectedOption2}
               selectedOption2={selectedOption2}
-            />
-          </div>
-
+          />
           <Button
-            style={{ width: "5rem" }}
-            variant="contained"
-            className="search-button"
-            color="warning"
-            onClick={handleBuscar}
+              style={{
+                width: "4rem",
+                height: "2rem",
+              }}
+              variant="contained"
+              className="search-button"
+              color="warning"
+              onClick={handleBuscar}
           >
             <SearchIcon />
           </Button>

@@ -32,5 +32,10 @@ Battiato Dorian  (dorian.battiato@digitalhouse.com)
 
 #### [Google Drive](https://drive.google.com/drive/folders/1lvBbZGDjSAHjzDHOO13ee7aDl_cupVJ5 ) 
 
-#### [https://spazioserver.online/](https://www.spazioserver.app/)
-#### https://deploy-front-integrador-ctd.vercel.app/
+#### [https://spazioserver.app/](https://www.spazioserver.app/)
+
+### Paquetes
+#### React 18
+Usar Material-UI version 5
+npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
+

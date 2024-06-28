@@ -14,11 +14,8 @@ import Toolbar from "@mui/material/Toolbar";
 import { menuItems } from "../../../router/navigation.jsx";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button, Typography, Avatar, Snackbar, Alert } from "@mui/material";
-
-import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { logOut } from "../../../firebaseConfig.js";
 import DeckIcon from "@mui/icons-material/Deck";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
@@ -27,6 +24,8 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import "./Navbar.css";
 import Usuario from "../../pages/home/usuario/Usuario.jsx";
+//import FavoriteIcon from '@mui/icons-material/Favorite';
+
 
 function Navbar(props) {
   const { window } = props;
@@ -37,7 +36,6 @@ function Navbar(props) {
   const rolAdminTotal = import.meta.env.VITE_ADMINTOTAL;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [logoutMessage, setLogoutMessage] = useState(false);
   const [userData, setUserData] = useState(null);
 
   const handleDrawerToggle = () => {
@@ -56,16 +54,6 @@ function Navbar(props) {
         .catch((error) => console.error("Error fetching user data:", error));
     }
   }, [user]);
-
-  const cerrarSesion = () => {
-    handleLogoutContext();
-    logOut();
-    setLogoutMessage(true);
-    setTimeout(() => {
-      setLogoutMessage(false);
-      navigate("/");
-    }, 2000);
-  };
 
   const drawer = (
     <div>
@@ -120,6 +108,9 @@ function Navbar(props) {
           </>
         )}
         {(user?.rol === rolAdmin || user?.rol === rolAdminTotal) && (
+<>
+
+
           <Link to="/list" onClick={handleDrawerToggle}>
             <ListItem disablePadding>
               <ListItemButton>
@@ -134,6 +125,23 @@ function Navbar(props) {
               </ListItemButton>
             </ListItem>
           </Link>
+{/**
+          <Link to="/favoritos" onClick={handleDrawerToggle}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <FavoriteIcon sx={{ color: "#CE8B67" }} />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                  >
+                    Favoritos
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+            </Link>
+ */}
+</>
         )}
         {isLogged && (
           <Link to="/lista-favoritos" onClick={handleDrawerToggle}>
@@ -152,6 +160,7 @@ function Navbar(props) {
           </Link>
         )}
       </List>
+
     </div>
   );
 
@@ -303,21 +312,6 @@ function Navbar(props) {
       >
         <Toolbar />
         <Outlet />
-      </Box>
-      <Box>
-        <Snackbar
-          open={logoutMessage}
-          autoHideDuration={3000}
-          onClose={() => setLogoutMessage(false)}
-        >
-          <Alert
-            onClose={() => setLogoutMessage(false)}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Sesión cerrada exitosamente
-          </Alert>
-        </Snackbar>
       </Box>
     </Box>
   );

@@ -85,5 +85,3 @@ export default function Categorias({ setCategorys, search }) {
     </Stack>
   );
 }
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top

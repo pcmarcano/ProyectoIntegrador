@@ -5,6 +5,7 @@ import { GlobalStateProvider } from "./components/context/Context";
 import SearchContextComponent, {
   SearchContext,
 } from "./components/context/SearchContext";
+import WhatsAppChat from "./components/WhatsAppChat";
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
         <AuthContextComponent>
           <SearchContextComponent>
             <AppRouter />
+            <WhatsAppChat 
+              numeroFono="56997142272"  // Numero de telefono sin + ni espacios ni simbolos
+              mensaje="" //mensaje que se va a colocar en campo de ingreso.... esta vacio para qu el usuario ingresa su propia consulta
+            />
           </SearchContextComponent>
         </AuthContextComponent>
       </BrowserRouter>

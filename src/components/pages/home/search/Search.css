@@ -10,7 +10,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
 }
 
@@ -27,8 +26,7 @@ h2 {
   justify-content: center;
   flex-direction: row;
   align-items: center;
-  margin: 10px;
-  padding: 0;
+  margin-bottom: 5px;
 }
 
 .filter-container {
@@ -36,8 +34,6 @@ h2 {
   justify-content: center;
   flex-direction: row;
   align-items: center;
-  margin-top: 1rem;
-  font-size: 0.1rem;
 }
 
 .filter-text {
@@ -46,17 +42,14 @@ h2 {
 
 .input-container {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px;
+  gap: 10px;
 }
 
-.search-input {
-  width: 200px;
-  padding: 8px;
-  border: 2px solid #ff9550;
-  border-radius: 8px;
-  font-size: 16px;
-  font-family: "Dosis", sans-serif;
-  margin: 0 5px;
+.css-10o2lyd-MuiStack-root {
+  padding-top: 0 !important;
 }
 
 .search-button {
@@ -103,12 +96,6 @@ span {
     font-size: 16px;
   }
 
-  .search-input {
-    max-width: 200px;
-    font-size: 14px;
-    margin: 2px 0px;
-  }
-
   .search-button {
     font-size: 14px;
     height: 35px;
@@ -127,12 +114,6 @@ span {
 
   .filter-text {
     font-size: 14px;
-  }
-
-  .search-input {
-    width: 150px;
-    font-size: 12px;
-    margin: 1px 0px;
   }
 
   .search-button {
