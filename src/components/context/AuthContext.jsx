@@ -8,10 +8,10 @@ const AuthContextComponent = ({ children }) => {
   const [userId, setUserId] = useState("");
 
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("userInfo")) || {}
+      JSON.parse(localStorage.getItem("userInfo")) || {}
   );
   const [isLogged, setIsLogged] = useState(
-    JSON.parse(localStorage.getItem("isLogged")) || false
+      JSON.parse(localStorage.getItem("isLogged")) || false
   );
 
   const handleLogin = (userLogged) => {
@@ -33,7 +33,7 @@ const AuthContextComponent = ({ children }) => {
       try {
         if (user.email) {
           const res = await axios.get(
-            `https://api.curso.spazioserver.online/usuarios/email/${user.email}`
+              `https://api.curso.spazioserver.online/usuarios/email/${user.email}`
           ); // Reemplazar por url de aws
           console.log(res);
           const backId = res.data.id;

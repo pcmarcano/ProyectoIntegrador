@@ -24,6 +24,7 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import "./Navbar.css";
 import Usuario from "../../pages/home/usuario/Usuario.jsx";
+import ReservationIcon from "@mui/icons-material/EventNote";
 //import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
@@ -111,7 +112,7 @@ function Navbar(props) {
 <>
 
 
-          <Link to="/list" onClick={handleDrawerToggle}>
+        <Link to="/list" onClick={handleDrawerToggle}>
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -124,7 +125,22 @@ function Navbar(props) {
                 </Typography>
               </ListItemButton>
             </ListItem>
-          </Link>
+        </Link>
+        <Link to="/misReservas" onClick={handleDrawerToggle}>
+            <ListItem disablePadding>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <ReservationIcon sx={{ color: "#CE8B67" }} /> {/* Icono para reservas */}
+                    </ListItemIcon>
+                    <Typography
+                        sx={{ color: "#CE8B67", fontFamily: '"Dosis", sans-serif' }}
+                    >
+                        Mis Reservas
+                    </Typography>
+                </ListItemButton>
+            </ListItem>
+        </Link>
+
 {/**
           <Link to="/favoritos" onClick={handleDrawerToggle}>
               <ListItem disablePadding>

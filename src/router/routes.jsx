@@ -12,6 +12,8 @@ import ListadoAleatorio from "../components/pages/home/listado/ListadoAleatorio.
 import ListadoSearch from "../components/pages/home/listado/ListadoSearch.jsx";
 import Reserva from "../components/pages/reserva/Reserva.jsx";
 import ListaFavoritos from "../components/pages/favoritos/ListaFavoritos.jsx";
+import ConfirmarReserva from "../components/pages/reserva/ConfirmarReserva.jsx";
+import MisReservas from "../components/pages/reserva/MisReservas.jsx";
 
 
 export const routes = [
@@ -75,4 +77,14 @@ export const routes = [
     path: "/lista-favoritos",
     Element: ListaFavoritos,
   }
+  {
+    id: "confirmacion",
+    path: "/confirmacion/:id",
+    Element: ConfirmarReserva,
+  },
+  {
+    id: "misReservas",
+    path: "/misReservas",
+    Element: MisReservas,
+  },
 ];

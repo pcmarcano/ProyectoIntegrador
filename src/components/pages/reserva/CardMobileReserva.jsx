@@ -6,12 +6,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-const CardMobileReserva = ({ space, arrayFotos, caracteristicas, categorias }) => {
+const CardMobileReserva = ({ lugarId, space, arrayFotos, caracteristicas, categorias }) => {
     const navigate = useNavigate();
     const fotoPortada = arrayFotos.length > 0 ? arrayFotos[0].rutaFoto : "/placeholder.jpg"; // Use the first photo as cover image
 
     const handleButtonClick = () => {
-        navigate("/list");
+        navigate(`/list`);
     };
 
     return (
@@ -75,7 +75,7 @@ const CardMobileReserva = ({ space, arrayFotos, caracteristicas, categorias }) =
                         textTransform: "none",
                     }}
                 >
-                    Ver más espacios
+                    Ver otros
                 </Button>
             </CardContent>
         </Card>
