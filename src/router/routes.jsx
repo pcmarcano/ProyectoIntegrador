@@ -76,7 +76,7 @@ export const routes = [
     id:"listafavoritos",
     path: "/lista-favoritos",
     Element: ListaFavoritos,
-  }
+  },
   {
     id: "confirmacion",
     path: "/confirmacion/:id",

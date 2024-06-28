@@ -56,26 +56,28 @@ const ListaFavoritos = () => {
   }, [userId, actualizarLugares]);
 console.log (favoritos)
   return (
-    <>
-      
-      <div className="listado-container">
-          <div>
+      <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+      >
+        <div className="listado-container">
           {favoritos.map((lugar) => (
-        <div style={{margin : "2rem"}}>
-        <ActionAreaCard
-          key={lugar.id}
-          datos={lugar}
-          setActualizarLugares={setActualizarLugares}
-          actualizarLugares={actualizarLugares}
-          setIsFavorite={setIsFavorite}
-          isFavorite={isFavorite}
-
-        />
+              <div>
+                <ActionAreaCard
+                    key={lugar.id}
+                    datos={lugar}
+                    setActualizarLugares={setActualizarLugares}
+                    actualizarLugares={actualizarLugares}
+                    setIsFavorite={setIsFavorite}
+                    isFavorite={isFavorite}
+                />
+              </div>
+          ))}
         </div>
-      ))}
-          </div>
-        </div>
-    </>
+      </div>
   );
 };
 
