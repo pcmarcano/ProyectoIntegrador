@@ -44,14 +44,6 @@ const ConfirmarReserva = () => {
         if (location.state && location.state.reservasData) {
             const { reservasData } = location.state;
             setSelectedData(reservasData);
-
-            // console.log("Datos de la reserva:", reservasData.map(reserva => ({
-            //     fecha: reserva.fecha,
-            //     horaInicio: reserva.horaInicio,
-            //     horaFin: reserva.horaFin,
-            //     lugarId: reserva.lugarId,
-            //     usuarioId: reserva.usuarioId,
-            // })));
         }
     }, [location.state]);
 
@@ -246,6 +238,7 @@ const ConfirmarReserva = () => {
                         <p><strong>Nombre:</strong> {userData ? userData.nombre + " " + userData.apellido : '-'}</p>
                         <p><strong>Email:</strong> {userData ? userData.email : '-'}</p>
                         <p><strong>Lugar:</strong> {spaceData ? spaceData.nombre : '-'}</p>
+                        <p><strong>Fecha:</strong> {selectedData.length > 0 ? selectedData[0].fecha : '-'}</p>
                     </Box>
                     <Box
                         sx={{
@@ -290,28 +283,30 @@ const ConfirmarReserva = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {selectedData.map((reserva, index) => (
-                                <tr key={index}>
-                                    <td
-                                        style={{
-                                            padding: "8px",
-                                            border: "1px solid #ddd",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {reserva.horaInicio}
-                                    </td>
-                                    <td
-                                        style={{
-                                            padding: "8px",
-                                            border: "1px solid #ddd",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {reserva.horaFin}
-                                    </td>
-                                </tr>
-                            ))}
+                            {selectedData
+                                .sort((a, b) => a.horaInicio.localeCompare(b.horaInicio)) // Ordena por hora de inicio
+                                .map((reserva, index) => (
+                                    <tr key={index}>
+                                        <td
+                                            style={{
+                                                padding: "8px",
+                                                border: "1px solid #ddd",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {reserva.horaInicio}
+                                        </td>
+                                        <td
+                                            style={{
+                                                padding: "8px",
+                                                border: "1px solid #ddd",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {reserva.horaFin}
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </Box>
@@ -343,9 +338,13 @@ const ConfirmarReserva = () => {
                     </button>
                 </Box>
             </Box>
-
-            <Dialog open={openModal} onClose={handleCloseModal}>
-                <DialogTitle>Reserva Confirmada</DialogTitle>
+            <Dialog
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Reservas Confirmadas"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         ¡Tu reserva ha sido creada con éxito! A continuación, se muestran los detalles:
@@ -367,6 +366,7 @@ const ConfirmarReserva = () => {
                         <p><strong>Nombre:</strong> {userData ? userData.nombre + " " + userData.apellido : '-'}</p>
                         <p><strong>Email:</strong> {userData ? userData.email : '-'}</p>
                         <p><strong>Lugar:</strong> {spaceData ? spaceData.nombre : '-'}</p>
+                        <p><strong>Fecha:</strong> {selectedData.length > 0 ? selectedData[0].fecha : '-'}</p>
                         <h4 style={{ textAlign: "center", marginBottom: "0.5rem" }}>
                             Horas reservadas
                         </h4>
@@ -400,34 +400,36 @@ const ConfirmarReserva = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {selectedData.map((reserva, index) => (
-                                <tr key={index}>
-                                    <td
-                                        style={{
-                                            padding: "8px",
-                                            border: "1px solid #ddd",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {reserva.horaInicio}
-                                    </td>
-                                    <td
-                                        style={{
-                                            padding: "8px",
-                                            border: "1px solid #ddd",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {reserva.horaFin}
-                                    </td>
-                                </tr>
-                            ))}
+                            {selectedData
+                                .sort((a, b) => a.horaInicio.localeCompare(b.horaInicio))
+                                .map((reserva, index) => (
+                                    <tr key={index}>
+                                        <td
+                                            style={{
+                                                padding: "8px",
+                                                border: "1px solid #ddd",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {reserva.horaInicio}
+                                        </td>
+                                        <td
+                                            style={{
+                                                padding: "8px",
+                                                border: "1px solid #ddd",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            {reserva.horaFin}
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseModal} color="primary">
+                    <Button onClick={handleCloseModal} color="primary" autoFocus>
                         Cerrar
                     </Button>
                 </DialogActions>

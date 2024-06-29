@@ -10,17 +10,21 @@ const HorarioDia = ({ selectedDate, handleHoraChange }) => {
     useEffect(() => {
         if (!id || !selectedDate) return;
 
-        // console.log("Fecha seleccionada:", selectedDate);
-        // console.log("ID del lugar:", id);
-
         fetch(`http://localhost:8080/reservas`)
             .then(response => response.json())
             .then(data => {
-                // console.log("Reservas obtenidas:", data);
-
                 const reservasPorLugar = data.filter(reserva => reserva.lugarId.toString() === id);
 
-                const reservasFiltradas = reservasPorLugar.filter(reserva => reserva.fecha === selectedDate);
+                const reservasFiltradas = reservasPorLugar.filter(reserva => {
+                    const horaFinReserva = reserva.horaFin.substring(0, 5);
+                    return (
+                        reserva.fecha === selectedDate &&
+                        (
+                            horaFinReserva < "23:59" ||
+                            horaFinReserva === "23:59"
+                        )
+                    );
+                });
 
                 const franjasOcupadas = reservasFiltradas.map(reserva => ({
                     horaInicio: reserva.horaInicio.substring(0, 5),
@@ -35,7 +39,7 @@ const HorarioDia = ({ selectedDate, handleHoraChange }) => {
         const franjasHorarias = [];
         for (let hora = 7; hora < 24; hora++) {
             const horaInicio = `${hora.toString().padStart(2, "0")}:00`;
-            const horaFin = `${(hora + 1).toString().padStart(2, "0")}:00`;
+            const horaFin = hora < 23 ? `${(hora + 1).toString().padStart(2, "0")}:00` : "23:59";
             franjasHorarias.push({ horaInicio, horaFin });
         }
         return franjasHorarias;

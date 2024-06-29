@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, {registerLocale} from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import es from "date-fns/locale/es";
+
+registerLocale("es", es);
 
 const Calendario = ({ handleDateChange }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const handleDateChangeInternal = (date) => {
         setSelectedDate(date);
-        handleDateChange(format(date, 'yyyy-MM-dd')); // Formato de fecha ISO 8601
+        handleDateChange(format(date, 'yyyy-MM-dd'));
     };
 
     return (
@@ -27,6 +30,7 @@ const Calendario = ({ handleDateChange }) => {
                 selected={selectedDate}
                 onChange={handleDateChangeInternal}
                 dateFormat="dd/MM/yyyy"
+                locale="es"
                 minDate={new Date()}
                 isClearable
                 placeholderText="Elige una fecha"
@@ -55,7 +59,7 @@ const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
             width: "150px",
         }}
     >
-        {value || "Calendario"}
+        {value || "Elige una fecha"}
     </button>
 ));
 
