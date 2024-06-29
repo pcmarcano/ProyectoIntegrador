@@ -7,12 +7,13 @@
 
 .cards {
   /* Otros estilos de la tarjeta */
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /*position: relative;*/
+  /*background-color: #ffffff;*/
+  /*border-radius: 8px;
+  /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);*/
   transition: transform 0.3s ease; /* Transición suave para el efecto hover */
 }
 
 .cards:hover {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el ratón */
+  /*transform: scale(1.05);*/ /* Aumenta ligeramente el tamaño al pasar el ratón */
 }

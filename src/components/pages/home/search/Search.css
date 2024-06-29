@@ -46,7 +46,6 @@ h2 {
   justify-content: space-around;
   margin-top: 10px;
   gap: 10px;
-
   box-shadow: 0px 1 px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -56,7 +55,6 @@ h2 {
 
 .search-button {
   background-color: #ff9550;
-  border: 2px solid #ff9550;
   width: auto;
   height: 55px;
   border-radius: 8px;
@@ -64,9 +62,6 @@ h2 {
   font-size: 16px;
   color: #ffffff;
   font-family: "Dosis", sans-serif;
-
-
-  
 }
 
 .filter-icon {

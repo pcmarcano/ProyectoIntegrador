@@ -64,6 +64,11 @@ const Search = () => {
               className="search-button"
               color="warning"
               onClick={handleBuscar}
+              sx={{
+                '&:hover': {
+                  backgroundColor: '#1976d2', // A darker shade of orange
+                },
+              }}
           >
             <SearchIcon />
           </Button>
